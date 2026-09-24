@@ -9,6 +9,7 @@ from drone_controller.commander import Commander
 from drone_controller.particle import Particle
 
 
+
 class SphPlainNode(Node):
     CONTROL_PERIOD = 0.05
 
@@ -19,14 +20,17 @@ class SphPlainNode(Node):
         self.declare_parameter('robot_prefix', 'cf_')
         self.declare_parameter('total_robots', 2)
         self.declare_parameter('fixed_z', 0.5)
-        self.declare_parameter('particle_mass', 10635.0)
+        # self.declare_parameter('particle_mass', 10635.0)
+        # self.declare_parameter('particle_mass', 7000.0)
+        # self.declare_parameter('particle_mass', 6500.0)
+        self.declare_parameter('particle_mass', 7500.0)
         self.declare_parameter('smoothing_h', 3.0)
         self.declare_parameter('rho_0', 1000.0)
-        self.declare_parameter('gamma', 4.0)
+        self.declare_parameter('gamma', 7.0)
         self.declare_parameter('alpha', 1.0)
         self.declare_parameter('beta', 2.0)
-        self.declare_parameter('zetta_extra', 5.0)
-
+        # self.declare_parameter('zetta_extra', 5.0)
+        self.declare_parameter('zetta_extra', 20.0)
 
         self._robot_id = self.get_parameter('robot_id').value
         self._robot_prefix = self.get_parameter('robot_prefix').value
