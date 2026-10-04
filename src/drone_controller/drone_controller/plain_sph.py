@@ -111,6 +111,7 @@ class SphPlainNode(Node):
         p = self._particles[name]
         p.x, p.y = x, y
         p.vel = [vx, vy]
+
         self._known.add(name)
 
     def _control_step(self):
@@ -123,7 +124,7 @@ class SphPlainNode(Node):
 
         for p in known_particles:
             p.rho = p.next_rho(known_particles)
-        for p in known_particles:
+        # for p in known_particles:
             p.P = p.next_pressure()
 
         ego = self._particles[self._robot_name]
@@ -134,8 +135,7 @@ class SphPlainNode(Node):
         measured_position = (ego.x, ego.y)  # real state, captured before update_particle changes it
 
         dvdt = ego.next_vel(neighbors)
-        e = ego.next_energy(neighbors)
-        ego.update_particle(ego.rho, ego.P, dvdt, e, self.CONTROL_PERIOD)
+        ego.update_particle(ego.rho, ego.P, dvdt, self.CONTROL_PERIOD)
 
         t = (self.get_clock().now() - self._t0).nanoseconds / 1e9
         # self._log_writer.writerow([t, ego.rho, ego.P, ego.ext_force[0], ego.ext_force[1], ego.vel[0], ego.vel[1]])

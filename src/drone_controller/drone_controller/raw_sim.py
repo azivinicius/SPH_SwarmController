@@ -68,10 +68,9 @@ class SPHSimulation:
             p.P = P
 
         dvdts = [p.next_vel(particles) for p in particles]
-        de_dts = [p.next_energy(particles) for p in particles]
 
-        for p, dvdt, de_dt in zip(particles, dvdts, de_dts):
-            p.update_particle(p.rho, p.P, dvdt, de_dt, self.dt)
+        for p, dvdt in zip(particles, dvdts):
+            p.update_particle(p.rho, p.P, dvdt, self.dt)
 
         if self._check_diverged(dvdts):
             self.diverged = True

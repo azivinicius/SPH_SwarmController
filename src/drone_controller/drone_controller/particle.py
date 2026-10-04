@@ -84,7 +84,6 @@ class Particle:
         self.beta = beta
         self.zetta_extra = zetta_extra
 
-        self.e = 1.0
         self.B = (200 * self.rho * 9.8 * (1/98)) / 1
         self.P = self.B * ((self.rho / self.rho_0)**self.gamma - 1)
         self.c = math.sqrt(self.gamma * (self.P + self.B) / self.rho)
@@ -152,24 +151,6 @@ class Particle:
 
         return dvdt
 
-    def next_energy(self, q_list):
-        e = 0.0
-        for q in q_list:
-            if q.id == self.id:
-                continue
-            dW = grad_W(self, q)
-
-            vij = [q.vel[0] - self.vel[0], q.vel[1] - self.vel[1]]
-
-            if self.rho < 1e-6 or q.rho < 1e-6:
-                P_term = 0.0
-            else:
-                P_term = (self.P/self.rho**2) + (q.P/q.rho**2) + viscosity(self, q)
-
-            e += q.m * P_term * np.dot(vij, dW)
-
-        e = 1/2 * e
-        return e
 
     def next_state(self, q_list):
         dvdt = [0.0, 0.0]
@@ -215,11 +196,10 @@ class Particle:
 
         return pi, P, dvdt, e
 
-    def update_particle(self, rho, P, dvdt, e, dt):
+    def update_particle(self, rho, P, dvdt,  dt):
         self.rho = rho
         self.P = P
         self.vel[0] += dvdt[0] * dt
         self.vel[1] += dvdt[1] * dt
-        self.e = e
         self.x += self.vel[0] * dt
         self.y += self.vel[1] * dt
