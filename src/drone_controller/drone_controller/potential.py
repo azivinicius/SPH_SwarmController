@@ -31,5 +31,6 @@ class Potential:
         if norm_g < 1e-9:      
             return np.zeros(2)
         
+        # return -k*g  
         return -k*g / (norm_g ** beta)  
-    
+        

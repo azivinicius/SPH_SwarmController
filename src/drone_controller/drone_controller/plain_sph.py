@@ -7,6 +7,7 @@ from crazyflie_interfaces.msg import LogDataGeneric
 
 from drone_controller.commander import Commander
 from drone_controller.particle import Particle
+from drone_controller.potential import Potential
 
 
 
@@ -21,16 +22,24 @@ class SphPlainNode(Node):
         self.declare_parameter('total_robots', 2)
         self.declare_parameter('fixed_z', 0.5)
         # self.declare_parameter('particle_mass', 10635.0)
-        # self.declare_parameter('particle_mass', 7000.0)
+        self.declare_parameter('particle_mass', 7000.0)
         # self.declare_parameter('particle_mass', 6500.0)
-        self.declare_parameter('particle_mass', 7500.0)
+        # self.declare_parameter('particle_mass', 7500.0)
         self.declare_parameter('smoothing_h', 3.0)
         self.declare_parameter('rho_0', 1000.0)
         self.declare_parameter('gamma', 7.0)
         self.declare_parameter('alpha', 1.0)
         self.declare_parameter('beta', 2.0)
         # self.declare_parameter('zetta_extra', 5.0)
-        self.declare_parameter('zetta_extra', 20.0)
+        self.declare_parameter('zetta_extra', 30.0)
+
+        self.declare_parameter('xc', 2.0)
+        self.declare_parameter('yc', 2.0)
+        self.declare_parameter('R', 0.5)
+
+        self.declare_parameter('f_beta', 1.0)
+        self.declare_parameter('f_k', 2.0)
+
 
         self._robot_id = self.get_parameter('robot_id').value
         self._robot_prefix = self.get_parameter('robot_prefix').value
@@ -43,6 +52,13 @@ class SphPlainNode(Node):
         alpha = self.get_parameter('alpha').value
         beta = self.get_parameter('beta').value
         zetta_extra = self.get_parameter('zetta_extra').value
+
+        xc = self.get_parameter('xc').value
+        yc = self.get_parameter('yc').value
+        R = self.get_parameter('R').value
+
+        self.f_beta = self.get_parameter('f_beta').value
+        self.f_k = self.get_parameter('f_k').value
 
         self._robot_name = f'{self._robot_prefix}{self._robot_id}'
         self._all_names = [f'{self._robot_prefix}{i}' for i in range(self._total_robots)]
@@ -68,14 +84,21 @@ class SphPlainNode(Node):
             max_velocity=0.5, max_acceleration=1.0,
         )
 
+        self.potential= Potential(
+            xc = xc,
+            yc = yc,
+            R = R,
+        )
+
         log_dir = '/root/dev_ws/src/logs'
         os.makedirs(log_dir, exist_ok=True)
         log_path = os.path.join(log_dir, f'plain_sph_{self._robot_name}.csv')
         self._log_file = open(log_path, 'w', newline='')
         self._log_writer = csv.writer(self._log_file)
-        self._log_writer.writerow(['t', 'rho', 'pressure', 'ext_force_x', 'ext_force_y', 'vel_x', 'vel_y'])
+        # self._log_writer.writerow(['t', 'rho', 'pressure', 'ext_force_x', 'ext_force_y', 'vel_x', 'vel_y'])
+        self._log_writer.writerow(['t', 'rho', 'pressure', 'ext_force_x', 'ext_force_y',
+                           'vel_x', 'vel_y', 'x', 'y'])        
         self._t0 = self.get_clock().now()
-
         self._timer = self.create_timer(self.CONTROL_PERIOD, self._control_step)
         self._last_tick_time = None
         
@@ -104,6 +127,8 @@ class SphPlainNode(Node):
             p.P = p.next_pressure()
 
         ego = self._particles[self._robot_name]
+        ego.ext_force = self.potential.force(ego.x, ego.y, self.f_beta, self.f_k)
+
         neighbors = [p for p in known_particles if p.id != self._robot_name]
 
         measured_position = (ego.x, ego.y)  # real state, captured before update_particle changes it
@@ -113,8 +138,10 @@ class SphPlainNode(Node):
         ego.update_particle(ego.rho, ego.P, dvdt, e, self.CONTROL_PERIOD)
 
         t = (self.get_clock().now() - self._t0).nanoseconds / 1e9
-        self._log_writer.writerow([t, ego.rho, ego.P, ego.ext_force[0], ego.ext_force[1], ego.vel[0], ego.vel[1]])
-
+        # self._log_writer.writerow([t, ego.rho, ego.P, ego.ext_force[0], ego.ext_force[1], ego.vel[0], ego.vel[1]])
+        self._log_writer.writerow([t, ego.rho, ego.P, ego.ext_force[0], ego.ext_force[1],
+                           ego.vel[0], ego.vel[1],
+                           measured_position[0], measured_position[1]])
         # self._commander.send_velocity(measured_position, ego.vel, fixed_z=self._fixed_z)
         self._commander.send_velocity_world(ego.vel,0.0)
 
