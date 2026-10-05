@@ -1,17 +1,20 @@
 """Plot density, pressure, external force, and trajectories from plain_sph's logs.
 
 Run manually after a test, not part of the sim:
-    python3 plot_plain_sph.py
+    python3 plot_plain_sph.py          # every plain_sph_*.csv in logs/
+    python3 plot_plain_sph.py -n 3     # only cf_0..cf_2 (ignore stale CSVs from bigger runs)
 
 Produces two images in logs/ and opens both:
     plain_sph_metrics.png   -- rho, P, |F_ext|, |v| vs time (unchanged)
     plain_sph_potential.png -- potential field + target circle + drone paths
 """
+import argparse
 import csv
 import glob
 import math
 import os
 import platform
+import re
 import subprocess
 
 import numpy as np
@@ -70,9 +73,23 @@ def open_in_viewer(path):
         print(f'(could not auto-open the image: {exc} -- open manually: {path})')
 
 
+parser = argparse.ArgumentParser(description=__doc__.split('\n')[0])
+parser.add_argument('-n', '--drones', type=int, default=None,
+                    help='only plot cf_0 .. cf_{N-1}; ignores stale CSVs from earlier runs '
+                         'with more drones (default: plot every plain_sph_*.csv found)')
+args = parser.parse_args()
+
 files = sorted(glob.glob(os.path.join(LOG_DIR, 'plain_sph_*.csv')))
+if args.drones is not None:
+    def _keep(path):
+        m = re.search(r'plain_sph_cf_(\d+)\.csv$', os.path.basename(path))
+        return m is not None and int(m.group(1)) < args.drones
+    skipped = [os.path.basename(f) for f in files if not _keep(f)]
+    files = [f for f in files if _keep(f)]
+    if skipped:
+        print(f'Ignoring (id >= {args.drones}): {", ".join(skipped)}')
 if not files:
-    print(f'No plain_sph_*.csv files found in {LOG_DIR}')
+    print(f'No matching plain_sph_*.csv files found in {LOG_DIR}')
     raise SystemExit(1)
 
 data = {}
@@ -173,4 +190,4 @@ else:
 print('Opening in default image viewer...')
 open_in_viewer(metrics_path)
 if potential_path:
-    open_in_viewer(potential_path)
+    open_in_viewer(potential_path)  

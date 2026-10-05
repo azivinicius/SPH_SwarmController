@@ -688,4 +688,4 @@ existing `crazyflies.yaml` remains the template.
 - `plot_plain_sph.py` hardcodes the circle parameters instead of reading
   `swarm.conf`; it also plots stale CSVs from drones that no longer exist.
 - Takeoff ordering relative to the controller launch is unconfirmed (tmux
-  launcher sends it after a fixed delay).
+  launcher sends it after a fixed delay). 

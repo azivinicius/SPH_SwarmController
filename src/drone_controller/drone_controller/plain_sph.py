@@ -113,6 +113,9 @@ class SphPlainNode(Node):
         p.vel = [vx, vy]
 
         self._known.add(name)
+        known = [self._particles[n] for n in self._all_names if n in self._known]
+        p.rho = p.next_rho(known)
+        p.P = p.next_pressure()
 
     def _control_step(self):
         if self._robot_name not in self._known:
@@ -122,10 +125,10 @@ class SphPlainNode(Node):
             self._particles[n] for n in self._all_names if n in self._known
         ]
 
-        for p in known_particles:
-            p.rho = p.next_rho(known_particles)
         # for p in known_particles:
-            p.P = p.next_pressure()
+        #     p.rho = p.next_rho(known_particles)
+        # # for p in known_particles:
+        #     p.P = p.next_pressure()
 
         ego = self._particles[self._robot_name]
         ego.ext_force = self.potential.force(ego.x, ego.y, self.f_beta, self.f_k)

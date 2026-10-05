@@ -36,9 +36,32 @@ show() {
 }
 
 up() {
+  # Clean up any lingering simulator/ROS processes from previous runs FIRST
+  docker compose exec -T crazysim bash -lc "
+    pkill -f '[p]lain_sph'
+    pkill -f '[r]os2 launch'
+    pkill -f '[s]itl_multiagent'
+    pkill -f '[g]z sim'
+    pkill -x cf2
+    pkill -9 -x ruby
+    ros2 daemon stop
+    rm -rf /tmp/gz* /tmp/sitl*
+    true" 2>/dev/null
+
   python3 gen_config.py --n "$N_DRONES" --radius "$SPAWN_RADIUS" --config-dir config || exit 1
   docker compose up -d crazysim || exit 1
   xhost +local:root >/dev/null 2>&1
+
+  # Remove logs of drones that no longer exist (e.g. cf_3/cf_4 left over from a 5-drone run
+  # when starting 3). Done inside the container because the files may be owned by root.
+  CLEAN_CMD='cd /root/dev_ws/src/logs 2>/dev/null || exit 0
+    for f in plain_sph_cf_*.csv; do
+      [ -e "$f" ] || continue
+      id=${f#plain_sph_cf_}; id=${id%.csv}
+      case "$id" in (*[!0-9]*|"") continue;; esac
+      if [ "$id" -ge '"$N_DRONES"' ]; then rm -f "$f"; echo "removed stale log $f"; fi
+    done; true'
+  docker compose exec -T crazysim bash -lc "$CLEAN_CMD"
 
   if tmux has-session -t "$SESSION" 2>/dev/null; then
     echo "Session '$SESSION' already exists -- attaching. (Use '$0 stop' first for a clean start;"
@@ -48,11 +71,11 @@ up() {
 
   tmux new-session -d -s "$SESSION" -n sim
   tmux send-keys -t "$SESSION:sim" \
-    "$DC 'cd /CrazySim/crazyflie-firmware && bash tools/crazyflie-simulation/simulator_files/gazebo/launch/sitl_multiagent_headless.sh -f agents.txt'" C-m
+    "$DC 'rm -rf /tmp/gz* /tmp/sitl* && cd /CrazySim/crazyflie-firmware && bash tools/crazyflie-simulation/simulator_files/gazebo/launch/sitl_multiagent_headless.sh -f agents.txt'" C-m
 
   tmux new-window -t "$SESSION" -n swarm
   tmux send-keys -t "$SESSION:swarm" \
-    "sleep $SIM_WAIT; $DC '$ROS_ENV && ros2 launch crazyflie launch.py backend:=cflib rviz:=$RVIZ'" C-m
+    "sleep $SIM_WAIT; $DC '$ROS_ENV && ros2 launch crazyflie launch.py backend:=cflib rviz:=$RVIZ config_file:=/root/SPH_Project/config/crazyflies.yaml'" C-m
 
   # dev_setup.bash, NOT install/setup.bash (README known issue #1)
   tmux new-window -t "$SESSION" -n ctrl
