@@ -177,6 +177,25 @@ After a run, leftover-process check:
 docker compose exec crazysim ps aux | grep -E 'gz|cf2|ruby|ros2'
 ```
 
+## Diagnostics and test guide
+
+Every run now writes a self-describing folder `src/logs/runs/<timestamp>_<label>/`
+(per-tick and per-message CSVs, a readable `events.log`, `meta.json` with every
+parameter, and `rtf.csv` with Gazebo's real-time factor). Turn it into a report with
+`./dev_tmux.sh analyze` (or `python3 src/analyze_run.py src/logs/runs/<id>`), which
+writes `analysis/summary.txt` (paste it when asking for help), `report.md` and figures.
+
+`TEST_GUIDE.md` is the full battery of experiments (what each one isolates, the exact
+command, what to expect, how to read it). `tests/run_test.sh T1` runs one unattended;
+`tests/run_all.sh quick` runs the first three. `src/offline_twin.py` runs the same
+control loop against a toy drone with no Gazebo (instrument check / what-if), and
+`python3 tests/test_core_equivalence.py` / `tests/test_analyzer.py` are the offline self-checks.
+
+New switches (all default to the old behaviour; see `swarm.conf`): `SPH_GAIN`,
+`DT_MODEL`, `STALE_POLICY`, `START_GATE`, `TEST_PROFILE` (+ `TEST_AMP/PERIOD/AXIS/DELAY/DURATION`),
+`RUN_LABEL`. NOTE: `swarm_sph` now honours `POT_K` (before, its external-force line was
+commented out, so `f_k` was silently ignored there).
+
 ## Running manually (without tmux)
 
 This is the original three-terminal procedure and still works as-is. Use it if
@@ -689,3 +708,8 @@ existing `crazyflies.yaml` remains the template.
   `swarm.conf`; it also plots stale CSVs from drones that no longer exist.
 - Takeoff ordering relative to the controller launch is unconfirmed (tmux
   launcher sends it after a fixed delay). 
+
+### Simulated-time controller and real drones
+
+* `SIM_CLOCK=gz` in `swarm.conf` (or `SIM_CLOCK=gz ./dev_tmux.sh up-swarm`): the controller ticks on Gazebo's simulated time, so the result no longer depends on the real-time factor (TEST_GUIDE T13).
+* Real hardware: see **REAL_DRONES.md** (safety checklist, config, bring-up steps).

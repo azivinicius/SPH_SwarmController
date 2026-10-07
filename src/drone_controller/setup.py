@@ -25,6 +25,8 @@ setup(
             'hello_node = drone_controller.hello_node:main',
             'controller = drone_controller.controller:main',
             'plain_sph = drone_controller.plain_sph:main',
+            'swarm_sph = drone_controller.swarm_sph:main',
+            'particle_sim = drone_controller.particle_sim:main',
         ],
     },
 )

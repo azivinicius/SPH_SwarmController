@@ -1,0 +1,266 @@
+    0.000 INFO  swarm   START        swarm: 5 drones, egos=['cf_0', 'cf_1', 'cf_2', 'cf_3', 'cf_4'], label="run", sph_gain=0.05 zeta=10.0 f_k=2.0 gamma=2.0 m=129.541 policy=predict platform=sim fence=None state_timeout=0.0 gate=none clock=wall vmax=0.5 test=none amp=0.15 m/s period=4.0 s axis=x delay=3.0 s duration=60.0 s
+   12.813 INFO  cf_0    FIRST_RX     first state of cf_0: x=-0.300 y=0.150 z=0.500 (1/5 drones known)
+   12.815 INFO  cf_0    HB           rho=  654.5 P=  -7482.6 |v|rms=0.000 r_pot=2.95 stale= 0.0% rx= 0.2Hz clip= 0.0% dt_max=0ms age_max=2ms
+   12.819 INFO  cf_1    FIRST_RX     first state of cf_1: x=0.000 y=0.150 z=0.500 (2/5 drones known)
+   12.820 INFO  cf_2    FIRST_RX     first state of cf_2: x=0.300 y=0.150 z=0.500 (3/5 drones known)
+   12.822 INFO  cf_3    FIRST_RX     first state of cf_3: x=-0.150 y=-0.150 z=0.500 (4/5 drones known)
+   12.823 INFO  cf_4    FIRST_RX     first state of cf_4: x=0.150 y=-0.150 z=0.500 (5/5 drones known)
+   12.869 INFO  cf_0    RHO_OK       density 932 = 0.93 x rho_0 (P=-2460, n_nb=4, nearest 0.30 m)
+   12.914 INFO  cf_1    RHO_OK       density 1192 = 1.19 x rho_0 (P=10014, n_nb=4, nearest 0.30 m)
+   17.820 INFO  cf_0    HB           rho=  977.6 P=   -817.9 |v|rms=0.178 r_pot=2.56 stale= 0.0% rx=20.0Hz clip= 0.0% dt_max=57ms age_max=10ms
+   17.820 INFO  cf_1    HB           rho= 1062.6 P=   2907.9 |v|rms=0.203 r_pot=2.25 stale=21.0% rx=20.2Hz clip= 0.0% dt_max=57ms age_max=51ms
+   17.820 INFO  cf_2    HB           rho=  973.8 P=   -952.5 |v|rms=0.186 r_pot=2.10 stale=21.0% rx=20.2Hz clip= 0.0% dt_max=57ms age_max=50ms
+   17.820 INFO  cf_3    HB           rho= 1008.5 P=    372.7 |v|rms=0.177 r_pot=2.65 stale=21.0% rx=20.2Hz clip= 0.0% dt_max=57ms age_max=57ms
+   17.820 INFO  cf_4    HB           rho= 1001.2 P=     70.7 |v|rms=0.190 r_pot=2.40 stale=21.0% rx=20.2Hz clip= 0.0% dt_max=57ms age_max=56ms
+   18.564 WARN  swarm   SLOW_STEP    control step took 41.3 ms (period 50 ms, 5 drones)
+   22.869 INFO  cf_0    HB           rho= 1015.6 P=    640.4 |v|rms=0.194 r_pot=1.59 stale= 2.0% rx=20.2Hz clip= 0.0% dt_max=68ms age_max=122ms
+   22.869 INFO  cf_1    HB           rho= 1038.3 P=   1624.5 |v|rms=0.207 r_pot=1.21 stale=19.8% rx=20.2Hz clip= 0.0% dt_max=68ms age_max=119ms
+   22.869 INFO  cf_2    HB           rho= 1000.7 P=     30.4 |v|rms=0.209 r_pot=1.08 stale=18.8% rx=20.2Hz clip= 0.0% dt_max=68ms age_max=118ms
+   22.869 INFO  cf_3    HB           rho= 1013.2 P=    541.0 |v|rms=0.188 r_pot=1.70 stale=19.8% rx=20.2Hz clip= 0.0% dt_max=68ms age_max=117ms
+   22.869 INFO  cf_4    HB           rho= 1009.2 P=    374.8 |v|rms=0.198 r_pot=1.41 stale=18.8% rx=20.2Hz clip= 0.0% dt_max=68ms age_max=115ms
+   25.264 WARN  cf_4    RHO_HIGH     density 1202 = 1.20 x rho_0 (P=10719, n_nb=4, nearest 0.25 m)
+   26.769 WARN  cf_0    RHO_HIGH     density 1210 = 1.21 x rho_0 (P=11212, n_nb=4, nearest 0.23 m)
+   27.869 INFO  cf_4    RHO_OK       density 1180 = 1.18 x rho_0 (P=9285, n_nb=4, nearest 0.23 m)
+   27.919 INFO  cf_0    HB           rho= 1093.7 P=   4599.6 |v|rms=0.166 r_pot=0.66 stale= 0.0% rx=20.2Hz clip= 0.0% dt_max=56ms age_max=10ms
+   27.919 INFO  cf_1    HB           rho= 1027.8 P=   1478.3 |v|rms=0.164 r_pot=0.35 stale=10.9% rx=20.2Hz clip= 0.0% dt_max=56ms age_max=52ms
+   27.919 INFO  cf_2    HB           rho= 1042.4 P=   2010.0 |v|rms=0.163 r_pot=0.29 stale=10.9% rx=20.2Hz clip= 0.0% dt_max=56ms age_max=51ms
+   27.919 INFO  cf_3    HB           rho=  989.6 P=   -376.6 |v|rms=0.159 r_pot=0.80 stale=10.9% rx=20.2Hz clip= 0.0% dt_max=56ms age_max=50ms
+   27.919 INFO  cf_4    HB           rho= 1152.5 P=   8436.3 |v|rms=0.156 r_pot=0.50 stale=10.9% rx=20.2Hz clip= 0.0% dt_max=56ms age_max=48ms
+   28.371 WARN  cf_0    RHO_HIGH     density 1207 = 1.21 x rho_0 (P=11019, n_nb=4, nearest 0.22 m)
+   29.020 INFO  cf_4    RHO_OK       density 1178 = 1.18 x rho_0 (P=9122, n_nb=4, nearest 0.23 m)
+   29.769 WARN  cf_0    RHO_HIGH     density 1204 = 1.20 x rho_0 (P=10859, n_nb=4, nearest 0.23 m)
+   30.064 INFO  cf_4    RHO_OK       density 1200 = 1.20 x rho_0 (P=10556, n_nb=4, nearest 0.23 m)
+   30.969 WARN  cf_0    RHO_HIGH     density 1206 = 1.21 x rho_0 (P=10959, n_nb=4, nearest 0.22 m)
+   31.114 WARN  cf_4    RHO_HIGH     density 1207 = 1.21 x rho_0 (P=11037, n_nb=4, nearest 0.22 m)
+   32.919 INFO  cf_0    HB           rho= 1117.7 P=   6092.7 |v|rms=0.099 r_pot=0.27 stale= 0.0% rx=20.0Hz clip= 0.0% dt_max=57ms age_max=10ms
+   32.919 INFO  cf_1    HB           rho=  974.4 P=   -798.5 |v|rms=0.104 r_pot=0.26 stale=11.0% rx=20.0Hz clip= 0.0% dt_max=57ms age_max=51ms
+   32.919 INFO  cf_2    HB           rho=  967.5 P=  -1058.7 |v|rms=0.101 r_pot=0.26 stale=11.0% rx=20.0Hz clip= 0.0% dt_max=57ms age_max=50ms
+   32.919 INFO  cf_3    HB           rho= 1030.6 P=   1564.9 |v|rms=0.091 r_pot=0.29 stale=11.0% rx=20.0Hz clip= 0.0% dt_max=57ms age_max=49ms
+   32.919 INFO  cf_4    HB           rho= 1116.6 P=   5983.4 |v|rms=0.095 r_pot=0.26 stale=11.0% rx=20.0Hz clip= 0.0% dt_max=57ms age_max=47ms
+   37.964 INFO  cf_0    HB           rho= 1022.7 P=   1347.6 |v|rms=0.103 r_pot=0.26 stale= 0.0% rx=20.2Hz clip= 0.0% dt_max=56ms age_max=9ms
+   37.964 INFO  cf_1    HB           rho= 1001.6 P=    488.8 |v|rms=0.105 r_pot=0.25 stale=19.8% rx=20.0Hz clip= 0.0% dt_max=56ms age_max=51ms
+   37.964 INFO  cf_2    HB           rho= 1001.2 P=    495.0 |v|rms=0.105 r_pot=0.26 stale=20.8% rx=20.0Hz clip= 0.0% dt_max=56ms age_max=53ms
+   37.964 INFO  cf_3    HB           rho=  986.9 P=   -111.9 |v|rms=0.109 r_pot=0.26 stale=20.8% rx=20.0Hz clip= 0.0% dt_max=56ms age_max=51ms
+   37.964 INFO  cf_4    HB           rho= 1016.7 P=   1161.7 |v|rms=0.111 r_pot=0.26 stale=20.8% rx=20.0Hz clip= 0.0% dt_max=56ms age_max=50ms
+   42.964 INFO  cf_0    HB           rho=  998.2 P=    348.3 |v|rms=0.106 r_pot=0.26 stale= 0.0% rx=20.0Hz clip= 0.0% dt_max=56ms age_max=10ms
+   42.964 INFO  cf_1    HB           rho=  995.2 P=    327.5 |v|rms=0.112 r_pot=0.25 stale=13.0% rx=20.0Hz clip= 0.0% dt_max=56ms age_max=51ms
+   42.964 INFO  cf_2    HB           rho=  990.0 P=    228.8 |v|rms=0.118 r_pot=0.26 stale=13.0% rx=20.0Hz clip= 0.0% dt_max=56ms age_max=50ms
+   42.964 INFO  cf_3    HB           rho=  998.3 P=    406.0 |v|rms=0.107 r_pot=0.26 stale=13.0% rx=20.0Hz clip= 0.0% dt_max=56ms age_max=49ms
+   42.964 INFO  cf_4    HB           rho=  998.3 P=    521.6 |v|rms=0.116 r_pot=0.26 stale=13.0% rx=20.0Hz clip= 0.0% dt_max=56ms age_max=48ms
+   47.964 INFO  cf_0    HB           rho=  988.0 P=     49.1 |v|rms=0.113 r_pot=0.26 stale= 0.0% rx=20.0Hz clip= 0.0% dt_max=56ms age_max=9ms
+   47.964 INFO  cf_1    HB           rho=  988.8 P=     84.8 |v|rms=0.117 r_pot=0.26 stale= 6.0% rx=20.0Hz clip= 0.0% dt_max=56ms age_max=52ms
+   47.964 INFO  cf_2    HB           rho=  986.8 P=     22.0 |v|rms=0.113 r_pot=0.26 stale= 5.0% rx=20.0Hz clip= 0.0% dt_max=56ms age_max=51ms
+   47.964 INFO  cf_3    HB           rho=  984.6 P=    -99.1 |v|rms=0.116 r_pot=0.26 stale= 5.0% rx=20.0Hz clip= 0.0% dt_max=56ms age_max=50ms
+   47.964 INFO  cf_4    HB           rho=  987.3 P=     79.2 |v|rms=0.113 r_pot=0.26 stale= 5.0% rx=20.0Hz clip= 0.0% dt_max=56ms age_max=50ms
+   50.664 WARN  cf_0    RHO_HIGH     density 1208 = 1.21 x rho_0 (P=11127, n_nb=4, nearest 0.25 m)
+   50.664 WARN  cf_1    RHO_HIGH     density 1201 = 1.20 x rho_0 (P=10639, n_nb=4, nearest 0.26 m)
+   52.019 WARN  cf_3    RHO_HIGH     density 1210 = 1.21 x rho_0 (P=11224, n_nb=4, nearest 0.25 m)
+   52.965 INFO  cf_0    HB           rho=  994.2 P=    484.5 |v|rms=0.129 r_pot=0.26 stale= 2.0% rx=20.0Hz clip= 0.0% dt_max=74ms age_max=121ms
+   52.965 INFO  cf_1    HB           rho=  991.5 P=    406.6 |v|rms=0.118 r_pot=0.26 stale= 7.0% rx=20.0Hz clip= 0.0% dt_max=74ms age_max=102ms
+   52.965 INFO  cf_2    HB           rho=  995.6 P=    554.6 |v|rms=0.113 r_pot=0.26 stale= 3.0% rx=20.0Hz clip= 0.0% dt_max=74ms age_max=101ms
+   52.965 INFO  cf_3    HB           rho=  998.1 P=    566.2 |v|rms=0.112 r_pot=0.26 stale= 3.0% rx=20.0Hz clip= 0.0% dt_max=74ms age_max=98ms
+   52.965 INFO  cf_4    HB           rho=  990.6 P=    271.8 |v|rms=0.110 r_pot=0.26 stale= 3.0% rx=20.0Hz clip= 0.0% dt_max=74ms age_max=96ms
+   53.315 WARN  cf_4    RHO_HIGH     density 1206 = 1.21 x rho_0 (P=10987, n_nb=4, nearest 0.26 m)
+   53.364 WARN  cf_2    RHO_HIGH     density 1203 = 1.20 x rho_0 (P=10771, n_nb=4, nearest 0.26 m)
+   58.014 INFO  cf_0    HB           rho=  993.5 P=    434.2 |v|rms=0.121 r_pot=0.26 stale= 0.0% rx=20.2Hz clip= 0.0% dt_max=54ms age_max=7ms
+   58.014 INFO  cf_1    HB           rho=  992.6 P=    372.4 |v|rms=0.115 r_pot=0.26 stale= 5.0% rx=20.2Hz clip= 0.0% dt_max=54ms age_max=53ms
+   58.014 INFO  cf_2    HB           rho=  993.7 P=    474.7 |v|rms=0.116 r_pot=0.26 stale= 3.0% rx=20.2Hz clip= 0.0% dt_max=54ms age_max=50ms
+   58.014 INFO  cf_3    HB           rho=  993.1 P=    416.3 |v|rms=0.115 r_pot=0.26 stale= 3.0% rx=20.2Hz clip= 0.0% dt_max=54ms age_max=49ms
+   58.014 INFO  cf_4    HB           rho=  995.6 P=    584.8 |v|rms=0.117 r_pot=0.26 stale= 3.0% rx=20.2Hz clip= 0.0% dt_max=54ms age_max=48ms
+   59.814 WARN  cf_1    RHO_HIGH     density 1206 = 1.21 x rho_0 (P=10987, n_nb=4, nearest 0.26 m)
+   63.014 INFO  cf_0    HB           rho=  999.7 P=    746.7 |v|rms=0.129 r_pot=0.26 stale= 0.0% rx=20.0Hz clip= 0.0% dt_max=56ms age_max=6ms
+   63.014 INFO  cf_1    HB           rho=  998.3 P=    677.3 |v|rms=0.124 r_pot=0.26 stale= 7.0% rx=20.0Hz clip= 0.0% dt_max=56ms age_max=51ms
+   63.014 INFO  cf_2    HB           rho=  997.3 P=    592.7 |v|rms=0.118 r_pot=0.26 stale= 5.0% rx=20.0Hz clip= 0.0% dt_max=56ms age_max=50ms
+   63.014 INFO  cf_3    HB           rho= 1000.4 P=    713.0 |v|rms=0.117 r_pot=0.26 stale= 3.0% rx=20.0Hz clip= 0.0% dt_max=56ms age_max=49ms
+   63.014 INFO  cf_4    HB           rho=  997.3 P=    590.2 |v|rms=0.117 r_pot=0.26 stale= 4.0% rx=20.0Hz clip= 0.0% dt_max=56ms age_max=51ms
+   68.017 INFO  cf_0    HB           rho=  993.9 P=     47.4 |v|rms=0.099 r_pot=0.26 stale= 0.0% rx=20.0Hz clip= 0.0% dt_max=56ms age_max=8ms
+   68.017 INFO  cf_1    HB           rho=  991.6 P=    -35.2 |v|rms=0.103 r_pot=0.26 stale=27.0% rx=20.2Hz clip= 0.0% dt_max=56ms age_max=52ms
+   68.017 INFO  cf_2    HB           rho=  995.1 P=    174.1 |v|rms=0.108 r_pot=0.26 stale=23.0% rx=20.2Hz clip= 0.0% dt_max=56ms age_max=52ms
+   68.017 INFO  cf_3    HB           rho=  993.6 P=     63.0 |v|rms=0.103 r_pot=0.26 stale=19.0% rx=20.0Hz clip= 0.0% dt_max=56ms age_max=51ms
+   68.017 INFO  cf_4    HB           rho=  988.5 P=    -57.1 |v|rms=0.102 r_pot=0.26 stale=11.0% rx=20.0Hz clip= 0.0% dt_max=56ms age_max=51ms
+   73.064 INFO  cf_0    HB           rho=  995.0 P=    153.1 |v|rms=0.097 r_pot=0.26 stale=15.8% rx=17.0Hz clip= 0.0% dt_max=55ms age_max=801ms
+   73.064 INFO  cf_1    HB           rho=  992.4 P=     62.1 |v|rms=0.110 r_pot=0.26 stale=34.7% rx=17.0Hz clip= 0.0% dt_max=55ms age_max=789ms
+   73.064 INFO  cf_2    HB           rho= 1000.5 P=    257.7 |v|rms=0.102 r_pot=0.26 stale=37.6% rx=17.0Hz clip= 0.0% dt_max=55ms age_max=788ms
+   73.064 INFO  cf_3    HB           rho= 1001.0 P=    252.1 |v|rms=0.091 r_pot=0.26 stale=30.7% rx=17.0Hz clip= 0.0% dt_max=55ms age_max=835ms
+   73.064 INFO  cf_4    HB           rho= 1003.3 P=    264.2 |v|rms=0.080 r_pot=0.25 stale=26.7% rx=17.0Hz clip= 0.0% dt_max=55ms age_max=834ms
+   78.114 INFO  cf_0    HB           rho=  997.4 P=    -98.7 |v|rms=0.079 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=52ms age_max=5852ms
+   78.114 INFO  cf_1    HB           rho=  997.9 P=    -77.0 |v|rms=0.088 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=52ms age_max=5840ms
+   78.114 INFO  cf_2    HB           rho=  999.1 P=    -29.9 |v|rms=0.075 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=52ms age_max=5839ms
+   78.114 INFO  cf_3    HB           rho=  999.1 P=    -31.3 |v|rms=0.021 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=52ms age_max=5885ms
+   78.114 INFO  cf_4    HB           rho=  999.5 P=    -17.5 |v|rms=0.064 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=52ms age_max=5884ms
+   83.164 INFO  cf_0    HB           rho=  999.3 P=    -27.6 |v|rms=0.079 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=10901ms
+   83.164 INFO  cf_1    HB           rho=  999.8 P=     -7.7 |v|rms=0.088 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=10889ms
+   83.164 INFO  cf_2    HB           rho=  996.4 P=   -142.1 |v|rms=0.075 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=10888ms
+   83.164 INFO  cf_3    HB           rho=  996.0 P=   -155.3 |v|rms=0.021 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=10935ms
+   83.164 INFO  cf_4    HB           rho=  998.7 P=    -48.1 |v|rms=0.064 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=10934ms
+   88.214 INFO  cf_0    HB           rho= 1000.3 P=     13.0 |v|rms=0.079 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=15951ms
+   88.214 INFO  cf_1    HB           rho=  998.8 P=    -45.6 |v|rms=0.088 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=15939ms
+   88.214 INFO  cf_2    HB           rho=  996.5 P=   -138.0 |v|rms=0.075 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=15938ms
+   88.214 INFO  cf_3    HB           rho=  996.6 P=   -132.8 |v|rms=0.021 r_pot=0.25 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=15985ms
+   88.214 INFO  cf_4    HB           rho=  999.0 P=    -37.3 |v|rms=0.064 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=15984ms
+   93.264 INFO  cf_0    HB           rho=  999.8 P=     -5.9 |v|rms=0.079 r_pot=0.25 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=21001ms
+   93.264 INFO  cf_1    HB           rho=  996.1 P=   -151.1 |v|rms=0.088 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=20989ms
+   93.264 INFO  cf_2    HB           rho= 1000.4 P=     18.9 |v|rms=0.075 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=20988ms
+   93.264 INFO  cf_3    HB           rho=  999.4 P=    -23.9 |v|rms=0.021 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=21035ms
+   93.264 INFO  cf_4    HB           rho=  996.3 P=   -142.5 |v|rms=0.064 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=21034ms
+   98.314 INFO  cf_0    HB           rho=  996.6 P=   -134.4 |v|rms=0.079 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=52ms age_max=26051ms
+   98.314 INFO  cf_1    HB           rho=  999.0 P=    -37.5 |v|rms=0.088 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=52ms age_max=26039ms
+   98.314 INFO  cf_2    HB           rho= 1000.5 P=     22.2 |v|rms=0.075 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=52ms age_max=26038ms
+   98.314 INFO  cf_3    HB           rho= 1002.3 P=     96.9 |v|rms=0.021 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=52ms age_max=26085ms
+   98.314 INFO  cf_4    HB           rho=  992.3 P=   -298.3 |v|rms=0.064 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=52ms age_max=26084ms
+  103.314 INFO  cf_0    HB           rho=  998.8 P=    -46.3 |v|rms=0.079 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=50ms age_max=31051ms
+  103.314 INFO  cf_1    HB           rho=  997.8 P=    -83.4 |v|rms=0.088 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=50ms age_max=31039ms
+  103.314 INFO  cf_2    HB           rho= 1000.8 P=     34.7 |v|rms=0.075 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=50ms age_max=31038ms
+  103.314 INFO  cf_3    HB           rho=  998.7 P=    -44.8 |v|rms=0.021 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=50ms age_max=31085ms
+  103.314 INFO  cf_4    HB           rho=  995.3 P=   -181.4 |v|rms=0.064 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=50ms age_max=31084ms
+  108.364 INFO  cf_0    HB           rho=  996.7 P=   -124.6 |v|rms=0.079 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=50ms age_max=36101ms
+  108.364 INFO  cf_1    HB           rho=  997.6 P=    -93.3 |v|rms=0.088 r_pot=0.25 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=50ms age_max=36089ms
+  108.364 INFO  cf_2    HB           rho=  997.1 P=   -110.0 |v|rms=0.075 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=50ms age_max=36088ms
+  108.364 INFO  cf_3    HB           rho=  998.1 P=    -74.5 |v|rms=0.021 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=50ms age_max=36135ms
+  108.364 INFO  cf_4    HB           rho=  996.2 P=   -144.8 |v|rms=0.064 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=50ms age_max=36134ms
+  113.414 INFO  cf_0    HB           rho=  996.9 P=   -119.7 |v|rms=0.079 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=50ms age_max=41151ms
+  113.414 INFO  cf_1    HB           rho=  997.9 P=    -80.6 |v|rms=0.088 r_pot=0.25 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=50ms age_max=41139ms
+  113.414 INFO  cf_2    HB           rho=  997.0 P=   -115.8 |v|rms=0.075 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=50ms age_max=41138ms
+  113.414 INFO  cf_3    HB           rho=  998.1 P=    -73.9 |v|rms=0.021 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=50ms age_max=41185ms
+  113.414 INFO  cf_4    HB           rho=  996.7 P=   -124.4 |v|rms=0.064 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=50ms age_max=41184ms
+  118.414 INFO  cf_0    HB           rho=  996.9 P=   -119.9 |v|rms=0.079 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=46151ms
+  118.414 INFO  cf_1    HB           rho=  998.1 P=    -72.6 |v|rms=0.088 r_pot=0.25 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=46139ms
+  118.414 INFO  cf_2    HB           rho=  997.6 P=    -88.9 |v|rms=0.075 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=46138ms
+  118.414 INFO  cf_3    HB           rho=  998.1 P=    -72.8 |v|rms=0.021 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=46185ms
+  118.414 INFO  cf_4    HB           rho=  996.6 P=   -131.3 |v|rms=0.064 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=46184ms
+  123.414 INFO  cf_0    HB           rho=  997.6 P=    -93.4 |v|rms=0.079 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=50ms age_max=51151ms
+  123.414 INFO  cf_1    HB           rho=  998.7 P=    -50.8 |v|rms=0.088 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=50ms age_max=51139ms
+  123.414 INFO  cf_2    HB           rho=  998.5 P=    -55.3 |v|rms=0.075 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=50ms age_max=51138ms
+  123.414 INFO  cf_3    HB           rho=  999.3 P=    -24.4 |v|rms=0.021 r_pot=0.25 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=50ms age_max=51185ms
+  123.414 INFO  cf_4    HB           rho=  995.9 P=   -156.5 |v|rms=0.064 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=50ms age_max=51184ms
+  128.464 INFO  cf_0    HB           rho=  997.5 P=    -96.4 |v|rms=0.079 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=56201ms
+  128.464 INFO  cf_1    HB           rho=  999.1 P=    -34.4 |v|rms=0.088 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=56189ms
+  128.464 INFO  cf_2    HB           rho= 1000.2 P=      7.8 |v|rms=0.075 r_pot=0.25 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=56188ms
+  128.464 INFO  cf_3    HB           rho=  997.5 P=    -95.9 |v|rms=0.021 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=56235ms
+  128.464 INFO  cf_4    HB           rho=  996.7 P=   -127.1 |v|rms=0.064 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=56234ms
+  133.464 INFO  cf_0    HB           rho=  997.1 P=   -111.4 |v|rms=0.079 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=50ms age_max=61201ms
+  133.464 INFO  cf_1    HB           rho=  999.5 P=    -18.6 |v|rms=0.088 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=50ms age_max=61189ms
+  133.464 INFO  cf_2    HB           rho=  999.6 P=    -13.8 |v|rms=0.075 r_pot=0.25 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=50ms age_max=61188ms
+  133.464 INFO  cf_3    HB           rho=  997.8 P=    -82.8 |v|rms=0.021 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=50ms age_max=61235ms
+  133.464 INFO  cf_4    HB           rho=  995.2 P=   -187.3 |v|rms=0.064 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=50ms age_max=61234ms
+  138.464 INFO  cf_0    HB           rho=  996.9 P=   -119.4 |v|rms=0.079 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=50ms age_max=66201ms
+  138.464 INFO  cf_1    HB           rho=  999.1 P=    -34.7 |v|rms=0.088 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=50ms age_max=66190ms
+  138.464 INFO  cf_2    HB           rho= 1000.0 P=      0.4 |v|rms=0.075 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=50ms age_max=66188ms
+  138.464 INFO  cf_3    HB           rho=  998.9 P=    -39.5 |v|rms=0.021 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=50ms age_max=66235ms
+  138.464 INFO  cf_4    HB           rho=  995.0 P=   -194.3 |v|rms=0.064 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=50ms age_max=66234ms
+  143.514 INFO  cf_0    HB           rho=  999.3 P=    -25.0 |v|rms=0.079 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=71251ms
+  143.514 INFO  cf_1    HB           rho=  998.2 P=    -71.0 |v|rms=0.088 r_pot=0.25 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=71239ms
+  143.514 INFO  cf_2    HB           rho= 1002.2 P=     89.5 |v|rms=0.075 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=71238ms
+  143.514 INFO  cf_3    HB           rho= 1001.6 P=     68.0 |v|rms=0.021 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=71285ms
+  143.514 INFO  cf_4    HB           rho=  995.1 P=   -190.9 |v|rms=0.064 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=71284ms
+  148.514 INFO  cf_0    HB           rho=  996.9 P=   -118.0 |v|rms=0.079 r_pot=0.25 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=52ms age_max=76251ms
+  148.514 INFO  cf_1    HB           rho=  997.3 P=   -104.4 |v|rms=0.088 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=52ms age_max=76239ms
+  148.514 INFO  cf_2    HB           rho=  998.4 P=    -60.7 |v|rms=0.075 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=52ms age_max=76238ms
+  148.514 INFO  cf_3    HB           rho=  998.0 P=    -72.5 |v|rms=0.021 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=52ms age_max=76285ms
+  148.514 INFO  cf_4    HB           rho=  997.9 P=    -81.6 |v|rms=0.064 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=52ms age_max=76284ms
+  153.514 INFO  cf_0    HB           rho=  996.8 P=   -123.5 |v|rms=0.079 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=81251ms
+  153.514 INFO  cf_1    HB           rho=  998.2 P=    -66.3 |v|rms=0.088 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=81240ms
+  153.514 INFO  cf_2    HB           rho=  998.5 P=    -54.6 |v|rms=0.075 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=81238ms
+  153.514 INFO  cf_3    HB           rho=  998.9 P=    -39.8 |v|rms=0.021 r_pot=0.25 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=81285ms
+  153.514 INFO  cf_4    HB           rho=  995.4 P=   -177.5 |v|rms=0.064 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=81284ms
+  158.514 INFO  cf_0    HB           rho=  999.2 P=    -29.7 |v|rms=0.079 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=52ms age_max=86251ms
+  158.514 INFO  cf_1    HB           rho=  998.0 P=    -76.4 |v|rms=0.088 r_pot=0.25 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=52ms age_max=86240ms
+  158.514 INFO  cf_2    HB           rho=  998.5 P=    -56.0 |v|rms=0.075 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=52ms age_max=86238ms
+  158.514 INFO  cf_3    HB           rho=  997.6 P=    -94.5 |v|rms=0.021 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=52ms age_max=86285ms
+  158.514 INFO  cf_4    HB           rho=  996.9 P=   -122.6 |v|rms=0.064 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=52ms age_max=86284ms
+  163.515 INFO  cf_0    HB           rho=  999.7 P=     -8.6 |v|rms=0.079 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=52ms age_max=91252ms
+  163.515 INFO  cf_1    HB           rho= 1000.0 P=      2.5 |v|rms=0.088 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=52ms age_max=91240ms
+  163.515 INFO  cf_2    HB           rho=  995.8 P=   -163.9 |v|rms=0.075 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=52ms age_max=91239ms
+  163.515 INFO  cf_3    HB           rho=  998.1 P=    -75.1 |v|rms=0.021 r_pot=0.25 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=52ms age_max=91286ms
+  163.515 INFO  cf_4    HB           rho= 1001.5 P=     60.9 |v|rms=0.064 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=52ms age_max=91285ms
+  168.564 INFO  cf_0    HB           rho=  998.3 P=    -67.7 |v|rms=0.079 r_pot=0.25 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=52ms age_max=96302ms
+  168.564 INFO  cf_1    HB           rho=  996.7 P=   -126.7 |v|rms=0.088 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=52ms age_max=96290ms
+  168.564 INFO  cf_2    HB           rho=  997.8 P=    -85.1 |v|rms=0.075 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=52ms age_max=96289ms
+  168.564 INFO  cf_3    HB           rho= 1000.2 P=      8.6 |v|rms=0.021 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=52ms age_max=96335ms
+  168.564 INFO  cf_4    HB           rho=  996.6 P=   -131.5 |v|rms=0.064 r_pot=0.25 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=52ms age_max=96334ms
+  173.614 INFO  cf_0    HB           rho=  999.1 P=    -30.9 |v|rms=0.079 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=101351ms
+  173.614 INFO  cf_1    HB           rho=  998.9 P=    -43.1 |v|rms=0.088 r_pot=0.25 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=101339ms
+  173.614 INFO  cf_2    HB           rho= 1000.6 P=     28.7 |v|rms=0.075 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=101338ms
+  173.614 INFO  cf_3    HB           rho=  999.6 P=    -10.3 |v|rms=0.021 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=101385ms
+  173.614 INFO  cf_4    HB           rho=  997.1 P=   -112.1 |v|rms=0.064 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=101384ms
+  178.614 INFO  cf_0    HB           rho= 1002.1 P=     85.3 |v|rms=0.079 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=106352ms
+  178.614 INFO  cf_1    HB           rho=  997.3 P=   -104.5 |v|rms=0.088 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=106340ms
+  178.614 INFO  cf_2    HB           rho=  996.7 P=   -127.8 |v|rms=0.075 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=106338ms
+  178.614 INFO  cf_3    HB           rho=  993.5 P=   -248.9 |v|rms=0.021 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=106385ms
+  178.614 INFO  cf_4    HB           rho=  997.8 P=    -78.2 |v|rms=0.064 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=106384ms
+  183.614 INFO  cf_0    HB           rho= 1001.7 P=     71.7 |v|rms=0.079 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=111352ms
+  183.614 INFO  cf_1    HB           rho=  996.0 P=   -152.3 |v|rms=0.088 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=111340ms
+  183.614 INFO  cf_2    HB           rho=  997.7 P=    -86.8 |v|rms=0.075 r_pot=0.25 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=111338ms
+  183.614 INFO  cf_3    HB           rho=  995.9 P=   -157.6 |v|rms=0.021 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=111385ms
+  183.614 INFO  cf_4    HB           rho=  999.6 P=    -13.0 |v|rms=0.064 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=111384ms
+  188.664 INFO  cf_0    HB           rho= 1000.8 P=     35.2 |v|rms=0.079 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=116401ms
+  188.664 INFO  cf_1    HB           rho=  994.5 P=   -211.2 |v|rms=0.088 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=116389ms
+  188.664 INFO  cf_2    HB           rho=  996.8 P=   -118.8 |v|rms=0.075 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=116388ms
+  188.664 INFO  cf_3    HB           rho=  995.9 P=   -158.8 |v|rms=0.021 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=116435ms
+  188.664 INFO  cf_4    HB           rho=  999.5 P=    -14.8 |v|rms=0.064 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=116434ms
+  193.664 INFO  cf_0    HB           rho= 1000.6 P=     26.9 |v|rms=0.079 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=121401ms
+  193.664 INFO  cf_1    HB           rho=  995.6 P=   -167.8 |v|rms=0.088 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=121389ms
+  193.664 INFO  cf_2    HB           rho=  998.9 P=    -39.7 |v|rms=0.075 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=121388ms
+  193.664 INFO  cf_3    HB           rho=  996.7 P=   -128.1 |v|rms=0.021 r_pot=0.25 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=121435ms
+  193.664 INFO  cf_4    HB           rho=  999.5 P=    -16.3 |v|rms=0.064 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=121434ms
+  198.664 INFO  cf_0    HB           rho=  999.2 P=    -32.2 |v|rms=0.079 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=52ms age_max=126401ms
+  198.664 INFO  cf_1    HB           rho=  999.1 P=    -35.7 |v|rms=0.088 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=52ms age_max=126390ms
+  198.664 INFO  cf_2    HB           rho=  995.6 P=   -172.4 |v|rms=0.075 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=52ms age_max=126388ms
+  198.664 INFO  cf_3    HB           rho=  997.5 P=    -99.0 |v|rms=0.021 r_pot=0.25 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=52ms age_max=126435ms
+  198.664 INFO  cf_4    HB           rho= 1000.2 P=     12.0 |v|rms=0.064 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=52ms age_max=126434ms
+  203.665 INFO  cf_0    HB           rho=  999.5 P=    -18.0 |v|rms=0.079 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=55ms age_max=131402ms
+  203.665 INFO  cf_1    HB           rho= 1001.9 P=     78.3 |v|rms=0.088 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=55ms age_max=131390ms
+  203.665 INFO  cf_2    HB           rho=  996.9 P=   -119.2 |v|rms=0.075 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=55ms age_max=131389ms
+  203.665 INFO  cf_3    HB           rho=  999.5 P=    -15.8 |v|rms=0.021 r_pot=0.25 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=55ms age_max=131435ms
+  203.665 INFO  cf_4    HB           rho= 1000.3 P=     16.1 |v|rms=0.064 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=55ms age_max=131434ms
+  208.714 INFO  cf_0    HB           rho=  996.8 P=   -123.0 |v|rms=0.079 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=136452ms
+  208.714 INFO  cf_1    HB           rho= 1002.2 P=     88.2 |v|rms=0.088 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=136440ms
+  208.714 INFO  cf_2    HB           rho=  996.9 P=   -121.1 |v|rms=0.075 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=136438ms
+  208.714 INFO  cf_3    HB           rho=  996.9 P=   -119.8 |v|rms=0.021 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=136485ms
+  208.714 INFO  cf_4    HB           rho=  998.0 P=    -79.1 |v|rms=0.064 r_pot=0.25 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=136484ms
+  213.764 INFO  cf_0    HB           rho=  996.2 P=   -145.6 |v|rms=0.079 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=59ms age_max=141501ms
+  213.764 INFO  cf_1    HB           rho= 1002.1 P=     85.0 |v|rms=0.088 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=59ms age_max=141489ms
+  213.764 INFO  cf_2    HB           rho=  996.3 P=   -143.9 |v|rms=0.075 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=59ms age_max=141488ms
+  213.764 INFO  cf_3    HB           rho=  996.9 P=   -117.7 |v|rms=0.021 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=59ms age_max=141535ms
+  213.764 INFO  cf_4    HB           rho=  998.0 P=    -77.0 |v|rms=0.064 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=59ms age_max=141534ms
+  218.764 INFO  cf_0    HB           rho=  996.2 P=   -144.2 |v|rms=0.079 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=52ms age_max=146502ms
+  218.764 INFO  cf_1    HB           rho=  998.2 P=    -65.9 |v|rms=0.088 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=52ms age_max=146490ms
+  218.764 INFO  cf_2    HB           rho=  996.2 P=   -145.2 |v|rms=0.075 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=52ms age_max=146488ms
+  218.764 INFO  cf_3    HB           rho=  997.2 P=   -107.8 |v|rms=0.021 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=52ms age_max=146535ms
+  218.764 INFO  cf_4    HB           rho=  998.1 P=    -73.2 |v|rms=0.064 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=52ms age_max=146534ms
+  223.814 INFO  cf_0    HB           rho=  996.4 P=   -137.3 |v|rms=0.079 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=151552ms
+  223.814 INFO  cf_1    HB           rho=  997.9 P=    -81.7 |v|rms=0.088 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=151540ms
+  223.814 INFO  cf_2    HB           rho=  996.4 P=   -137.2 |v|rms=0.075 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=151539ms
+  223.814 INFO  cf_3    HB           rho=  997.0 P=   -115.2 |v|rms=0.021 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=151585ms
+  223.814 INFO  cf_4    HB           rho=  998.0 P=    -78.7 |v|rms=0.064 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=151584ms
+  228.864 INFO  cf_0    HB           rho=  996.5 P=   -133.5 |v|rms=0.079 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=156601ms
+  228.864 INFO  cf_1    HB           rho=  997.8 P=    -83.3 |v|rms=0.088 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=156589ms
+  228.864 INFO  cf_2    HB           rho=  996.4 P=   -136.3 |v|rms=0.075 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=156588ms
+  228.864 INFO  cf_3    HB           rho=  997.1 P=   -110.4 |v|rms=0.021 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=156635ms
+  228.864 INFO  cf_4    HB           rho=  998.0 P=    -78.6 |v|rms=0.064 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=156634ms
+  233.864 INFO  cf_0    HB           rho=  996.5 P=   -132.3 |v|rms=0.079 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=161601ms
+  233.864 INFO  cf_1    HB           rho=  997.9 P=    -80.2 |v|rms=0.088 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=161589ms
+  233.864 INFO  cf_2    HB           rho=  996.5 P=   -133.5 |v|rms=0.075 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=161588ms
+  233.864 INFO  cf_3    HB           rho=  997.0 P=   -112.9 |v|rms=0.021 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=161635ms
+  233.864 INFO  cf_4    HB           rho=  998.0 P=    -77.1 |v|rms=0.064 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=161634ms
+  238.864 INFO  cf_0    HB           rho=  999.5 P=    -17.5 |v|rms=0.079 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=166601ms
+  238.864 INFO  cf_1    HB           rho=  998.1 P=    -70.0 |v|rms=0.088 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=166589ms
+  238.864 INFO  cf_2    HB           rho=  998.8 P=    -43.0 |v|rms=0.075 r_pot=0.25 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=166588ms
+  238.864 INFO  cf_3    HB           rho=  999.5 P=    -16.0 |v|rms=0.021 r_pot=0.25 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=166635ms
+  238.864 INFO  cf_4    HB           rho=  998.9 P=    -37.2 |v|rms=0.064 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=166634ms
+  243.864 INFO  cf_0    HB           rho= 1001.5 P=     61.8 |v|rms=0.079 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=171601ms
+  243.864 INFO  cf_1    HB           rho=  995.6 P=   -170.1 |v|rms=0.088 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=171589ms
+  243.864 INFO  cf_2    HB           rho= 1000.1 P=      7.4 |v|rms=0.075 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=171588ms
+  243.864 INFO  cf_3    HB           rho=  997.8 P=    -86.6 |v|rms=0.021 r_pot=0.25 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=171635ms
+  243.864 INFO  cf_4    HB           rho=  996.8 P=   -124.4 |v|rms=0.064 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=171634ms
+  248.914 INFO  cf_0    HB           rho= 1001.4 P=     56.2 |v|rms=0.079 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=176651ms
+  248.914 INFO  cf_1    HB           rho=  997.7 P=    -88.9 |v|rms=0.088 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=176639ms
+  248.914 INFO  cf_2    HB           rho=  998.3 P=    -66.7 |v|rms=0.075 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=176638ms
+  248.914 INFO  cf_3    HB           rho=  993.8 P=   -244.9 |v|rms=0.021 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=176685ms
+  248.914 INFO  cf_4    HB           rho= 1000.6 P=     24.7 |v|rms=0.064 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=176684ms
+  253.914 INFO  cf_0    HB           rho= 1001.7 P=     72.5 |v|rms=0.079 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=181652ms
+  253.914 INFO  cf_1    HB           rho=  997.6 P=    -90.6 |v|rms=0.088 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=181640ms
+  253.914 INFO  cf_2    HB           rho=  998.5 P=    -55.6 |v|rms=0.075 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=181639ms
+  253.914 INFO  cf_3    HB           rho=  994.9 P=   -201.0 |v|rms=0.021 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=181685ms
+  253.914 INFO  cf_4    HB           rho= 1000.5 P=     22.6 |v|rms=0.064 r_pot=0.26 stale=100.0% rx= 0.0Hz clip= 0.0% dt_max=51ms age_max=181684ms
+  258.047 INFO  swarm   STOP         ticks=24521 stale=78.2% clipped=0.0% late=0 slow=1 warnings_so_far=13

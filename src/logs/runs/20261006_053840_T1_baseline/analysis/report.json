@@ -1,0 +1,229 @@
+{
+  "run": "20261006_053840_T1_baseline",
+  "label": "T1_baseline",
+  "metrics": {
+    "rx_rate_hz": 19.307114373583353,
+    "rx_jitter_ms": 6.644381421342349,
+    "rx_gap_max_ms": 94.82859,
+    "stale_pct": 4.581151832460733,
+    "double_pct": 1.1780104712041886,
+    "stale_run_max": 1.0,
+    "late_pct": 0.0,
+    "tick_dt_p50_ms": 50.00342,
+    "tick_dt_p95_ms": 51.340404,
+    "tick_dt_max_ms": 59.1274,
+    "step_ms_p95": 2.22106585,
+    "pred_err_p95_m": 0.0,
+    "rtf_mean": 0.49160746031746033,
+    "rtf_p5": 0.291449,
+    "rtf_used": 0.49160746031746033,
+    "sim_s_per_tick_ms": 24.58037301587302,
+    "cmd_rms": 0.01745362539050948,
+    "mean_cmd_max_mps": 0.02493556998014752,
+    "mean_v_max_mps": 0.015052968262211901,
+    "slow_drift_rms_mps": 0.014520656686654452,
+    "v_rms_mps": 0.0014616521604892021,
+    "osc_hz_wall": 0.4248046875,
+    "osc_hz_sim": 0.8641135901918132,
+    "osc_prom": 184.1698686931111,
+    "rms_slope_per_s": 0.07451109682761589,
+    "osc_growing": 0,
+    "osc_sustained": 0,
+    "ring_radius_start_m": 0.05415564549599748,
+    "ring_radius_end_m": 0.05418511402795152,
+    "ring_radius_trend_mps": 1.5509753660021632e-06,
+    "centroid_drift_m": 0.01775994770072008,
+    "centroid_speed_mps": 0.0009347340895115836,
+    "max_displacement_m": 0.017841957822381925,
+    "ring_radius_equilibrium_m": NaN,
+    "min_pair_dist_m": 0.10756579052710541,
+    "rho_within_10pct": 0.0,
+    "rho_min": 706.6721,
+    "rho_max": 706.7069,
+    "P_min": -7075.407,
+    "P_max": -7075.06,
+    "a_ap_rms": 0.3517347326215423,
+    "a_av_rms": 0.00784864110255374,
+    "a_ad_rms": 0.15167491435960956,
+    "a_ae_rms": 0.0,
+    "a_a_rms": 0.19807914220575698,
+    "clip_pct": 0.0,
+    "cmd_flip_pct": 0.0,
+    "z_err_max_m": 0.04921455497382199,
+    "z_slope_max_mps": 0.000861022719229725
+  },
+  "per_drone": {
+    "cf_0": {
+      "rx_hz": 19.345348803920963,
+      "stale_pct": 4.450261780104712,
+      "dbl_pct": 1.3089005235602094,
+      "stale_run_max": 1.0,
+      "pred_err_p95": 0.0,
+      "mean_cmd": 0.02493556998014752,
+      "mean_v": 0.015052968262211901,
+      "mean_cmd_radial": -0.024932407268003484,
+      "mean_v_radial": -0.015031440107562875,
+      "osc_hz_wall": 0.41015625,
+      "osc_hz_sim": 0.8343165698403714,
+      "osc_prom": 157.19217851109605,
+      "v_rms": 0.0015467453429268206,
+      "rms_slope": 0.08210368884213223,
+      "slow_rms": 0.015146245200807039,
+      "rms_first": 0.0008074177431331433,
+      "rms_last": 0.002284314463832085,
+      "disp_m": 0.017841957822381925,
+      "rho_mean": 706.6774057591622,
+      "rho_min": 706.6721,
+      "rho_max": 706.7069,
+      "P_mean": -7075.3537303664925,
+      "a_ap_rms": 0.3517347326215423,
+      "a_av_rms": 0.00784864110255374,
+      "a_ad_rms": 0.15763462893072835,
+      "a_ae_rms": 0.0,
+      "a_a_rms": 0.19197149266090516,
+      "flip_pct": 0.0,
+      "z_mean": 0.450785445026178,
+      "z_std": 0.005171080841622034,
+      "z_slope": 0.0008549589740717903,
+      "vz_rms": 0.001296001998248088
+    },
+    "cf_1": {
+      "rx_hz": 19.268879943245746,
+      "stale_pct": 4.712041884816754,
+      "dbl_pct": 1.0471204188481675,
+      "stale_run_max": 1.0,
+      "pred_err_p95": 0.0,
+      "mean_cmd": 0.02431830618156679,
+      "mean_v": 0.013721169359098926,
+      "mean_cmd_radial": -0.02431829446754348,
+      "mean_v_radial": -0.013721089470343078,
+      "osc_hz_wall": 0.439453125,
+      "osc_hz_sim": 0.893910610543255,
+      "osc_prom": 211.14755887512618,
+      "v_rms": 0.0013765589780515837,
+      "rms_slope": 0.06691850481309956,
+      "slow_rms": 0.013895068172501863,
+      "rms_first": 0.0007985135161686189,
+      "rms_last": 0.001859672492556509,
+      "disp_m": 0.017680035710319515,
+      "rho_mean": 706.6774057591622,
+      "rho_min": 706.6721,
+      "rho_max": 706.7069,
+      "P_mean": -7075.3537303664925,
+      "a_ap_rms": 0.3517347326215423,
+      "a_av_rms": 0.00784864110255374,
+      "a_ad_rms": 0.14571519978849073,
+      "a_ae_rms": 0.0,
+      "a_a_rms": 0.2041867917506088,
+      "flip_pct": 0.0,
+      "z_mean": 0.45401366465968584,
+      "z_std": 0.005196031681012553,
+      "z_slope": 0.000861022719229725,
+      "vz_rms": 0.0013203190435252977
+    }
+  },
+  "checks": [
+    {
+      "id": "C1",
+      "title": "simulator speed (real-time factor)",
+      "status": "FAIL",
+      "value": "RTF 0.49 (p5 0.29), source rtf.csv"
+    },
+    {
+      "id": "C2",
+      "title": "control tick timing",
+      "status": "PASS",
+      "value": "dt p50/p95/max = 50/51/59 ms (nominal 50); late 0.0 %; step cost p95 2.22 ms"
+    },
+    {
+      "id": "C3",
+      "title": "ticks without a fresh state message",
+      "status": "PASS",
+      "value": "4.6 % stale (longest run 1 ticks), 1.2 % ticks got 2+ messages; stale_policy=predict"
+    },
+    {
+      "id": "C4",
+      "title": "predicted vs measured position",
+      "status": "PASS",
+      "value": "p95 gap 0.0 cm"
+    },
+    {
+      "id": "C5",
+      "title": "drone follows velocity commands",
+      "status": "INFO",
+      "value": "command rms only 0.017 m/s: too small to identify the drone model (this is normal for a calm SPH run). Run test T3 (step/chirp) for gain and lag."
+    },
+    {
+      "id": "C6",
+      "title": "drone speed when commanded ~0 (own drift)",
+      "status": "INFO",
+      "value": "no stretch with |cmd| < 1 cm/s for 2 s in the window; run test T2 (zero command)"
+    },
+    {
+      "id": "C7",
+      "title": "oscillation of the drones",
+      "status": "PASS",
+      "value": "oscillation (>0.3 Hz) rms 0.001 m/s, dominant 0.42 Hz wall = 0.86 Hz sim (peak 184x median), amplitude trend 0.075 /s -> none/steady; slow part (<0.3 Hz, drift) rms 0.015 m/s"
+    },
+    {
+      "id": "C8",
+      "title": "swarm shape and drift",
+      "status": "PASS",
+      "value": "mean radius from centroid 0.05 -> 0.05 m over 19 s (trend +0.0 mm/s); equilibrium (rho=rho0) ring radius n/a m; centroid moved 2 cm (0.9 mm/s); largest displacement 0.02 m (cf_0)"
+    },
+    {
+      "id": "C9",
+      "title": "closest approach between drones",
+      "status": "FAIL",
+      "value": "min 0.11 m, median 0.11 m"
+    },
+    {
+      "id": "C10",
+      "title": "SPH density regime",
+      "status": "WARN",
+      "value": "rho within +-10 % of rho0 0 % of the window; rho 707..707, P -7075..-7075"
+    },
+    {
+      "id": "C11",
+      "title": "acceleration budget (rms, m/s^2)",
+      "status": "INFO",
+      "value": "pressure 0.352, viscosity 0.008, damping 0.152, external 0.000, total 0.198 -> dominant: pressure"
+    },
+    {
+      "id": "C12",
+      "title": "speed command saturation",
+      "status": "PASS",
+      "value": "0.0 % of ticks clipped at 0.5 m/s"
+    },
+    {
+      "id": "C13",
+      "title": "command chatter (direction flips tick to tick)",
+      "status": "PASS",
+      "value": "0 % of consecutive ticks reverse direction"
+    },
+    {
+      "id": "C14",
+      "title": "altitude hold (z, commanded vz = 0)",
+      "status": "PASS",
+      "value": "z mean 0.45 m (target 0.5), worst error 5 cm, worst slope 0.9 mm/s"
+    },
+    {
+      "id": "C15",
+      "title": "average command vs average motion",
+      "status": "INFO",
+      "value": "cf_0: cmd 25 mm/s (radial -25), moves 15 mm/s; cf_1: cmd 24 mm/s (radial -24), moves 14 mm/s"
+    }
+  ],
+  "diagnosis": [
+    {
+      "severity": "MED",
+      "code": "TIME-BASE",
+      "text": "The simulator runs at about 0.49x real time while the controller ticks at 20 Hz of WALL time: each control tick covers only 25 ms of simulated time instead of 50 ms, and the 20 Hz state topic arrives at about 19.3 Hz wall. The SPH model integrates dt=50 ms per tick, but only 25 ms of simulated time passed, so per SIMULATED second the controller applies 2.0x the acceleration the SPH model intends. Test T6/T7 (RTF sweep, dt_model scaled by RTF)."
+    }
+  ],
+  "window": [
+    9.197600000000001,
+    28.248
+  ],
+  "flight_start": 7.1976
+}

@@ -18,3 +18,7 @@ ln -sf /root/dev_ws/install/drone_controller/bin/controller \
        /root/dev_ws/install/drone_controller/lib/drone_controller/controller
 ln -sf /root/dev_ws/install/drone_controller/bin/plain_sph \
        /root/dev_ws/install/drone_controller/lib/drone_controller/plain_sph
+ln -sf /root/dev_ws/install/drone_controller/bin/swarm_sph \
+       /root/dev_ws/install/drone_controller/lib/drone_controller/swarm_sph
+ln -sf /root/dev_ws/install/drone_controller/bin/particle_sim \
+       /root/dev_ws/install/drone_controller/lib/drone_controller/particle_sim

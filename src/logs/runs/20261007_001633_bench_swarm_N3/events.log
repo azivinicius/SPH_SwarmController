@@ -1,0 +1,82 @@
+    0.000 INFO  swarm   START        swarm: 3 drones, egos=['cf_0', 'cf_1', 'cf_2'], label="bench_swarm_N3", sph_gain=1.0 zeta=10.0 f_k=0.0 gamma=2.0 m=7000.0 policy=predict platform=sim fence=None state_timeout=0.0 gate=flight clock=wall vmax=0.5 test=zero amp=0.15 m/s period=4.0 s axis=x delay=3.0 s duration=60.0 s
+    0.344 INFO  cf_1    FIRST_RX     first state of cf_1: x=-0.222 y=0.385 z=0.015 (1/3 drones known)
+    0.345 INFO  cf_0    FIRST_RX     first state of cf_0: x=0.445 y=-0.000 z=0.015 (2/3 drones known)
+    0.347 INFO  cf_2    FIRST_RX     first state of cf_2: x=-0.222 y=-0.385 z=0.015 (3/3 drones known)
+    0.386 INFO  swarm   GATE_WAIT    below z=0.40 m: cf_0,cf_1,cf_2
+    5.036 INFO  cf_0    HB           rho= 1000.0 P=     -0.3 |v|rms=0.000 r_pot=2.53 stale= 0.0% rx=19.4Hz clip= 0.0% dt_max=51ms age_max=24ms
+    5.036 INFO  cf_1    HB           rho= 1000.0 P=     -0.4 |v|rms=0.000 r_pot=2.75 stale= 3.2% rx=19.2Hz clip= 0.0% dt_max=51ms age_max=51ms
+    5.036 INFO  cf_2    HB           rho= 1000.0 P=     -0.4 |v|rms=0.000 r_pot=3.26 stale= 0.0% rx=19.4Hz clip= 0.0% dt_max=51ms age_max=44ms
+    5.436 INFO  swarm   GATE_WAIT    below z=0.40 m: cf_0,cf_1,cf_2
+   10.086 INFO  cf_0    HB           rho= 1000.0 P=     -0.9 |v|rms=0.000 r_pot=2.53 stale= 1.0% rx=20.2Hz clip= 0.0% dt_max=51ms age_max=53ms
+   10.086 INFO  cf_1    HB           rho= 1000.0 P=     -0.4 |v|rms=0.000 r_pot=2.75 stale= 0.0% rx=20.2Hz clip= 0.0% dt_max=51ms age_max=36ms
+   10.086 INFO  cf_2    HB           rho= 1000.0 P=     -1.1 |v|rms=0.000 r_pot=3.26 stale= 0.0% rx=20.2Hz clip= 0.0% dt_max=51ms age_max=25ms
+   10.436 INFO  swarm   GATE_WAIT    below z=0.40 m: cf_0,cf_1,cf_2
+   15.136 INFO  cf_0    HB           rho=  999.8 P=     -8.3 |v|rms=0.000 r_pot=2.53 stale= 4.0% rx=20.0Hz clip= 0.0% dt_max=52ms age_max=51ms
+   15.136 INFO  cf_1    HB           rho=  999.8 P=     -7.3 |v|rms=0.000 r_pot=2.75 stale= 1.0% rx=20.0Hz clip= 0.0% dt_max=52ms age_max=54ms
+   15.136 INFO  cf_2    HB           rho=  999.9 P=     -5.9 |v|rms=0.000 r_pot=3.26 stale= 1.0% rx=20.0Hz clip= 0.0% dt_max=52ms age_max=52ms
+   15.486 INFO  swarm   GATE_WAIT    below z=0.40 m: cf_0,cf_1,cf_2
+   20.186 INFO  cf_0    HB           rho=  999.5 P=    -20.6 |v|rms=0.001 r_pot=2.53 stale= 0.0% rx=20.2Hz clip= 0.0% dt_max=51ms age_max=12ms
+   20.186 INFO  cf_1    HB           rho=  999.5 P=    -21.4 |v|rms=0.000 r_pot=2.75 stale= 0.0% rx=20.2Hz clip= 0.0% dt_max=51ms age_max=14ms
+   20.186 INFO  cf_2    HB           rho=  999.6 P=    -17.6 |v|rms=0.000 r_pot=3.26 stale= 0.0% rx=20.2Hz clip= 0.0% dt_max=51ms age_max=17ms
+   20.536 INFO  swarm   GATE_WAIT    below z=0.40 m: cf_0,cf_1,cf_2
+   25.236 INFO  cf_0    HB           rho=  998.9 P=    -44.3 |v|rms=0.001 r_pot=2.52 stale= 0.0% rx=20.2Hz clip= 0.0% dt_max=51ms age_max=6ms
+   25.236 INFO  cf_1    HB           rho=  999.2 P=    -32.7 |v|rms=0.000 r_pot=2.75 stale= 3.0% rx=20.2Hz clip= 0.0% dt_max=51ms age_max=51ms
+   25.236 INFO  cf_2    HB           rho=  999.3 P=    -28.9 |v|rms=0.000 r_pot=3.26 stale= 0.0% rx=20.2Hz clip= 0.0% dt_max=51ms age_max=8ms
+   25.536 INFO  swarm   GATE_WAIT    below z=0.40 m: cf_0,cf_1,cf_2
+   30.286 INFO  cf_0    HB           rho=  998.1 P=    -74.5 |v|rms=0.001 r_pot=2.52 stale= 5.9% rx=20.0Hz clip= 0.0% dt_max=51ms age_max=52ms
+   30.286 INFO  cf_1    HB           rho=  998.9 P=    -42.9 |v|rms=0.000 r_pot=2.75 stale= 8.9% rx=20.0Hz clip= 0.0% dt_max=51ms age_max=51ms
+   30.286 INFO  cf_2    HB           rho=  999.2 P=    -33.6 |v|rms=0.000 r_pot=3.25 stale= 8.9% rx=20.2Hz clip= 0.0% dt_max=51ms age_max=52ms
+   30.536 INFO  swarm   GATE_WAIT    below z=0.40 m: cf_0,cf_1,cf_2
+   35.336 INFO  cf_0    HB           rho=  997.3 P=   -107.4 |v|rms=0.000 r_pot=2.51 stale= 2.0% rx=20.2Hz clip= 0.0% dt_max=51ms age_max=50ms
+   35.336 INFO  cf_1    HB           rho=  998.3 P=    -68.0 |v|rms=0.000 r_pot=2.75 stale= 0.0% rx=20.2Hz clip= 0.0% dt_max=51ms age_max=45ms
+   35.336 INFO  cf_2    HB           rho=  998.8 P=    -48.2 |v|rms=0.000 r_pot=3.25 stale=12.9% rx=20.0Hz clip= 0.0% dt_max=51ms age_max=50ms
+   35.586 INFO  swarm   GATE_WAIT    below z=0.40 m: cf_0,cf_1,cf_2
+   40.386 INFO  cf_0    HB           rho=  996.7 P=   -130.7 |v|rms=0.000 r_pot=2.51 stale= 0.0% rx=20.2Hz clip= 0.0% dt_max=51ms age_max=45ms
+   40.386 INFO  cf_1    HB           rho=  997.9 P=    -83.5 |v|rms=0.000 r_pot=2.75 stale= 0.0% rx=20.2Hz clip= 0.0% dt_max=51ms age_max=42ms
+   40.386 INFO  cf_2    HB           rho=  998.4 P=    -65.1 |v|rms=0.000 r_pot=3.25 stale= 0.0% rx=20.2Hz clip= 0.0% dt_max=51ms age_max=47ms
+   40.636 INFO  swarm   GATE_WAIT    below z=0.40 m: cf_0,cf_1,cf_2
+   45.436 INFO  cf_0    HB           rho=  996.4 P=   -142.8 |v|rms=0.000 r_pot=2.50 stale= 0.0% rx=20.2Hz clip= 0.0% dt_max=51ms age_max=42ms
+   45.436 INFO  cf_1    HB           rho=  998.0 P=    -79.9 |v|rms=0.000 r_pot=2.74 stale= 0.0% rx=20.2Hz clip= 0.0% dt_max=51ms age_max=40ms
+   45.436 INFO  cf_2    HB           rho=  998.2 P=    -72.3 |v|rms=0.000 r_pot=3.25 stale= 0.0% rx=20.2Hz clip= 0.0% dt_max=51ms age_max=43ms
+   45.686 INFO  swarm   GATE_WAIT    below z=0.40 m: cf_0,cf_1,cf_2
+   50.486 INFO  cf_0    HB           rho=  995.9 P=   -163.5 |v|rms=0.000 r_pot=2.50 stale= 0.0% rx=20.2Hz clip= 0.0% dt_max=51ms age_max=29ms
+   50.486 INFO  cf_1    HB           rho=  998.1 P=    -76.1 |v|rms=0.001 r_pot=2.74 stale= 0.0% rx=20.2Hz clip= 0.0% dt_max=51ms age_max=22ms
+   50.486 INFO  cf_2    HB           rho=  997.7 P=    -92.8 |v|rms=0.000 r_pot=3.25 stale= 1.0% rx=20.0Hz clip= 0.0% dt_max=51ms age_max=56ms
+   50.686 INFO  swarm   GATE_WAIT    below z=0.40 m: cf_0,cf_1,cf_2
+   55.486 INFO  cf_0    HB           rho=  995.2 P=   -192.0 |v|rms=0.001 r_pot=2.49 stale= 0.0% rx=20.0Hz clip= 0.0% dt_max=52ms age_max=21ms
+   55.486 INFO  cf_1    HB           rho=  998.3 P=    -67.4 |v|rms=0.001 r_pot=2.74 stale= 3.0% rx=19.8Hz clip= 0.0% dt_max=52ms age_max=53ms
+   55.486 INFO  cf_2    HB           rho=  997.1 P=   -116.1 |v|rms=0.000 r_pot=3.25 stale= 0.0% rx=20.0Hz clip= 0.0% dt_max=52ms age_max=44ms
+   55.736 INFO  swarm   GATE_WAIT    below z=0.40 m: cf_0,cf_1,cf_2
+   60.486 INFO  cf_0    HB           rho=  994.5 P=   -219.3 |v|rms=0.000 r_pot=2.48 stale= 7.0% rx=19.8Hz clip= 0.0% dt_max=51ms age_max=52ms
+   60.486 INFO  cf_1    HB           rho=  998.5 P=    -58.5 |v|rms=0.001 r_pot=2.74 stale= 0.0% rx=20.0Hz clip= 0.0% dt_max=51ms age_max=34ms
+   60.486 INFO  cf_2    HB           rho=  996.4 P=   -144.3 |v|rms=0.000 r_pot=3.25 stale= 0.0% rx=20.0Hz clip= 0.0% dt_max=51ms age_max=32ms
+   60.736 INFO  swarm   GATE_WAIT    below z=0.40 m: cf_0,cf_1,cf_2
+   65.536 INFO  cf_0    HB           rho=  994.1 P=   -234.0 |v|rms=0.000 r_pot=2.47 stale= 0.0% rx=20.2Hz clip= 0.0% dt_max=50ms age_max=42ms
+   65.536 INFO  cf_1    HB           rho=  998.9 P=    -45.7 |v|rms=0.000 r_pot=2.74 stale= 0.0% rx=20.2Hz clip= 0.0% dt_max=50ms age_max=22ms
+   65.536 INFO  cf_2    HB           rho=  995.9 P=   -163.2 |v|rms=0.000 r_pot=3.26 stale= 0.0% rx=20.2Hz clip= 0.0% dt_max=50ms age_max=17ms
+   65.786 INFO  swarm   GATE_WAIT    below z=0.40 m: cf_0,cf_1,cf_2
+   70.586 INFO  cf_0    HB           rho=  993.8 P=   -244.8 |v|rms=0.000 r_pot=2.47 stale= 0.0% rx=20.2Hz clip= 0.0% dt_max=51ms age_max=33ms
+   70.586 INFO  cf_1    HB           rho=  999.0 P=    -39.6 |v|rms=0.000 r_pot=2.74 stale= 0.0% rx=20.2Hz clip= 0.0% dt_max=51ms age_max=11ms
+   70.586 INFO  cf_2    HB           rho=  995.3 P=   -185.9 |v|rms=0.001 r_pot=3.26 stale= 0.0% rx=20.2Hz clip= 0.0% dt_max=51ms age_max=13ms
+   70.836 INFO  swarm   GATE_WAIT    below z=0.40 m: cf_0,cf_1,cf_2
+   75.636 INFO  cf_0    HB           rho=  993.6 P=   -253.6 |v|rms=0.000 r_pot=2.47 stale= 0.0% rx=20.2Hz clip= 0.0% dt_max=51ms age_max=25ms
+   75.636 INFO  cf_1    HB           rho=  998.9 P=    -44.5 |v|rms=0.000 r_pot=2.73 stale= 0.0% rx=20.2Hz clip= 0.0% dt_max=51ms age_max=8ms
+   75.636 INFO  cf_2    HB           rho=  994.5 P=   -216.7 |v|rms=0.000 r_pot=3.26 stale= 1.0% rx=20.0Hz clip= 0.0% dt_max=51ms age_max=51ms
+   75.836 INFO  swarm   GATE_WAIT    below z=0.40 m: cf_0,cf_1,cf_2
+   80.686 INFO  cf_0    HB           rho=  993.2 P=   -269.5 |v|rms=0.000 r_pot=2.46 stale= 0.0% rx=20.2Hz clip= 0.0% dt_max=50ms age_max=19ms
+   80.686 INFO  cf_1    HB           rho=  998.4 P=    -62.9 |v|rms=0.000 r_pot=2.73 stale= 0.0% rx=20.2Hz clip= 0.0% dt_max=50ms age_max=5ms
+   80.686 INFO  cf_2    HB           rho=  993.6 P=   -251.6 |v|rms=0.000 r_pot=3.26 stale= 0.0% rx=20.2Hz clip= 0.0% dt_max=50ms age_max=45ms
+   80.886 INFO  swarm   GATE_WAIT    below z=0.40 m: cf_0,cf_1,cf_2
+   85.686 INFO  cf_0    HB           rho=  992.5 P=   -296.9 |v|rms=0.000 r_pot=2.45 stale= 0.0% rx=20.0Hz clip= 0.0% dt_max=51ms age_max=17ms
+   85.686 INFO  cf_1    HB           rho=  997.8 P=    -87.1 |v|rms=0.000 r_pot=2.73 stale= 3.0% rx=19.8Hz clip= 0.0% dt_max=51ms age_max=51ms
+   85.686 INFO  cf_2    HB           rho=  992.7 P=   -288.1 |v|rms=0.000 r_pot=3.27 stale= 0.0% rx=20.0Hz clip= 0.0% dt_max=51ms age_max=42ms
+   85.886 INFO  swarm   GATE_WAIT    below z=0.40 m: cf_0,cf_1,cf_2
+   90.686 INFO  cf_0    HB           rho=  992.0 P=   -317.5 |v|rms=0.000 r_pot=2.45 stale= 8.0% rx=19.8Hz clip= 0.0% dt_max=52ms age_max=53ms
+   90.686 INFO  cf_1    HB           rho=  997.7 P=    -93.6 |v|rms=0.000 r_pot=2.73 stale= 0.0% rx=20.0Hz clip= 0.0% dt_max=52ms age_max=36ms
+   90.686 INFO  cf_2    HB           rho=  992.1 P=   -312.4 |v|rms=0.000 r_pot=3.27 stale= 0.0% rx=20.0Hz clip= 0.0% dt_max=52ms age_max=26ms
+   90.936 INFO  swarm   GATE_WAIT    below z=0.40 m: cf_0,cf_1,cf_2
+   95.736 INFO  cf_0    HB           rho=  991.4 P=   -338.9 |v|rms=0.000 r_pot=2.44 stale= 0.0% rx=20.2Hz clip= 0.0% dt_max=51ms age_max=48ms
+   95.736 INFO  cf_1    HB           rho=  997.5 P=   -101.4 |v|rms=0.000 r_pot=2.72 stale= 0.0% rx=20.2Hz clip= 0.0% dt_max=51ms age_max=27ms
+   95.736 INFO  cf_2    HB           rho=  991.3 P=   -342.6 |v|rms=0.000 r_pot=3.27 stale= 0.0% rx=20.2Hz clip= 0.0% dt_max=51ms age_max=21ms
+   95.986 INFO  swarm   GATE_WAIT    below z=0.40 m: cf_0,cf_1,cf_2
+   97.623 INFO  swarm   STOP         ticks=5835 stale=1.3% clipped=0.0% late=0 slow=0 warnings_so_far=0

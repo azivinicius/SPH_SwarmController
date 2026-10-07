@@ -1,155 +1,64 @@
-import csv
-import os
+"""One SPH controller per drone (launch file starts N of these).
+
+The control loop lives in sph_core.SphCore; this node only connects it to ROS.
+Density / pressure of a drone are recomputed when ITS state message arrives
+(density_on_rx=True), as before.  See sph_core.py for the new switches and
+sph_diag.py for the run folder written to logs/runs/<run_id>/.
+"""
 
 import rclpy
+from std_srvs.srv import Trigger
 from rclpy.node import Node
 from crazyflie_interfaces.msg import LogDataGeneric
 
 from drone_controller.commander import Commander
-from drone_controller.particle import Particle
-from drone_controller.potential import Potential
-
+from drone_controller.sph_ros import ControlDriver, build_core, header_latency_ms, read_params
 
 
 class SphPlainNode(Node):
-    CONTROL_PERIOD = 0.05
-
     def __init__(self):
         super().__init__('plain_sph')
-
         self.declare_parameter('robot_id', 0)
-        self.declare_parameter('robot_prefix', 'cf_')
-        self.declare_parameter('total_robots', 2)
-        self.declare_parameter('fixed_z', 0.5)
-        # self.declare_parameter('particle_mass', 10635.0)
-        self.declare_parameter('particle_mass', 7000.0)
-        # self.declare_parameter('particle_mass', 6500.0)
-        # self.declare_parameter('particle_mass', 7500.0)
-        self.declare_parameter('smoothing_h', 3.0)
-        self.declare_parameter('rho_0', 1000.0)
-        self.declare_parameter('gamma', 7.0)
-        self.declare_parameter('alpha', 1.0)
-        self.declare_parameter('beta', 2.0)
-        # self.declare_parameter('zetta_extra', 5.0)
-        self.declare_parameter('zetta_extra', 30.0)
+        robot_id = self.get_parameter('robot_id').value
+        cfg = read_params(self, {'total_robots': 2})
+        self._robot_name = f"{cfg['robot_prefix']}{robot_id}"
 
-        self.declare_parameter('xc', 2.0)
-        self.declare_parameter('yc', 2.0)
-        self.declare_parameter('R', 0.5)
+        self._core, names = build_core(
+            self, cfg, egos_from_names=lambda _names: [self._robot_name],
+            density_on_rx=True, tag=f'plain_{self._robot_name}', write_meta=(robot_id == 0))
+        self._t0 = self.get_clock().now()
+        period = cfg['control_period']
 
-        self.declare_parameter('f_beta', 1.0)
-        self.declare_parameter('f_k', 2.0)
-
-
-        self._robot_id = self.get_parameter('robot_id').value
-        self._robot_prefix = self.get_parameter('robot_prefix').value
-        self._total_robots = self.get_parameter('total_robots').value
-        self._fixed_z = self.get_parameter('fixed_z').value
-        mass = self.get_parameter('particle_mass').value
-        h = self.get_parameter('smoothing_h').value
-        rho_0 = self.get_parameter('rho_0').value
-        gamma = self.get_parameter('gamma').value
-        alpha = self.get_parameter('alpha').value
-        beta = self.get_parameter('beta').value
-        zetta_extra = self.get_parameter('zetta_extra').value
-
-        xc = self.get_parameter('xc').value
-        yc = self.get_parameter('yc').value
-        R = self.get_parameter('R').value
-
-        self.f_beta = self.get_parameter('f_beta').value
-        self.f_k = self.get_parameter('f_k').value
-
-        self._robot_name = f'{self._robot_prefix}{self._robot_id}'
-        self._all_names = [f'{self._robot_prefix}{i}' for i in range(self._total_robots)]
-
-        self._particles = {
-            name: Particle(
-                id=name, x=0.0, y=0.0, h=h, m=mass,
-                rho_0=rho_0, gamma=gamma, alpha=alpha, beta=beta, zetta_extra=zetta_extra,
-            )
-            for name in self._all_names
-        }
-
-        self._known = set()
-
-        for name in self._all_names:
+        for name in names:
             self.create_subscription(
                 LogDataGeneric, f'/{name}/state',
-                lambda msg, n=name: self._state_callback(n, msg), 10,
-            )
-
-        self._commander = Commander(
-            self, self._robot_name, dt=self.CONTROL_PERIOD,
-            max_velocity=0.5, max_acceleration=1.0,
-        )
-
-        self.potential= Potential(
-            xc = xc,
-            yc = yc,
-            R = R,
-        )
-
-        log_dir = '/root/dev_ws/src/logs'
-        os.makedirs(log_dir, exist_ok=True)
-        log_path = os.path.join(log_dir, f'plain_sph_{self._robot_name}.csv')
-        self._log_file = open(log_path, 'w', newline='')
-        self._log_writer = csv.writer(self._log_file)
-        # self._log_writer.writerow(['t', 'rho', 'pressure', 'ext_force_x', 'ext_force_y', 'vel_x', 'vel_y'])
-        self._log_writer.writerow(['t', 'rho', 'pressure', 'ext_force_x', 'ext_force_y',
-                           'vel_x', 'vel_y', 'x', 'y'])        
-        self._t0 = self.get_clock().now()
-        self._timer = self.create_timer(self.CONTROL_PERIOD, self._control_step)
-        self._last_tick_time = None
-        
+                lambda msg, n=name: self._state_callback(n, msg), 10)
+        self._commander = Commander(self, self._robot_name, dt=period,
+                                    max_velocity=cfg['max_velocity'], max_acceleration=1.0)
+        self._driver = ControlDriver(self, cfg, self._core, self._now, self._publish)
+        # ros2 service call /<node>/hover std_srvs/srv/Trigger : 0 m/s to the drones, latched
+        self.create_service(Trigger, '~/hover', self._hover_srv)
         self.get_logger().info(f'[{self._robot_name}] SPH plain node started.')
 
+    def _now(self):
+        return (self.get_clock().now() - self._t0).nanoseconds / 1e9
+
     def _state_callback(self, name, msg):
-        if len(msg.values) < 6:
-            return
-        x, y, z, vx, vy, vz = msg.values[:6]
-        p = self._particles[name]
-        p.x, p.y = x, y
-        p.vel = [vx, vy]
+        self._core.on_state(name, self._now(), msg.values, header_latency_ms(self, msg))
 
-        self._known.add(name)
-        known = [self._particles[n] for n in self._all_names if n in self._known]
-        p.rho = p.next_rho(known)
-        p.P = p.next_pressure()
+    def _hover_srv(self, _req, resp):
+        self._core.request_hover(self._now())
+        resp.success, resp.message = True, 'controller now commands 0 m/s (drones hover); land them by hand'
+        return resp
 
-    def _control_step(self):
-        if self._robot_name not in self._known:
-            return
-
-        known_particles = [
-            self._particles[n] for n in self._all_names if n in self._known
-        ]
-
-        # for p in known_particles:
-        #     p.rho = p.next_rho(known_particles)
-        # # for p in known_particles:
-        #     p.P = p.next_pressure()
-
-        ego = self._particles[self._robot_name]
-        ego.ext_force = self.potential.force(ego.x, ego.y, self.f_beta, self.f_k)
-
-        neighbors = [p for p in known_particles if p.id != self._robot_name]
-
-        measured_position = (ego.x, ego.y)  # real state, captured before update_particle changes it
-
-        dvdt = ego.next_vel(neighbors)
-        ego.update_particle(ego.rho, ego.P, dvdt, self.CONTROL_PERIOD)
-
-        t = (self.get_clock().now() - self._t0).nanoseconds / 1e9
-        # self._log_writer.writerow([t, ego.rho, ego.P, ego.ext_force[0], ego.ext_force[1], ego.vel[0], ego.vel[1]])
-        self._log_writer.writerow([t, ego.rho, ego.P, ego.ext_force[0], ego.ext_force[1],
-                           ego.vel[0], ego.vel[1],
-                           measured_position[0], measured_position[1]])
-        # self._commander.send_velocity(measured_position, ego.vel, fixed_z=self._fixed_z)
-        self._commander.send_velocity_world(ego.vel,0.0)
+    def _publish(self, out):
+        cmd = out.get(self._robot_name)
+        if cmd is not None:
+            self._commander.send_velocity_world(cmd[:2], cmd[2] if len(cmd) > 2 else 0.0)
 
     def destroy_node(self):
-        self._log_file.close()
+        self._driver.close()
+        self._core.close(self._now())
         super().destroy_node()
 
 

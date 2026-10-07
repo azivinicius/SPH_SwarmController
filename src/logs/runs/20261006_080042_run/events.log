@@ -1,0 +1,11 @@
+    0.000 INFO  swarm   START        swarm: 3 drones, egos=['cf_0', 'cf_1', 'cf_2'], label="run", sph_gain=1.0 zeta=10.0 f_k=2.0 gamma=2.0 m=7000.0 policy=predict platform=sim fence=None state_timeout=0.0 gate=none clock=wall vmax=0.5 test=none amp=0.15 m/s period=4.0 s axis=x delay=3.0 s duration=60.0 s
+    0.418 INFO  cf_0    FIRST_RX     first state of cf_0: x=0.445 y=-0.000 z=0.015 (1/3 drones known)
+    0.419 INFO  cf_1    FIRST_RX     first state of cf_1: x=-0.222 y=0.385 z=0.015 (2/3 drones known)
+    0.420 INFO  cf_2    FIRST_RX     first state of cf_2: x=-0.222 y=-0.385 z=0.015 (3/3 drones known)
+    0.931 WARN  cf_0    LATE_TICK    tick came 80 ms after the previous one (nominal 50 ms)
+    0.931 WARN  cf_1    LATE_TICK    tick came 80 ms after the previous one (nominal 50 ms)
+    0.931 WARN  cf_2    LATE_TICK    tick came 80 ms after the previous one (nominal 50 ms)
+    0.931 WARN  swarm   SLOW_STEP    control step took 29.0 ms (period 50 ms, 3 drones)
+    1.483 WARN  cf_2    STALE_RUN    3 consecutive ticks (0.15 s) without a state message from cf_2
+    2.396 WARN  cf_1    STALE_RUN    3 consecutive ticks (0.15 s) without a state message from cf_1
+    2.751 INFO  swarm   STOP         ticks=132 stale=33.3% clipped=0.0% late=9 slow=1 warnings_so_far=6

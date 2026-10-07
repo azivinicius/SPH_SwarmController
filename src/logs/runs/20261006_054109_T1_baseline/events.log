@@ -1,0 +1,258 @@
+    0.000 INFO  swarm   START        swarm: 5 drones, egos=['cf_0', 'cf_1', 'cf_2', 'cf_3', 'cf_4'], label="T1_baseline", sph_gain=1.0 zeta=10.0 f_k=0.0 gamma=2.0 m=7000.0 policy=predict gate=none test=none amp=0.15 m/s period=4.0 s axis=x delay=3.0 s duration=60.0 s
+    2.810 INFO  cf_0    FIRST_RX     first state of cf_0: x=1.510 y=-0.000 z=0.793 (1/5 drones known)
+    2.823 INFO  cf_1    FIRST_RX     first state of cf_1: x=0.467 y=1.436 z=0.803 (2/5 drones known)
+    2.834 INFO  cf_2    FIRST_RX     first state of cf_2: x=-1.222 y=0.888 z=0.819 (3/5 drones known)
+    2.835 INFO  cf_3    FIRST_RX     first state of cf_3: x=-1.222 y=-0.888 z=0.808 (4/5 drones known)
+    2.883 INFO  cf_4    FIRST_RX     first state of cf_4: x=0.467 y=-1.436 z=0.788 (5/5 drones known)
+    2.887 INFO  cf_0    RHO_OK       density 1000 = 1.00 x rho_0 (P=-7, n_nb=4, nearest 1.78 m)
+    2.887 INFO  cf_3    RHO_OK       density 1000 = 1.00 x rho_0 (P=-8, n_nb=4, nearest 1.78 m)
+    3.261 WARN  cf_0    LATE_TICK    tick came 81 ms after the previous one (nominal 50 ms)
+    3.261 WARN  cf_1    LATE_TICK    tick came 81 ms after the previous one (nominal 50 ms)
+    3.261 WARN  cf_2    LATE_TICK    tick came 81 ms after the previous one (nominal 50 ms)
+    3.261 WARN  cf_3    LATE_TICK    tick came 81 ms after the previous one (nominal 50 ms)
+    3.261 WARN  cf_4    LATE_TICK    tick came 81 ms after the previous one (nominal 50 ms)
+    3.261 WARN  swarm   SLOW_STEP    control step took 81.2 ms (period 50 ms, 5 drones)
+    5.025 INFO  cf_0    HB           rho=  994.4 P=   -156.5 |v|rms=0.001 r_pot=2.06 stale=17.1% rx= 8.0Hz clip= 0.0% dt_max=102ms age_max=120ms
+    5.025 INFO  cf_1    HB           rho=  997.4 P=    -88.6 |v|rms=0.011 r_pot=1.63 stale=19.5% rx= 7.0Hz clip= 0.0% dt_max=102ms age_max=147ms
+    5.025 INFO  cf_2    HB           rho=  997.4 P=    -88.9 |v|rms=0.010 r_pot=3.41 stale=17.1% rx= 7.6Hz clip= 0.0% dt_max=102ms age_max=106ms
+    5.025 INFO  cf_3    HB           rho=  994.4 P=   -155.9 |v|rms=0.016 r_pot=4.33 stale=24.4% rx= 7.2Hz clip= 0.0% dt_max=102ms age_max=105ms
+    5.025 INFO  cf_4    HB           rho=  999.8 P=     -6.2 |v|rms=0.001 r_pot=3.76 stale=17.5% rx= 7.6Hz clip= 0.0% dt_max=102ms age_max=78ms
+   10.067 INFO  cf_0    HB           rho= 1000.0 P=      1.9 |v|rms=0.012 r_pot=2.06 stale=18.8% rx=17.0Hz clip= 0.0% dt_max=79ms age_max=118ms
+   10.067 INFO  cf_1    HB           rho= 1000.2 P=      7.2 |v|rms=0.052 r_pot=1.63 stale=17.8% rx=17.8Hz clip= 0.0% dt_max=79ms age_max=87ms
+   10.067 INFO  cf_2    HB           rho= 1000.3 P=     11.1 |v|rms=0.015 r_pot=3.41 stale=21.8% rx=16.8Hz clip= 0.0% dt_max=79ms age_max=108ms
+   10.067 INFO  cf_3    HB           rho= 1000.0 P=     -1.6 |v|rms=0.029 r_pot=4.33 stale=17.8% rx=17.4Hz clip= 0.0% dt_max=79ms age_max=107ms
+   10.067 INFO  cf_4    HB           rho=  999.9 P=     -4.8 |v|rms=0.003 r_pot=3.76 stale=23.8% rx=16.2Hz clip= 0.0% dt_max=79ms age_max=79ms
+   10.437 WARN  swarm   SLOW_STEP    control step took 30.9 ms (period 50 ms, 5 drones) (+1 similar suppressed)
+   10.523 WARN  cf_0    LATE_TICK    tick came 86 ms after the previous one (nominal 50 ms) (+4 similar suppressed)
+   10.523 WARN  cf_1    LATE_TICK    tick came 86 ms after the previous one (nominal 50 ms) (+4 similar suppressed)
+   10.523 WARN  cf_2    LATE_TICK    tick came 86 ms after the previous one (nominal 50 ms) (+4 similar suppressed)
+   10.523 WARN  cf_3    LATE_TICK    tick came 86 ms after the previous one (nominal 50 ms) (+4 similar suppressed)
+   10.523 WARN  cf_4    LATE_TICK    tick came 86 ms after the previous one (nominal 50 ms) (+4 similar suppressed)
+   15.116 INFO  cf_0    HB           rho=  997.0 P=   -118.0 |v|rms=0.043 r_pot=2.06 stale=21.2% rx=16.8Hz clip= 0.0% dt_max=120ms age_max=128ms
+   15.116 INFO  cf_1    HB           rho=  995.3 P=   -184.5 |v|rms=0.132 r_pot=1.62 stale=25.3% rx=16.4Hz clip= 0.0% dt_max=120ms age_max=104ms
+   15.116 INFO  cf_2    HB           rho=  998.5 P=    -58.0 |v|rms=0.046 r_pot=3.39 stale=15.2% rx=17.0Hz clip= 0.0% dt_max=120ms age_max=90ms
+   15.116 INFO  cf_3    HB           rho=  991.4 P=   -336.2 |v|rms=0.102 r_pot=4.34 stale=20.2% rx=16.8Hz clip= 0.0% dt_max=120ms age_max=142ms
+   15.116 INFO  cf_4    HB           rho=  995.3 P=   -185.2 |v|rms=0.014 r_pot=3.76 stale=23.2% rx=16.4Hz clip= 0.0% dt_max=120ms age_max=139ms
+   15.417 WARN  swarm   SLOW_STEP    control step took 38.8 ms (period 50 ms, 5 drones) (+1 similar suppressed)
+   17.176 WARN  cf_0    LATE_TICK    tick came 76 ms after the previous one (nominal 50 ms) (+2 similar suppressed)
+   17.176 WARN  cf_1    LATE_TICK    tick came 76 ms after the previous one (nominal 50 ms) (+2 similar suppressed)
+   17.176 WARN  cf_2    LATE_TICK    tick came 76 ms after the previous one (nominal 50 ms) (+2 similar suppressed)
+   17.176 WARN  cf_3    LATE_TICK    tick came 76 ms after the previous one (nominal 50 ms) (+2 similar suppressed)
+   17.176 WARN  cf_4    LATE_TICK    tick came 76 ms after the previous one (nominal 50 ms) (+2 similar suppressed)
+   17.564 WARN  swarm   SLOW_STEP    control step took 31.4 ms (period 50 ms, 5 drones) (+1 similar suppressed)
+   20.122 INFO  cf_0    HB           rho=  976.8 P=   -889.7 |v|rms=0.160 r_pot=2.04 stale=19.6% rx=16.6Hz clip= 0.0% dt_max=109ms age_max=109ms
+   20.122 INFO  cf_1    HB           rho=  961.8 P=  -1420.7 |v|rms=0.349 r_pot=1.59 stale=19.6% rx=17.2Hz clip= 0.0% dt_max=109ms age_max=102ms
+   20.122 INFO  cf_2    HB           rho=  983.5 P=   -641.8 |v|rms=0.088 r_pot=3.38 stale=26.8% rx=15.8Hz clip= 0.0% dt_max=109ms age_max=112ms
+   20.122 INFO  cf_3    HB           rho=  952.3 P=  -1756.6 |v|rms=0.253 r_pot=4.43 stale=25.8% rx=16.0Hz clip= 0.0% dt_max=109ms age_max=108ms
+   20.122 INFO  cf_4    HB           rho=  977.4 P=   -869.3 |v|rms=0.048 r_pot=3.76 stale=22.7% rx=16.4Hz clip= 0.0% dt_max=109ms age_max=159ms
+   20.916 WARN  cf_4    STALE_RUN    3 consecutive ticks (0.15 s) without a state message from cf_4
+   20.916 WARN  swarm   SLOW_STEP    control step took 41.8 ms (period 50 ms, 5 drones)
+   21.072 WARN  cf_1    STALE_RUN    5 consecutive ticks (0.25 s) without a state message from cf_1
+   23.154 WARN  cf_0    LATE_TICK    tick came 83 ms after the previous one (nominal 50 ms) (+2 similar suppressed)
+   23.154 WARN  cf_1    LATE_TICK    tick came 83 ms after the previous one (nominal 50 ms) (+2 similar suppressed)
+   23.154 WARN  cf_2    LATE_TICK    tick came 83 ms after the previous one (nominal 50 ms) (+2 similar suppressed)
+   23.154 WARN  cf_3    LATE_TICK    tick came 83 ms after the previous one (nominal 50 ms) (+2 similar suppressed)
+   23.154 WARN  cf_4    LATE_TICK    tick came 83 ms after the previous one (nominal 50 ms) (+2 similar suppressed)
+   23.154 WARN  swarm   SLOW_STEP    control step took 43.3 ms (period 50 ms, 5 drones) (+1 similar suppressed)
+   25.128 INFO  cf_0    HB           rho=  933.4 P=  -2395.0 |v|rms=0.385 r_pot=1.91 stale=17.5% rx=17.0Hz clip= 0.0% dt_max=99ms age_max=84ms
+   25.128 INFO  cf_1    HB           rho=  884.1 P=  -3846.5 |v|rms=0.652 r_pot=1.56 stale=27.8% rx=14.8Hz clip= 0.0% dt_max=99ms age_max=297ms
+   25.128 INFO  cf_2    HB           rho=  943.6 P=  -2055.1 |v|rms=0.275 r_pot=3.40 stale=17.5% rx=16.6Hz clip= 0.0% dt_max=99ms age_max=107ms
+   25.128 INFO  cf_3    HB           rho=  889.2 P=  -3705.4 |v|rms=0.396 r_pot=4.58 stale=23.7% rx=15.6Hz clip= 0.0% dt_max=99ms age_max=158ms
+   25.128 INFO  cf_4    HB           rho=  947.0 P=  -1949.4 |v|rms=0.088 r_pot=3.75 stale=24.7% rx=15.4Hz clip= 0.0% dt_max=99ms age_max=144ms
+   27.665 WARN  swarm   SLOW_STEP    control step took 113.2 ms (period 50 ms, 5 drones)
+   27.998 WARN  cf_0    STALE_RUN    4 consecutive ticks (0.20 s) without a state message from cf_0
+   28.107 WARN  cf_3    STALE_RUN    5 consecutive ticks (0.25 s) without a state message from cf_3
+   28.218 WARN  cf_0    LATE_TICK    tick came 111 ms after the previous one (nominal 50 ms) (+5 similar suppressed)
+   28.218 WARN  cf_1    LATE_TICK    tick came 111 ms after the previous one (nominal 50 ms) (+5 similar suppressed)
+   28.218 WARN  cf_2    LATE_TICK    tick came 111 ms after the previous one (nominal 50 ms) (+5 similar suppressed)
+   28.218 WARN  cf_3    LATE_TICK    tick came 111 ms after the previous one (nominal 50 ms) (+5 similar suppressed)
+   28.218 WARN  cf_4    LATE_TICK    tick came 111 ms after the previous one (nominal 50 ms) (+5 similar suppressed)
+   29.163 WARN  cf_0    STALE_RUN    3 consecutive ticks (0.15 s) without a state message from cf_0
+   30.013 WARN  cf_3    RHO_HIGH     density 1279 = 1.28 x rho_0 (P=16302, n_nb=4, nearest 1.34 m)
+   30.167 INFO  cf_0    HB           rho=  917.8 P=  -2874.7 |v|rms=0.579 r_pot=1.61 stale=30.4% rx=15.2Hz clip= 0.0% dt_max=212ms age_max=365ms
+   30.167 INFO  cf_1    HB           rho=  875.1 P=  -4083.1 |v|rms=0.505 r_pot=1.46 stale=22.8% rx=16.6Hz clip= 2.2% dt_max=212ms age_max=241ms
+   30.167 INFO  cf_2    HB           rho=  920.5 P=  -2804.8 |v|rms=0.445 r_pot=3.39 stale=29.3% rx=17.0Hz clip= 0.0% dt_max=212ms age_max=213ms
+   30.167 INFO  cf_3    HB           rho=  858.6 P=  -4390.0 |v|rms=1.208 r_pot=4.64 stale=20.7% rx=15.6Hz clip= 2.2% dt_max=212ms age_max=419ms
+   30.167 INFO  cf_4    HB           rho=  928.3 P=  -2565.7 |v|rms=0.316 r_pot=3.75 stale=25.0% rx=15.8Hz clip= 1.1% dt_max=212ms age_max=231ms
+   30.762 WARN  cf_3    PRED_ERR     predicted position is 13 cm away from the last measured one
+   30.762 WARN  swarm   SLOW_STEP    control step took 34.0 ms (period 50 ms, 5 drones) (+2 similar suppressed)
+   31.763 WARN  cf_3    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   31.813 INFO  cf_3    CLIP_END     saturation lasted 5 ticks
+   31.813 WARN  cf_3    RHO_LOW      density 796 = 0.80 x rho_0 (P=-5839, n_nb=4, nearest 1.53 m)
+   32.264 WARN  cf_3    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   32.517 INFO  cf_3    CLIP_END     saturation lasted 9 ticks
+   32.682 WARN  cf_1    RHO_LOW      density 793 = 0.79 x rho_0 (P=-5888, n_nb=4, nearest 1.89 m)
+   32.682 WARN  cf_1    PRED_ERR     predicted position is 13 cm away from the last measured one
+   32.775 WARN  cf_3    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   32.968 INFO  cf_3    RHO_OK       density 827 = 0.83 x rho_0 (P=-5219, n_nb=4, nearest 1.19 m)
+   33.013 WARN  cf_2    PRED_ERR     predicted position is 6 cm away from the last measured one
+   33.065 WARN  cf_1    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   33.124 INFO  cf_1    CLIP_END     saturation lasted 5 ticks
+   33.280 INFO  cf_3    CLIP_END     saturation lasted 14 ticks
+   33.619 WARN  cf_0    RHO_LOW      density 799 = 0.80 x rho_0 (P=-5773, n_nb=4, nearest 1.79 m)
+   33.619 WARN  swarm   SLOW_STEP    control step took 41.9 ms (period 50 ms, 5 drones) (+1 similar suppressed)
+   33.725 WARN  cf_0    LATE_TICK    tick came 106 ms after the previous one (nominal 50 ms) (+1 similar suppressed)
+   33.725 WARN  cf_1    LATE_TICK    tick came 106 ms after the previous one (nominal 50 ms) (+1 similar suppressed)
+   33.725 WARN  cf_2    LATE_TICK    tick came 106 ms after the previous one (nominal 50 ms) (+1 similar suppressed)
+   33.725 WARN  cf_3    LATE_TICK    tick came 106 ms after the previous one (nominal 50 ms) (+1 similar suppressed)
+   33.725 WARN  cf_4    LATE_TICK    tick came 106 ms after the previous one (nominal 50 ms) (+1 similar suppressed)
+   33.912 WARN  cf_1    RHO_LOW      density 789 = 0.79 x rho_0 (P=-5951, n_nb=4, nearest 1.91 m)
+   35.215 INFO  cf_0    HB           rho=  834.2 P=  -4957.9 |v|rms=0.476 r_pot=1.05 stale=23.0% rx=16.0Hz clip= 2.0% dt_max=106ms age_max=146ms
+   35.215 INFO  cf_1    HB           rho=  835.8 P=  -5002.2 |v|rms=1.599 r_pot=1.57 stale=27.0% rx=15.8Hz clip=31.0% dt_max=106ms age_max=142ms
+   35.215 INFO  cf_2    HB           rho=  890.6 P=  -3667.4 |v|rms=0.630 r_pot=3.21 stale=28.0% rx=15.6Hz clip= 1.0% dt_max=106ms age_max=134ms
+   35.215 INFO  cf_3    HB           rho=  814.4 P=  -5477.4 |v|rms=2.208 r_pot=4.71 stale=24.0% rx=16.6Hz clip=45.0% dt_max=106ms age_max=111ms
+   35.215 INFO  cf_4    HB           rho=  872.3 P=  -4107.1 |v|rms=0.505 r_pot=3.95 stale=24.0% rx=16.0Hz clip= 3.0% dt_max=106ms age_max=111ms
+   35.470 WARN  cf_3    RHO_LOW      density 799 = 0.80 x rho_0 (P=-5780, n_nb=4, nearest 0.67 m)
+   35.470 WARN  cf_4    RHO_LOW      density 799 = 0.80 x rho_0 (P=-5776, n_nb=4, nearest 0.67 m)
+   35.863 WARN  cf_1    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   36.015 INFO  cf_1    CLIP_END     saturation lasted 7 ticks
+   36.514 INFO  cf_0    RHO_OK       density 881 = 0.88 x rho_0 (P=-3939, n_nb=4, nearest 1.87 m)
+   36.514 INFO  cf_3    RHO_OK       density 994 = 0.99 x rho_0 (P=-224, n_nb=4, nearest 1.80 m)
+   36.563 WARN  cf_1    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   37.214 INFO  cf_1    CLIP_END     saturation lasted 17 ticks
+   37.771 WARN  cf_1    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   37.771 WARN  cf_1    PRED_ERR     predicted position is 6 cm away from the last measured one (+6 similar suppressed)
+   37.771 WARN  swarm   SLOW_STEP    control step took 45.9 ms (period 50 ms, 5 drones) (+3 similar suppressed)
+   38.168 WARN  cf_2    PRED_ERR     predicted position is 19 cm away from the last measured one
+   38.549 INFO  cf_1    CLIP_END     saturation lasted 13 ticks
+   38.753 WARN  cf_0    LATE_TICK    tick came 75 ms after the previous one (nominal 50 ms) (+3 similar suppressed)
+   38.753 WARN  cf_1    LATE_TICK    tick came 75 ms after the previous one (nominal 50 ms) (+3 similar suppressed)
+   38.753 WARN  cf_2    LATE_TICK    tick came 75 ms after the previous one (nominal 50 ms) (+3 similar suppressed)
+   38.753 WARN  cf_3    LATE_TICK    tick came 75 ms after the previous one (nominal 50 ms) (+3 similar suppressed)
+   38.753 WARN  cf_4    LATE_TICK    tick came 75 ms after the previous one (nominal 50 ms) (+3 similar suppressed)
+   38.932 WARN  cf_1    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   39.533 INFO  cf_0    RHO_OK       density 806 = 0.81 x rho_0 (P=-5656, n_nb=4, nearest 1.44 m)
+   39.565 INFO  cf_1    CLIP_END     saturation lasted 13 ticks
+   39.915 WARN  cf_1    RHO_LOW      density 708 = 0.71 x rho_0 (P=-7062, n_nb=4, nearest 1.23 m)
+   39.915 INFO  cf_3    RHO_OK       density 860 = 0.86 x rho_0 (P=-4468, n_nb=4, nearest 1.18 m)
+   40.263 INFO  cf_0    HB           rho=  767.7 P=  -6234.1 |v|rms=0.794 r_pot=0.65 stale=20.5% rx=17.0Hz clip=10.2% dt_max=336ms age_max=346ms
+   40.263 INFO  cf_1    HB           rho=  869.7 P=  -4107.3 |v|rms=3.403 r_pot=2.16 stale=20.5% rx=16.6Hz clip=69.3% dt_max=336ms age_max=307ms
+   40.263 INFO  cf_2    HB           rho=  853.4 P=  -4619.3 |v|rms=0.620 r_pot=2.94 stale=18.2% rx=17.2Hz clip=17.0% dt_max=336ms age_max=352ms
+   40.263 INFO  cf_3    HB           rho=  747.4 P=  -6465.8 |v|rms=0.981 r_pot=4.69 stale=15.9% rx=17.0Hz clip= 6.8% dt_max=336ms age_max=306ms
+   40.263 INFO  cf_4    HB           rho=  721.8 P=  -6793.3 |v|rms=1.040 r_pot=4.98 stale=19.3% rx=16.4Hz clip= 9.1% dt_max=336ms age_max=345ms
+   41.163 WARN  cf_0    PRED_ERR     predicted position is 16 cm away from the last measured one
+   41.313 WARN  cf_1    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   41.313 WARN  swarm   SLOW_STEP    control step took 30.0 ms (period 50 ms, 5 drones) (+2 similar suppressed)
+   41.389 WARN  cf_4    PRED_ERR     predicted position is 13 cm away from the last measured one
+   41.436 INFO  cf_1    CLIP_END     saturation lasted 6 ticks
+   41.436 WARN  cf_4    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   41.620 INFO  cf_4    CLIP_END     saturation lasted 8 ticks
+   41.884 WARN  cf_4    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   42.306 INFO  cf_4    CLIP_END     saturation lasted 11 ticks
+   42.476 WARN  cf_2    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   42.569 INFO  cf_2    CLIP_END     saturation lasted 6 ticks
+   43.414 WARN  cf_0    RHO_LOW      density 629 = 0.63 x rho_0 (P=-7603, n_nb=4, nearest 1.92 m)
+   43.414 WARN  cf_1    RHO_LOW      density 680 = 0.68 x rho_0 (P=-7315, n_nb=4, nearest 1.91 m)
+   43.414 WARN  cf_2    RHO_LOW      density 571 = 0.57 x rho_0 (P=-7697, n_nb=4, nearest 1.92 m)
+   43.617 WARN  cf_1    PRED_ERR     predicted position is 31 cm away from the last measured one (+4 similar suppressed)
+   43.673 WARN  cf_0    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   43.763 WARN  cf_1    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   43.813 INFO  cf_1    CLIP_END     saturation lasted 5 ticks
+   43.913 INFO  cf_0    CLIP_END     saturation lasted 9 ticks
+   44.422 WARN  cf_0    RHO_LOW      density 748 = 0.75 x rho_0 (P=-6595, n_nb=4, nearest 1.48 m)
+   44.422 WARN  cf_1    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   44.422 WARN  swarm   SLOW_STEP    control step took 34.3 ms (period 50 ms, 5 drones) (+2 similar suppressed)
+   44.519 WARN  cf_0    LATE_TICK    tick came 98 ms after the previous one (nominal 50 ms) (+5 similar suppressed)
+   44.519 WARN  cf_1    LATE_TICK    tick came 98 ms after the previous one (nominal 50 ms) (+5 similar suppressed)
+   44.519 WARN  cf_2    LATE_TICK    tick came 98 ms after the previous one (nominal 50 ms) (+5 similar suppressed)
+   44.519 WARN  cf_3    LATE_TICK    tick came 98 ms after the previous one (nominal 50 ms) (+5 similar suppressed)
+   44.519 WARN  cf_4    LATE_TICK    tick came 98 ms after the previous one (nominal 50 ms) (+5 similar suppressed)
+   44.569 WARN  cf_0    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   44.629 INFO  cf_0    CLIP_END     saturation lasted 5 ticks
+   44.629 INFO  cf_1    CLIP_END     saturation lasted 7 ticks
+   44.629 WARN  cf_1    RHO_LOW      density 660 = 0.66 x rho_0 (P=-7449, n_nb=4, nearest 1.90 m)
+   44.977 WARN  cf_0    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   45.017 INFO  cf_0    CLIP_END     saturation lasted 5 ticks
+   45.017 INFO  cf_2    RHO_OK       density 803 = 0.80 x rho_0 (P=-5702, n_nb=4, nearest 1.71 m)
+   45.017 WARN  cf_2    PRED_ERR     predicted position is 8 cm away from the last measured one (+1 similar suppressed)
+   45.114 WARN  cf_2    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   45.272 INFO  cf_0    HB           rho=  841.8 P=  -4374.4 |v|rms=1.470 r_pot=1.72 stale=22.7% rx=16.0Hz clip=32.0% dt_max=98ms age_max=132ms
+   45.272 INFO  cf_1    HB           rho=  907.2 P=  -2517.6 |v|rms=4.497 r_pot=2.38 stale=21.6% rx=15.8Hz clip=32.0% dt_max=98ms age_max=103ms
+   45.272 INFO  cf_2    HB           rho=  786.2 P=  -5522.0 |v|rms=1.550 r_pot=3.64 stale=21.6% rx=16.4Hz clip=37.1% dt_max=98ms age_max=111ms
+   45.272 INFO  cf_3    HB           rho=  622.1 P=  -7440.6 |v|rms=0.681 r_pot=4.73 stale=22.7% rx=15.6Hz clip= 7.2% dt_max=98ms age_max=143ms
+   45.272 INFO  cf_4    HB           rho=  591.4 P=  -7631.4 |v|rms=2.153 r_pot=6.14 stale=22.7% rx=16.2Hz clip=38.1% dt_max=98ms age_max=124ms
+   45.376 WARN  cf_0    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   45.436 INFO  cf_0    RHO_OK       density 927 = 0.93 x rho_0 (P=-2594, n_nb=4, nearest 0.23 m)
+   45.517 WARN  cf_1    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   45.563 INFO  cf_2    CLIP_END     saturation lasted 13 ticks
+   45.665 INFO  cf_0    CLIP_END     saturation lasted 10 ticks
+   45.665 INFO  cf_1    CLIP_END     saturation lasted 7 ticks
+   45.665 WARN  cf_1    RHO_LOW      density 648 = 0.65 x rho_0 (P=-7516, n_nb=4, nearest 1.90 m)
+   45.921 WARN  cf_2    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   46.014 WARN  cf_0    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   46.218 WARN  cf_4    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   46.271 WARN  cf_0    PRED_ERR     predicted position is 11 cm away from the last measured one (+7 similar suppressed)
+   46.271 INFO  cf_2    CLIP_END     saturation lasted 11 ticks
+   46.415 WARN  cf_4    PRED_ERR     predicted position is 6 cm away from the last measured one (+4 similar suppressed)
+   46.534 INFO  cf_0    CLIP_END     saturation lasted 14 ticks
+   46.534 INFO  cf_4    CLIP_END     saturation lasted 10 ticks
+   46.724 INFO  cf_0    RHO_OK       density 930 = 0.93 x rho_0 (P=-2515, n_nb=4, nearest 0.43 m)
+   46.724 INFO  cf_1    RHO_OK       density 890 = 0.89 x rho_0 (P=-3689, n_nb=4, nearest 0.43 m)
+   46.813 WARN  cf_0    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   46.813 WARN  swarm   SLOW_STEP    control step took 25.2 ms (period 50 ms, 5 drones) (+3 similar suppressed)
+   46.877 INFO  cf_0    CLIP_END     saturation lasted 5 ticks
+   47.219 WARN  cf_4    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   47.514 INFO  cf_4    CLIP_END     saturation lasted 10 ticks
+   47.763 WARN  cf_0    RHO_LOW      density 669 = 0.67 x rho_0 (P=-7388, n_nb=4, nearest 1.61 m)
+   47.763 INFO  cf_4    RHO_OK       density 954 = 0.95 x rho_0 (P=-1703, n_nb=4, nearest 0.01 m)
+   48.068 WARN  cf_1    RHO_LOW      density 646 = 0.65 x rho_0 (P=-7530, n_nb=4, nearest 1.90 m)
+   48.783 WARN  cf_0    RHO_LOW      density 354 = 0.35 x rho_0 (P=-6189, n_nb=4, nearest 6.85 m)
+   48.783 WARN  cf_1    PRED_ERR     predicted position is 760 cm away from the last measured one (+13 similar suppressed)
+   48.913 INFO  cf_4    RHO_OK       density 952 = 0.95 x rho_0 (P=-1768, n_nb=4, nearest 0.00 m)
+   49.116 INFO  cf_1    RHO_OK       density 881 = 0.88 x rho_0 (P=-3950, n_nb=4, nearest 0.54 m)
+   49.168 WARN  cf_2    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   49.212 INFO  cf_2    CLIP_END     saturation lasted 5 ticks
+   49.863 INFO  cf_0    RHO_OK       density 966 = 0.97 x rho_0 (P=-1290, n_nb=4, nearest 0.53 m)
+   49.965 INFO  cf_4    RHO_OK       density 955 = 0.96 x rho_0 (P=-1671, n_nb=4, nearest 0.00 m)
+   50.274 INFO  cf_0    HB           rho=  738.3 P=  -5604.1 |v|rms=2.247 r_pot=6.30 stale=24.0% rx=16.6Hz clip=51.0% dt_max=168ms age_max=136ms
+   50.274 INFO  cf_1    HB           rho=  797.7 P=  -4617.2 |v|rms=69.604 r_pot=6.37 stale=24.0% rx=16.0Hz clip=43.8% dt_max=168ms age_max=135ms
+   50.274 INFO  cf_2    HB           rho=  649.2 P=  -7112.3 |v|rms=1.421 r_pot=4.23 stale=24.0% rx=15.6Hz clip=43.8% dt_max=168ms age_max=132ms
+   50.274 INFO  cf_3    HB           rho=  679.6 P=  -6897.4 |v|rms=0.336 r_pot=4.73 stale=24.0% rx=16.2Hz clip=13.5% dt_max=168ms age_max=170ms
+   50.274 INFO  cf_4    HB           rho=  673.2 P=  -6232.6 |v|rms=3.851 r_pot=5.10 stale=25.0% rx=16.2Hz clip=41.7% dt_max=168ms age_max=154ms
+   50.314 WARN  cf_1    RHO_LOW      density 638 = 0.64 x rho_0 (P=-7564, n_nb=4, nearest 1.90 m)
+   50.416 INFO  cf_2    RHO_OK       density 967 = 0.97 x rho_0 (P=-1269, n_nb=4, nearest 1.60 m)
+   50.416 INFO  cf_3    RHO_OK       density 1173 = 1.17 x rho_0 (P=8827, n_nb=4, nearest 0.67 m)
+   50.416 WARN  cf_3    PRED_ERR     predicted position is 451 cm away from the last measured one (+4 similar suppressed)
+   51.063 INFO  cf_0    RHO_OK       density 975 = 0.97 x rho_0 (P=-978, n_nb=4, nearest 0.53 m)
+   51.063 WARN  cf_4    RHO_LOW      density 670 = 0.67 x rho_0 (P=-7388, n_nb=4, nearest 1.91 m)
+   51.315 INFO  cf_1    RHO_OK       density 954 = 0.95 x rho_0 (P=-1708, n_nb=4, nearest 0.54 m)
+   52.268 INFO  cf_0    RHO_OK       density 977 = 0.98 x rho_0 (P=-879, n_nb=4, nearest 0.54 m)
+   52.268 WARN  cf_4    RHO_LOW      density 670 = 0.67 x rho_0 (P=-7387, n_nb=4, nearest 1.90 m)
+   52.268 WARN  swarm   SLOW_STEP    control step took 27.2 ms (period 50 ms, 5 drones) (+3 similar suppressed)
+   52.346 WARN  cf_0    LATE_TICK    tick came 79 ms after the previous one (nominal 50 ms) (+2 similar suppressed)
+   52.346 WARN  cf_0    PRED_ERR     predicted position is 1126338 cm away from the last measured one (+6 similar suppressed)
+   52.346 WARN  cf_1    LATE_TICK    tick came 79 ms after the previous one (nominal 50 ms) (+2 similar suppressed)
+   52.346 WARN  cf_1    RHO_LOW      density 354 = 0.35 x rho_0 (P=-6189, n_nb=4, nearest 11817.84 m)
+   52.346 WARN  cf_2    LATE_TICK    tick came 79 ms after the previous one (nominal 50 ms) (+2 similar suppressed)
+   52.346 WARN  cf_2    PRED_ERR     predicted position is 63822 cm away from the last measured one (+10 similar suppressed)
+   52.346 WARN  cf_3    LATE_TICK    tick came 79 ms after the previous one (nominal 50 ms) (+2 similar suppressed)
+   52.346 WARN  cf_4    LATE_TICK    tick came 79 ms after the previous one (nominal 50 ms) (+2 similar suppressed)
+   53.164 WARN  cf_4    PRED_ERR     predicted position is 19741 cm away from the last measured one (+6 similar suppressed)
+   53.313 INFO  cf_4    RHO_OK       density 954 = 0.95 x rho_0 (P=-1722, n_nb=4, nearest 0.00 m)
+   53.364 INFO  cf_0    RHO_OK       density 942 = 0.94 x rho_0 (P=-2121, n_nb=4, nearest 0.53 m)
+   53.417 WARN  cf_1    RHO_LOW      density 600 = 0.60 x rho_0 (P=-7680, n_nb=4, nearest 1.90 m)
+   53.664 WARN  cf_4    STALE_RUN    3 consecutive ticks (0.15 s) without a state message from cf_4
+   53.729 WARN  cf_1    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   53.729 WARN  cf_2    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   53.834 WARN  cf_0    STALE_RUN    3 consecutive ticks (0.15 s) without a state message from cf_0
+   53.834 WARN  cf_1    STALE_RUN    4 consecutive ticks (0.20 s) without a state message from cf_1
+   53.834 INFO  cf_1    CLIP_END     saturation lasted 5 ticks
+   53.834 WARN  cf_2    STALE_RUN    5 consecutive ticks (0.25 s) without a state message from cf_2
+   53.834 INFO  cf_2    CLIP_END     saturation lasted 5 ticks
+   53.834 WARN  cf_3    STALE_RUN    5 consecutive ticks (0.25 s) without a state message from cf_3
+   54.365 WARN  cf_3    STALE_RUN    3 consecutive ticks (0.15 s) without a state message from cf_3
+   54.365 INFO  cf_4    RHO_OK       density 954 = 0.95 x rho_0 (P=-1719, n_nb=4, nearest 0.00 m)
+   54.414 INFO  cf_0    RHO_OK       density 945 = 0.95 x rho_0 (P=-2017, n_nb=4, nearest 0.53 m)
+   54.414 INFO  cf_2    RHO_OK       density 802 = 0.80 x rho_0 (P=-5728, n_nb=4, nearest 1.52 m)
+   54.467 WARN  cf_1    RHO_LOW      density 355 = 0.36 x rho_0 (P=-6211, n_nb=4, nearest 5.19 m)
+   54.467 WARN  swarm   SLOW_STEP    control step took 35.0 ms (period 50 ms, 5 drones) (+4 similar suppressed)
+   55.214 WARN  cf_1    PRED_ERR     predicted position is 463968122 cm away from the last measured one (+13 similar suppressed)
+   55.326 INFO  cf_0    HB           rho=  688.9 P=  -6325.1 |v|rms=0.276 r_pot=44744.15 stale=25.8% rx=15.6Hz clip=17.5% dt_max=131ms age_max=188ms
+   55.326 INFO  cf_1    HB           rho=  830.8 P=  -3188.4 |v|rms=8818.974 r_pot=68933.59 stale=28.9% rx=15.8Hz clip=36.1% dt_max=131ms age_max=224ms
+   55.326 INFO  cf_2    HB           rho=  614.0 P=  -7268.6 |v|rms=0.488 r_pot=1273.17 stale=23.7% rx=17.0Hz clip=21.6% dt_max=131ms age_max=271ms
+   55.326 INFO  cf_3    HB           rho=  700.1 P=  -6452.3 |v|rms=0.083 r_pot=76.02 stale=27.8% rx=16.0Hz clip=22.7% dt_max=131ms age_max=270ms
+   55.326 INFO  cf_4    HB           rho=  792.0 P=  -4145.0 |v|rms=1277.333 r_pot=779.80 stale=24.7% rx=16.6Hz clip=22.7% dt_max=131ms age_max=152ms
+   55.563 WARN  cf_1    RHO_LOW      density 638 = 0.64 x rho_0 (P=-7567, n_nb=4, nearest 1.90 m)
+   55.563 WARN  cf_4    RHO_LOW      density 586 = 0.59 x rho_0 (P=-7695, n_nb=4, nearest 2.01 m)
+   55.816 WARN  cf_3    PRED_ERR     predicted position is 781311 cm away from the last measured one (+6 similar suppressed)
+   56.101 INFO  swarm   STOP         ticks=5084 stale=22.7% clipped=12.7% late=190 slow=39 warnings_so_far=142

@@ -7,6 +7,8 @@ Defaults match the defaults declared in plain_sph.py, so launching with no
 args behaves exactly like before.
 """
 
+import time
+
 from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument, OpaqueFunction
 from launch.substitutions import LaunchConfiguration
@@ -27,6 +29,38 @@ FLOAT_ARGS = {
     'R': 0.5,
     'f_beta': 1.0,
     'f_k': 2.0,
+    # --- diagnostics / test switches (defaults == old behaviour) ---
+    'sph_gain': 1.0,
+    'control_period': 0.05,
+    'dt_model': 0.0,
+    'test_amp': 0.15,
+    'test_period': 4.0,
+    'test_delay': 3.0,
+    'test_duration': 60.0,
+    'max_velocity': 0.5,
+    'keepalive_s': 0.1,
+    'poll_period': 0.005,
+    'fence_xmin': float('nan'), 'fence_xmax': float('nan'),   # m; nan = off (REAL drones: set these)
+    'fence_ymin': float('nan'), 'fence_ymax': float('nan'),
+    'state_timeout_s': 0.0,
+    # --- 3D mode ---
+    'dim': 2.0, 'zc': 1.0, 'max_vz': 0.25, 'z_min': 0.25, 'z_max': 2.5,
+    'z_margin': 0.3, 'z_wall_k': 2.0, 'z_stretch': 1.0,
+}
+
+# name -> default (strings)
+STR_ARGS = {
+    'stale_policy': 'predict',   # predict | hold | skip
+    'start_gate': 'none',        # none | all_known | flight
+    'test_profile': 'none',      # none | zero | step | square | sine | chirp
+    'test_axis': 'x',
+    'run_id': '',                # '' = timestamp made here, ONE value shared by every node
+    'run_label': 'run',
+    'git_rev': 'unknown',
+    'sim_clock': 'wall',          # wall | gz  (gz = tick on Gazebo simulated time)
+    'gz_stats_topic': '',
+    'platform': 'sim',           # sim | real
+    'log_dir': '/root/dev_ws/src/logs',   # where logs/runs/<run_id>/ is written
 }
 
 
@@ -34,6 +68,9 @@ def _nodes(context):
     total_robots = int(LaunchConfiguration('total_robots').perform(context))
     robot_prefix = LaunchConfiguration('robot_prefix').perform(context)
     shared = {k: float(LaunchConfiguration(k).perform(context)) for k in FLOAT_ARGS}
+    shared.update({k: LaunchConfiguration(k).perform(context) for k in STR_ARGS})
+    if not shared['run_id']:
+        shared['run_id'] = f"{time.strftime('%Y%m%d_%H%M%S')}_{shared['run_label']}"
 
     return [
         Node(
@@ -58,4 +95,5 @@ def generate_launch_description():
         DeclareLaunchArgument('robot_prefix', default_value='cf_'),
     ]
     args += [DeclareLaunchArgument(k, default_value=str(v)) for k, v in FLOAT_ARGS.items()]
+    args += [DeclareLaunchArgument(k, default_value=v) for k, v in STR_ARGS.items()]
     return LaunchDescription(args + [OpaqueFunction(function=_nodes)])

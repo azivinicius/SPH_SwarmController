@@ -1,0 +1,14 @@
+    0.000 INFO  swarm   START        swarm: 2 drones, egos=['cf_0', 'cf_1'], label="T1_baseline", sph_gain=1.0 zeta=10.0 f_k=0.0 gamma=2.0 m=7000.0 policy=predict gate=none test=none amp=0.15 m/s period=4.0 s axis=x delay=3.0 s duration=60.0 s
+    0.216 INFO  cf_0    FIRST_RX     first state of cf_0: x=0.150 y=0.000 z=0.015 (1/2 drones known)
+    0.217 INFO  cf_1    FIRST_RX     first state of cf_1: x=-0.150 y=-0.000 z=0.015 (2/2 drones known)
+    5.048 INFO  cf_0    HB           rho=  704.8 P=  -7093.5 |v|rms=0.037 r_pot=2.77 stale= 5.2% rx=19.2Hz clip= 0.0% dt_max=52ms age_max=60ms
+    5.048 INFO  cf_1    HB           rho=  704.8 P=  -7093.5 |v|rms=0.037 r_pot=2.89 stale= 7.2% rx=19.0Hz clip= 0.0% dt_max=52ms age_max=58ms
+   10.099 INFO  cf_0    HB           rho=  706.7 P=  -7075.4 |v|rms=0.015 r_pot=2.80 stale= 6.9% rx=19.4Hz clip= 0.0% dt_max=52ms age_max=82ms
+   10.099 INFO  cf_1    HB           rho=  706.7 P=  -7075.4 |v|rms=0.016 r_pot=2.84 stale= 4.0% rx=19.4Hz clip= 0.0% dt_max=52ms age_max=68ms
+   15.148 INFO  cf_0    HB           rho=  706.7 P=  -7075.4 |v|rms=0.015 r_pot=2.80 stale= 4.0% rx=19.6Hz clip= 0.0% dt_max=52ms age_max=55ms
+   15.148 INFO  cf_1    HB           rho=  706.7 P=  -7075.4 |v|rms=0.014 r_pot=2.84 stale= 4.0% rx=19.6Hz clip= 0.0% dt_max=52ms age_max=55ms
+   20.148 INFO  cf_0    HB           rho=  706.7 P=  -7075.4 |v|rms=0.016 r_pot=2.81 stale= 3.0% rx=19.4Hz clip= 0.0% dt_max=52ms age_max=50ms
+   20.148 INFO  cf_1    HB           rho=  706.7 P=  -7075.4 |v|rms=0.015 r_pot=2.85 stale= 3.0% rx=19.6Hz clip= 0.0% dt_max=52ms age_max=56ms
+   25.148 INFO  cf_0    HB           rho=  706.7 P=  -7075.3 |v|rms=0.016 r_pot=2.81 stale= 6.0% rx=19.4Hz clip= 0.0% dt_max=58ms age_max=87ms
+   25.148 INFO  cf_1    HB           rho=  706.7 P=  -7075.3 |v|rms=0.015 r_pot=2.85 stale= 4.0% rx=19.4Hz clip= 0.0% dt_max=58ms age_max=74ms
+   28.269 INFO  swarm   STOP         ticks=1122 stale=5.1% clipped=0.0% late=0 slow=0 warnings_so_far=0

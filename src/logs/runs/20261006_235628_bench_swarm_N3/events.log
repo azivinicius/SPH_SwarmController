@@ -1,0 +1,61 @@
+    0.000 INFO  swarm   START        swarm: 3 drones, egos=['cf_0', 'cf_1', 'cf_2'], label="bench_swarm_N3", sph_gain=1.0 zeta=10.0 f_k=0.0 gamma=2.0 m=7000.0 policy=predict platform=sim fence=None state_timeout=0.0 gate=flight clock=wall vmax=0.5 test=zero amp=0.15 m/s period=4.0 s axis=x delay=3.0 s duration=60.0 s
+    0.187 INFO  cf_0    FIRST_RX     first state of cf_0: x=0.445 y=-0.000 z=0.015 (1/3 drones known)
+    0.188 INFO  cf_1    FIRST_RX     first state of cf_1: x=-0.222 y=0.385 z=0.015 (2/3 drones known)
+    0.188 INFO  cf_2    FIRST_RX     first state of cf_2: x=-0.222 y=-0.385 z=0.015 (3/3 drones known)
+    0.190 INFO  swarm   GATE_WAIT    below z=0.40 m: cf_0,cf_1,cf_2
+    5.037 INFO  cf_0    HB           rho= 1000.0 P=     -0.3 |v|rms=0.000 r_pot=2.53 stale= 4.1% rx=19.6Hz clip= 0.0% dt_max=51ms age_max=52ms
+    5.037 INFO  cf_1    HB           rho= 1000.0 P=     -0.4 |v|rms=0.000 r_pot=2.75 stale= 3.1% rx=19.6Hz clip= 0.0% dt_max=51ms age_max=53ms
+    5.037 INFO  cf_2    HB           rho= 1000.0 P=     -0.4 |v|rms=0.000 r_pot=3.26 stale= 2.0% rx=19.6Hz clip= 0.0% dt_max=51ms age_max=56ms
+    5.238 INFO  swarm   GATE_WAIT    below z=0.40 m: cf_0,cf_1,cf_2
+    8.737 INFO  swarm   GATE_OPEN    start gate "flight" open: controller now acts
+    8.737 INFO  swarm   TEST_START   test profile starts: zero amp=0.15 m/s period=4.0 s axis=x delay=3.0 s duration=60.0 s
+   10.037 INFO  cf_0    HB           rho= 1000.0 P=     -0.3 |v|rms=0.000 r_pot=2.53 stale= 5.0% rx=19.2Hz clip= 0.0% dt_max=55ms age_max=75ms
+   10.037 INFO  cf_1    HB           rho= 1000.0 P=     -0.4 |v|rms=0.000 r_pot=2.75 stale= 3.0% rx=19.4Hz clip= 0.0% dt_max=55ms age_max=56ms
+   10.037 INFO  cf_2    HB           rho= 1000.0 P=     -0.4 |v|rms=0.000 r_pot=3.26 stale= 5.0% rx=19.2Hz clip= 0.0% dt_max=55ms age_max=76ms
+   15.037 INFO  cf_0    HB           rho= 1000.0 P=     -0.3 |v|rms=0.000 r_pot=2.53 stale= 2.0% rx=19.8Hz clip= 0.0% dt_max=51ms age_max=50ms
+   15.037 INFO  cf_1    HB           rho= 1000.0 P=     -0.4 |v|rms=0.000 r_pot=2.75 stale= 1.0% rx=19.8Hz clip= 0.0% dt_max=51ms age_max=54ms
+   15.037 INFO  cf_2    HB           rho= 1000.0 P=     -0.4 |v|rms=0.000 r_pot=3.26 stale= 2.0% rx=19.8Hz clip= 0.0% dt_max=51ms age_max=52ms
+   20.087 INFO  cf_0    HB           rho= 1000.0 P=     -0.1 |v|rms=0.000 r_pot=2.53 stale= 2.0% rx=20.0Hz clip= 0.0% dt_max=52ms age_max=52ms
+   20.087 INFO  cf_1    HB           rho= 1000.0 P=      0.1 |v|rms=0.000 r_pot=2.75 stale= 6.9% rx=20.0Hz clip= 0.0% dt_max=52ms age_max=68ms
+   20.087 INFO  cf_2    HB           rho= 1000.0 P=     -0.2 |v|rms=0.000 r_pot=3.26 stale= 2.0% rx=20.0Hz clip= 0.0% dt_max=52ms age_max=54ms
+   25.088 INFO  cf_0    HB           rho= 1000.1 P=      2.7 |v|rms=0.000 r_pot=2.53 stale= 0.0% rx=20.0Hz clip= 0.0% dt_max=52ms age_max=39ms
+   25.088 INFO  cf_1    HB           rho= 1000.1 P=      5.4 |v|rms=0.000 r_pot=2.75 stale= 2.0% rx=20.0Hz clip= 0.0% dt_max=52ms age_max=52ms
+   25.088 INFO  cf_2    HB           rho= 1000.1 P=      2.3 |v|rms=0.000 r_pot=3.26 stale= 1.0% rx=19.8Hz clip= 0.0% dt_max=52ms age_max=50ms
+   30.137 INFO  cf_0    HB           rho= 1000.1 P=      4.5 |v|rms=0.000 r_pot=2.53 stale= 1.0% rx=20.0Hz clip= 0.0% dt_max=51ms age_max=51ms
+   30.137 INFO  cf_1    HB           rho= 1000.2 P=      8.4 |v|rms=0.000 r_pot=2.75 stale= 2.0% rx=20.0Hz clip= 0.0% dt_max=51ms age_max=50ms
+   30.137 INFO  cf_2    HB           rho= 1000.2 P=      6.2 |v|rms=0.000 r_pot=3.26 stale= 2.0% rx=20.0Hz clip= 0.0% dt_max=51ms age_max=53ms
+   35.137 INFO  cf_0    HB           rho= 1000.4 P=     17.9 |v|rms=0.000 r_pot=2.53 stale= 2.0% rx=19.8Hz clip= 0.0% dt_max=52ms age_max=54ms
+   35.137 INFO  cf_1    HB           rho= 1000.5 P=     21.5 |v|rms=0.000 r_pot=2.75 stale= 3.0% rx=19.8Hz clip= 0.0% dt_max=52ms age_max=53ms
+   35.137 INFO  cf_2    HB           rho= 1000.5 P=     21.3 |v|rms=0.000 r_pot=3.26 stale= 2.0% rx=19.8Hz clip= 0.0% dt_max=52ms age_max=53ms
+   40.137 INFO  cf_0    HB           rho= 1000.9 P=     34.3 |v|rms=0.000 r_pot=2.53 stale= 1.0% rx=19.8Hz clip= 0.0% dt_max=51ms age_max=51ms
+   40.137 INFO  cf_1    HB           rho= 1000.9 P=     35.8 |v|rms=0.000 r_pot=2.75 stale= 1.0% rx=19.8Hz clip= 0.0% dt_max=51ms age_max=55ms
+   40.137 INFO  cf_2    HB           rho= 1000.7 P=     29.1 |v|rms=0.000 r_pot=3.26 stale= 0.0% rx=20.0Hz clip= 0.0% dt_max=51ms age_max=34ms
+   41.787 INFO  swarm   TEST_END     test profile finished (commanding 0 m/s now)
+   45.187 INFO  cf_0    HB           rho= 1001.3 P=     51.1 |v|rms=0.000 r_pot=2.53 stale= 4.0% rx=19.8Hz clip= 0.0% dt_max=52ms age_max=59ms
+   45.187 INFO  cf_1    HB           rho= 1001.2 P=     49.1 |v|rms=0.000 r_pot=2.75 stale= 2.0% rx=19.8Hz clip= 0.0% dt_max=52ms age_max=68ms
+   45.187 INFO  cf_2    HB           rho= 1000.8 P=     32.2 |v|rms=0.000 r_pot=3.26 stale= 3.0% rx=19.8Hz clip= 0.0% dt_max=52ms age_max=54ms
+   50.187 INFO  cf_0    HB           rho= 1001.5 P=     60.3 |v|rms=0.000 r_pot=2.53 stale= 1.0% rx=20.0Hz clip= 0.0% dt_max=51ms age_max=52ms
+   50.187 INFO  cf_1    HB           rho= 1001.5 P=     58.5 |v|rms=0.000 r_pot=2.74 stale= 2.0% rx=19.8Hz clip= 0.0% dt_max=51ms age_max=51ms
+   50.187 INFO  cf_2    HB           rho= 1000.8 P=     33.7 |v|rms=0.000 r_pot=3.25 stale= 1.0% rx=19.8Hz clip= 0.0% dt_max=51ms age_max=53ms
+   55.237 INFO  cf_0    HB           rho= 1001.8 P=     72.7 |v|rms=0.000 r_pot=2.53 stale= 4.0% rx=19.8Hz clip= 0.0% dt_max=52ms age_max=51ms
+   55.237 INFO  cf_1    HB           rho= 1001.6 P=     65.9 |v|rms=0.000 r_pot=2.74 stale= 1.0% rx=20.0Hz clip= 0.0% dt_max=52ms age_max=53ms
+   55.237 INFO  cf_2    HB           rho= 1001.0 P=     40.6 |v|rms=0.000 r_pot=3.25 stale= 2.0% rx=20.0Hz clip= 0.0% dt_max=52ms age_max=51ms
+   60.287 INFO  cf_0    HB           rho= 1002.2 P=     90.0 |v|rms=0.000 r_pot=2.53 stale= 2.0% rx=20.0Hz clip= 0.0% dt_max=53ms age_max=54ms
+   60.287 INFO  cf_1    HB           rho= 1001.7 P=     69.2 |v|rms=0.000 r_pot=2.74 stale= 5.0% rx=19.8Hz clip= 0.0% dt_max=53ms age_max=95ms
+   60.287 INFO  cf_2    HB           rho= 1001.2 P=     47.9 |v|rms=0.000 r_pot=3.25 stale= 2.0% rx=19.8Hz clip= 0.0% dt_max=53ms age_max=54ms
+   65.337 INFO  cf_0    HB           rho= 1002.9 P=    115.7 |v|rms=0.000 r_pot=2.53 stale= 2.0% rx=19.8Hz clip= 0.0% dt_max=52ms age_max=52ms
+   65.337 INFO  cf_1    HB           rho= 1001.8 P=     74.0 |v|rms=0.000 r_pot=2.74 stale= 1.0% rx=20.0Hz clip= 0.0% dt_max=52ms age_max=51ms
+   65.337 INFO  cf_2    HB           rho= 1001.3 P=     53.5 |v|rms=0.000 r_pot=3.25 stale= 2.0% rx=19.8Hz clip= 0.0% dt_max=52ms age_max=52ms
+   70.387 INFO  cf_0    HB           rho= 1003.7 P=    147.7 |v|rms=0.001 r_pot=2.53 stale= 2.0% rx=19.8Hz clip= 0.0% dt_max=52ms age_max=53ms
+   70.387 INFO  cf_1    HB           rho= 1002.3 P=     91.4 |v|rms=0.000 r_pot=2.74 stale= 1.0% rx=20.0Hz clip= 0.0% dt_max=52ms age_max=51ms
+   70.387 INFO  cf_2    HB           rho= 1001.5 P=     58.8 |v|rms=0.000 r_pot=3.25 stale= 2.0% rx=20.0Hz clip= 0.0% dt_max=52ms age_max=52ms
+   75.387 INFO  cf_0    HB           rho= 1004.7 P=    188.3 |v|rms=0.001 r_pot=2.53 stale= 1.0% rx=19.8Hz clip= 0.0% dt_max=51ms age_max=52ms
+   75.387 INFO  cf_1    HB           rho= 1003.1 P=    126.1 |v|rms=0.000 r_pot=2.73 stale= 1.0% rx=19.8Hz clip= 0.0% dt_max=51ms age_max=51ms
+   75.387 INFO  cf_2    HB           rho= 1001.8 P=     73.2 |v|rms=0.000 r_pot=3.24 stale= 2.0% rx=19.6Hz clip= 0.0% dt_max=51ms age_max=55ms
+   80.387 INFO  cf_0    HB           rho= 1006.0 P=    243.5 |v|rms=0.001 r_pot=2.53 stale= 1.0% rx=19.8Hz clip= 0.0% dt_max=51ms age_max=50ms
+   80.387 INFO  cf_1    HB           rho= 1004.3 P=    173.6 |v|rms=0.000 r_pot=2.73 stale= 2.0% rx=19.8Hz clip= 0.0% dt_max=51ms age_max=51ms
+   80.387 INFO  cf_2    HB           rho= 1002.5 P=    100.4 |v|rms=0.000 r_pot=3.24 stale= 2.0% rx=19.8Hz clip= 0.0% dt_max=51ms age_max=54ms
+   85.437 INFO  cf_0    HB           rho= 1007.7 P=    311.2 |v|rms=0.001 r_pot=2.54 stale= 2.0% rx=19.8Hz clip= 0.0% dt_max=51ms age_max=52ms
+   85.437 INFO  cf_1    HB           rho= 1005.6 P=    226.2 |v|rms=0.000 r_pot=2.74 stale= 2.0% rx=20.0Hz clip= 0.0% dt_max=51ms age_max=51ms
+   85.437 INFO  cf_2    HB           rho= 1003.6 P=    144.5 |v|rms=0.000 r_pot=3.24 stale= 2.0% rx=20.0Hz clip= 0.0% dt_max=51ms age_max=54ms
+   85.859 INFO  swarm   STOP         ticks=5142 stale=2.2% clipped=0.0% late=0 slow=0 warnings_so_far=0

@@ -65,7 +65,7 @@ def viscosity(qi, qj):
 
 class Particle:
     def __init__(self, id, x, y, h, m, rho_0=1000.0,
-                 gamma=1, alpha=1.0, beta=2.0, zetta_extra=5.0):
+                 gamma=1, alpha=1.0, beta=2.0, zetta_extra=5.0, sph_gain=1.0):
 
         self.id = id
 
@@ -83,6 +83,13 @@ class Particle:
         self.alpha = alpha
         self.beta = beta
         self.zetta_extra = zetta_extra
+        # Multiplies ONLY the SPH part (pressure + viscosity) of the acceleration.
+        # 1.0 = unchanged behaviour, 0.0 = SPH switched off (damping + external force
+        # only). Used by the test guide to isolate the SPH force from the drone dynamics.
+        self.sph_gain = sph_gain
+        # Parts of the last acceleration computed by next_vel(), for the logs:
+        # {'press': [ax, ay], 'visc': [..], 'damp': [..], 'ext': [..], 'total': [..]}
+        self.last_terms = None
 
         self.B = (200 * self.rho * 9.8 * (1/98)) / 1
         self.P = self.B * ((self.rho / self.rho_0)**self.gamma - 1)
@@ -127,29 +134,46 @@ class Particle:
 
         return P
 
-    def next_vel(self, q_list):
-        # Aqui o loop continua pulando self.id: mesmo se incluido, a
-        # contribuicao de grad_W(self, self) e sempre (0,0) (dx=dy=0),
-        # entao pular so evita trabalho desnecessario -- nao muda o
-        # resultado numerico.
-        dvdt = [0.0, 0.0]
+    def accel_terms(self, q_list):
+        """Same maths as the old next_vel(), but returns the parts separately:
+        (a_press, a_visc, a_damp, a_ext), each an [ax, ay] list.
+
+          a_press = -sum_j m_j (P_i/rho_i^2 + P_j/rho_j^2) grad_W_ij
+          a_visc  = -sum_j m_j  Pi_ij                      grad_W_ij   (artificial viscosity)
+          a_damp  = -zetta_extra * v_i
+          a_ext   = external (potential) force
+
+        The loop skips self.id: grad_W(self, self) is (0, 0) anyway.
+        """
+        a_press = [0.0, 0.0]
+        a_visc = [0.0, 0.0]
         for q in q_list:
             if q.id == self.id:
                 continue
-            dWdx, dWdy = grad_W(self, q)
-
             if self.rho < 1e-6 or q.rho < 1e-6:
-                P_term = 0.0
-            else:
-                P_term = (self.P/self.rho**2) + (q.P/q.rho**2) + viscosity(self, q)
+                continue                      # old code: P_term = 0 -> no contribution
+            dWdx, dWdy = grad_W(self, q)
+            p_term = (self.P / self.rho**2) + (q.P / q.rho**2)
+            v_term = viscosity(self, q)
+            a_press[0] -= q.m * p_term * dWdx
+            a_press[1] -= q.m * p_term * dWdy
+            a_visc[0] -= q.m * v_term * dWdx
+            a_visc[1] -= q.m * v_term * dWdy
 
-            dvdt[0] += q.m * P_term * dWdx
-            dvdt[1] += q.m * P_term * dWdy
+        a_damp = [-self.zetta_extra * self.vel[0], -self.zetta_extra * self.vel[1]]
+        a_ext = [float(self.ext_force[0]), float(self.ext_force[1])]
+        return a_press, a_visc, a_damp, a_ext
 
-        dvdt[0] = -dvdt[0] - self.zetta_extra*self.vel[0] + self.ext_force[0]
-        dvdt[1] = -dvdt[1] - self.zetta_extra*self.vel[1] + self.ext_force[1]
-
-        return dvdt
+    def next_vel(self, q_list):
+        """dv/dt = sph_gain * (pressure + viscosity) - zetta_extra * v + external force.
+        With sph_gain == 1 this is the original controller acceleration."""
+        a_press, a_visc, a_damp, a_ext = self.accel_terms(q_list)
+        g = self.sph_gain
+        total = [g * (a_press[0] + a_visc[0]) + a_damp[0] + a_ext[0],
+                 g * (a_press[1] + a_visc[1]) + a_damp[1] + a_ext[1]]
+        self.last_terms = {'press': a_press, 'visc': a_visc, 'damp': a_damp,
+                           'ext': a_ext, 'total': total}
+        return total
 
 
     def next_state(self, q_list):

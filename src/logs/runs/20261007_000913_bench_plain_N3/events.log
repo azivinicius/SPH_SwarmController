@@ -1,0 +1,134 @@
+    0.000 INFO  plain_cf_1 START        plain_cf_1: 3 drones, egos=['cf_1'], label="bench_plain_N3", sph_gain=1.0 zeta=10.0 f_k=0.0 gamma=2.0 m=7000.0 policy=predict platform=sim fence=None state_timeout=0.0 gate=flight clock=wall vmax=0.5 test=zero amp=0.15 m/s period=4.0 s axis=x delay=3.0 s duration=60.0 s
+    0.000 INFO  plain_cf_2 START        plain_cf_2: 3 drones, egos=['cf_2'], label="bench_plain_N3", sph_gain=1.0 zeta=10.0 f_k=0.0 gamma=2.0 m=7000.0 policy=predict platform=sim fence=None state_timeout=0.0 gate=flight clock=wall vmax=0.5 test=zero amp=0.15 m/s period=4.0 s axis=x delay=3.0 s duration=60.0 s
+    0.000 INFO  plain_cf_0 START        plain_cf_0: 3 drones, egos=['cf_0'], label="bench_plain_N3", sph_gain=1.0 zeta=10.0 f_k=0.0 gamma=2.0 m=7000.0 policy=predict platform=sim fence=None state_timeout=0.0 gate=flight clock=wall vmax=0.5 test=zero amp=0.15 m/s period=4.0 s axis=x delay=3.0 s duration=60.0 s
+    0.094 INFO  cf_0    FIRST_RX     first state of cf_0: x=0.445 y=-0.000 z=0.015 (1/3 drones known)
+    0.094 INFO  cf_1    FIRST_RX     first state of cf_1: x=-0.222 y=0.385 z=0.015 (2/3 drones known)
+    0.095 INFO  cf_2    FIRST_RX     first state of cf_2: x=-0.222 y=-0.385 z=0.015 (3/3 drones known)
+    0.095 INFO  plain_cf_1 GATE_WAIT    below z=0.40 m: cf_0,cf_1,cf_2
+    0.105 INFO  cf_0    FIRST_RX     first state of cf_0: x=0.445 y=-0.000 z=0.015 (1/3 drones known)
+    0.106 INFO  cf_1    FIRST_RX     first state of cf_1: x=-0.222 y=0.385 z=0.015 (2/3 drones known)
+    0.106 INFO  cf_2    FIRST_RX     first state of cf_2: x=-0.222 y=-0.385 z=0.015 (3/3 drones known)
+    0.145 INFO  cf_1    RHO_OK       density 1000 = 1.00 x rho_0 (P=-0, n_nb=2, nearest 0.77 m)
+    0.149 INFO  plain_cf_2 GATE_WAIT    below z=0.40 m: cf_0,cf_1,cf_2
+    0.328 INFO  cf_0    FIRST_RX     first state of cf_0: x=0.445 y=-0.000 z=0.015 (1/3 drones known)
+    0.329 INFO  cf_1    FIRST_RX     first state of cf_1: x=-0.222 y=0.385 z=0.016 (2/3 drones known)
+    0.332 INFO  cf_2    FIRST_RX     first state of cf_2: x=-0.222 y=-0.385 z=0.015 (3/3 drones known)
+    0.344 INFO  plain_cf_0 GATE_WAIT    below z=0.40 m: cf_0,cf_1,cf_2
+    0.394 INFO  cf_0    RHO_OK       density 1000 = 1.00 x rho_0 (P=-0, n_nb=2, nearest 0.77 m)
+    5.045 INFO  cf_1    HB           rho=  996.8 P=    -73.8 |v|rms=0.000 r_pot=2.75 stale= 2.0% rx=19.8Hz clip= 0.0% dt_max=51ms age_max=53ms
+    5.049 INFO  cf_2    HB           rho= 1000.0 P=     -0.4 |v|rms=0.000 r_pot=3.26 stale= 0.0% rx=20.0Hz clip= 0.0% dt_max=51ms age_max=37ms
+    5.044 INFO  cf_0    HB           rho=  996.6 P=    -77.5 |v|rms=0.000 r_pot=2.53 stale= 4.2% rx=19.4Hz clip= 0.0% dt_max=52ms age_max=51ms
+    5.145 INFO  plain_cf_1 GATE_WAIT    below z=0.40 m: cf_0,cf_1,cf_2
+    5.199 INFO  plain_cf_2 GATE_WAIT    below z=0.40 m: cf_0,cf_1,cf_2
+    5.344 INFO  plain_cf_0 GATE_WAIT    below z=0.40 m: cf_0,cf_1,cf_2
+   10.049 INFO  cf_2    HB           rho= 1000.0 P=     -0.4 |v|rms=0.000 r_pot=3.26 stale= 6.0% rx=19.8Hz clip= 0.0% dt_max=50ms age_max=52ms
+   10.095 INFO  cf_1    HB           rho= 1000.0 P=     -0.3 |v|rms=0.000 r_pot=2.75 stale= 0.0% rx=20.2Hz clip= 0.0% dt_max=51ms age_max=46ms
+   10.094 INFO  cf_0    HB           rho= 1000.0 P=     -0.2 |v|rms=0.000 r_pot=2.53 stale= 0.0% rx=20.2Hz clip= 0.0% dt_max=50ms age_max=41ms
+   10.145 INFO  plain_cf_1 GATE_WAIT    below z=0.40 m: cf_0,cf_1,cf_2
+   10.249 INFO  plain_cf_2 GATE_WAIT    below z=0.40 m: cf_0,cf_1,cf_2
+   10.344 INFO  plain_cf_0 GATE_WAIT    below z=0.40 m: cf_0,cf_1,cf_2
+   15.050 INFO  cf_2    HB           rho= 1000.1 P=      2.2 |v|rms=0.000 r_pot=3.26 stale= 0.0% rx=20.0Hz clip= 0.0% dt_max=50ms age_max=43ms
+   15.095 INFO  cf_1    HB           rho= 1000.1 P=      5.1 |v|rms=0.000 r_pot=2.75 stale= 1.0% rx=19.8Hz clip= 0.0% dt_max=52ms age_max=51ms
+   15.095 INFO  cf_0    HB           rho= 1000.2 P=      8.0 |v|rms=0.000 r_pot=2.53 stale= 1.0% rx=19.8Hz clip= 0.0% dt_max=51ms age_max=63ms
+   15.195 INFO  plain_cf_1 GATE_WAIT    below z=0.40 m: cf_0,cf_1,cf_2
+   15.299 INFO  plain_cf_2 GATE_WAIT    below z=0.40 m: cf_0,cf_1,cf_2
+   15.394 INFO  plain_cf_0 GATE_WAIT    below z=0.40 m: cf_0,cf_1,cf_2
+   20.099 INFO  cf_2    HB           rho= 1000.3 P=     14.0 |v|rms=0.000 r_pot=3.26 stale= 1.0% rx=20.0Hz clip= 0.0% dt_max=50ms age_max=51ms
+   20.145 INFO  cf_1    HB           rho= 1000.4 P=     15.6 |v|rms=0.000 r_pot=2.75 stale= 0.0% rx=20.2Hz clip= 0.0% dt_max=52ms age_max=43ms
+   20.144 INFO  cf_0    HB           rho= 1000.5 P=     19.7 |v|rms=0.000 r_pot=2.54 stale= 0.0% rx=20.2Hz clip= 0.0% dt_max=51ms age_max=35ms
+   20.245 INFO  plain_cf_1 GATE_WAIT    below z=0.40 m: cf_0,cf_1,cf_2
+   20.300 INFO  plain_cf_2 GATE_WAIT    below z=0.40 m: cf_0,cf_1,cf_2
+   20.444 INFO  plain_cf_0 GATE_WAIT    below z=0.40 m: cf_0,cf_1,cf_2
+   25.099 INFO  cf_2    HB           rho= 1001.0 P=     39.7 |v|rms=0.001 r_pot=3.26 stale= 0.0% rx=20.0Hz clip= 0.0% dt_max=50ms age_max=40ms
+   25.145 INFO  cf_1    HB           rho= 1000.6 P=     25.9 |v|rms=0.000 r_pot=2.75 stale= 1.0% rx=19.8Hz clip= 0.0% dt_max=51ms age_max=53ms
+   25.144 INFO  cf_0    HB           rho= 1000.8 P=     30.9 |v|rms=0.000 r_pot=2.54 stale= 2.0% rx=19.8Hz clip= 0.0% dt_max=51ms age_max=53ms
+   25.245 INFO  plain_cf_1 GATE_WAIT    below z=0.40 m: cf_0,cf_1,cf_2
+   25.349 INFO  plain_cf_2 GATE_WAIT    below z=0.40 m: cf_0,cf_1,cf_2
+   25.444 INFO  plain_cf_0 GATE_WAIT    below z=0.40 m: cf_0,cf_1,cf_2
+   30.149 INFO  cf_2    HB           rho= 1001.9 P=     75.1 |v|rms=0.001 r_pot=3.25 stale= 1.0% rx=20.0Hz clip= 0.0% dt_max=50ms age_max=51ms
+   30.145 INFO  cf_0    HB           rho= 1001.2 P=     47.4 |v|rms=0.000 r_pot=2.54 stale= 0.0% rx=20.0Hz clip= 0.0% dt_max=51ms age_max=30ms
+   30.195 INFO  cf_1    HB           rho= 1000.8 P=     32.1 |v|rms=0.000 r_pot=2.75 stale= 0.0% rx=20.2Hz clip= 0.0% dt_max=51ms age_max=43ms
+   30.295 INFO  plain_cf_1 GATE_WAIT    below z=0.40 m: cf_0,cf_1,cf_2
+   30.399 INFO  plain_cf_2 GATE_WAIT    below z=0.40 m: cf_0,cf_1,cf_2
+   30.445 INFO  plain_cf_0 GATE_WAIT    below z=0.40 m: cf_0,cf_1,cf_2
+   35.199 INFO  cf_2    HB           rho= 1002.8 P=    111.4 |v|rms=0.000 r_pot=3.24 stale= 0.0% rx=20.2Hz clip= 0.0% dt_max=50ms age_max=35ms
+   35.195 INFO  cf_0    HB           rho= 1001.7 P=     66.6 |v|rms=0.001 r_pot=2.55 stale= 5.0% rx=20.0Hz clip= 0.0% dt_max=51ms age_max=53ms
+   35.245 INFO  cf_1    HB           rho= 1000.8 P=     32.8 |v|rms=0.000 r_pot=2.75 stale= 2.0% rx=20.0Hz clip= 0.0% dt_max=52ms age_max=53ms
+   35.345 INFO  plain_cf_1 GATE_WAIT    below z=0.40 m: cf_0,cf_1,cf_2
+   35.399 INFO  plain_cf_2 GATE_WAIT    below z=0.40 m: cf_0,cf_1,cf_2
+   35.494 INFO  plain_cf_0 GATE_WAIT    below z=0.40 m: cf_0,cf_1,cf_2
+   40.245 INFO  cf_1    HB           rho= 1001.2 P=     49.4 |v|rms=0.000 r_pot=2.75 stale= 0.0% rx=20.0Hz clip= 0.0% dt_max=51ms age_max=46ms
+   40.249 INFO  cf_2    HB           rho= 1004.2 P=    168.3 |v|rms=0.000 r_pot=3.24 stale= 5.9% rx=20.0Hz clip= 0.0% dt_max=51ms age_max=52ms
+   40.244 INFO  cf_0    HB           rho= 1002.6 P=    103.1 |v|rms=0.001 r_pot=2.56 stale= 0.0% rx=20.2Hz clip= 0.0% dt_max=51ms age_max=39ms
+   40.345 INFO  plain_cf_1 GATE_WAIT    below z=0.40 m: cf_0,cf_1,cf_2
+   40.449 INFO  plain_cf_2 GATE_WAIT    below z=0.40 m: cf_0,cf_1,cf_2
+   40.494 INFO  plain_cf_0 GATE_WAIT    below z=0.40 m: cf_0,cf_1,cf_2
+   45.249 INFO  cf_2    HB           rho= 1005.6 P=    226.0 |v|rms=0.000 r_pot=3.23 stale= 2.0% rx=19.8Hz clip= 0.0% dt_max=51ms age_max=53ms
+   45.244 INFO  cf_0    HB           rho= 1003.5 P=    140.6 |v|rms=0.000 r_pot=2.56 stale= 1.0% rx=19.8Hz clip= 0.0% dt_max=51ms age_max=51ms
+   45.295 INFO  cf_1    HB           rho= 1001.9 P=     74.3 |v|rms=0.000 r_pot=2.75 stale= 1.0% rx=20.0Hz clip= 0.0% dt_max=51ms age_max=54ms
+   45.345 INFO  plain_cf_1 GATE_WAIT    below z=0.40 m: cf_0,cf_1,cf_2
+   45.449 INFO  plain_cf_2 GATE_WAIT    below z=0.40 m: cf_0,cf_1,cf_2
+   45.544 INFO  plain_cf_0 GATE_WAIT    below z=0.40 m: cf_0,cf_1,cf_2
+   50.295 INFO  cf_1    HB           rho= 1002.2 P=     87.2 |v|rms=0.000 r_pot=2.75 stale= 0.0% rx=20.0Hz clip= 0.0% dt_max=51ms age_max=43ms
+   50.299 INFO  cf_2    HB           rho= 1006.8 P=    274.9 |v|rms=0.000 r_pot=3.23 stale= 0.0% rx=20.2Hz clip= 0.0% dt_max=51ms age_max=47ms
+   50.294 INFO  cf_0    HB           rho= 1004.2 P=    169.5 |v|rms=0.000 r_pot=2.57 stale= 0.0% rx=20.2Hz clip= 0.0% dt_max=50ms age_max=41ms
+   50.395 INFO  plain_cf_1 GATE_WAIT    below z=0.40 m: cf_0,cf_1,cf_2
+   50.499 INFO  plain_cf_2 GATE_WAIT    below z=0.40 m: cf_0,cf_1,cf_2
+   50.594 INFO  plain_cf_0 GATE_WAIT    below z=0.40 m: cf_0,cf_1,cf_2
+   55.345 INFO  cf_1    HB           rho= 1002.6 P=    104.1 |v|rms=0.001 r_pot=2.75 stale= 4.0% rx=20.0Hz clip= 0.0% dt_max=51ms age_max=54ms
+   55.349 INFO  cf_2    HB           rho= 1007.9 P=    321.3 |v|rms=0.000 r_pot=3.22 stale= 0.0% rx=20.2Hz clip= 0.0% dt_max=50ms age_max=27ms
+   55.344 INFO  cf_0    HB           rho= 1005.0 P=    202.5 |v|rms=0.000 r_pot=2.58 stale= 0.0% rx=20.2Hz clip= 0.0% dt_max=51ms age_max=16ms
+   55.445 INFO  plain_cf_1 GATE_WAIT    below z=0.40 m: cf_0,cf_1,cf_2
+   55.549 INFO  plain_cf_2 GATE_WAIT    below z=0.40 m: cf_0,cf_1,cf_2
+   55.594 INFO  plain_cf_0 GATE_WAIT    below z=0.40 m: cf_0,cf_1,cf_2
+   60.349 INFO  cf_2    HB           rho= 1008.9 P=    362.2 |v|rms=0.000 r_pot=3.21 stale= 3.0% rx=19.8Hz clip= 0.0% dt_max=51ms age_max=51ms
+   60.344 INFO  cf_0    HB           rho= 1005.9 P=    239.9 |v|rms=0.000 r_pot=2.58 stale= 3.0% rx=19.8Hz clip= 0.0% dt_max=52ms age_max=51ms
+   60.395 INFO  cf_1    HB           rho= 1003.0 P=    120.7 |v|rms=0.001 r_pot=2.74 stale= 0.0% rx=20.2Hz clip= 0.0% dt_max=51ms age_max=46ms
+   60.445 INFO  plain_cf_1 GATE_WAIT    below z=0.40 m: cf_0,cf_1,cf_2
+   60.549 INFO  plain_cf_2 GATE_WAIT    below z=0.40 m: cf_0,cf_1,cf_2
+   60.594 INFO  plain_cf_0 GATE_WAIT    below z=0.40 m: cf_0,cf_1,cf_2
+   65.399 INFO  cf_2    HB           rho= 1009.9 P=    400.2 |v|rms=0.000 r_pot=3.21 stale= 0.0% rx=20.2Hz clip= 0.0% dt_max=50ms age_max=35ms
+   65.395 INFO  cf_0    HB           rho= 1007.0 P=    282.4 |v|rms=0.000 r_pot=2.59 stale= 0.0% rx=20.2Hz clip= 0.0% dt_max=51ms age_max=39ms
+   65.445 INFO  cf_1    HB           rho= 1003.4 P=    135.9 |v|rms=0.001 r_pot=2.74 stale= 0.0% rx=20.2Hz clip= 0.0% dt_max=51ms age_max=38ms
+   65.495 INFO  plain_cf_1 GATE_WAIT    below z=0.40 m: cf_0,cf_1,cf_2
+   65.599 INFO  plain_cf_2 GATE_WAIT    below z=0.40 m: cf_0,cf_1,cf_2
+   65.644 INFO  plain_cf_0 GATE_WAIT    below z=0.40 m: cf_0,cf_1,cf_2
+   70.399 INFO  cf_2    HB           rho= 1010.7 P=    435.7 |v|rms=0.000 r_pot=3.20 stale= 1.0% rx=19.8Hz clip= 0.0% dt_max=51ms age_max=51ms
+   70.444 INFO  cf_0    HB           rho= 1008.0 P=    325.7 |v|rms=0.000 r_pot=2.60 stale= 0.0% rx=20.2Hz clip= 0.0% dt_max=51ms age_max=29ms
+   70.495 INFO  cf_1    HB           rho= 1003.8 P=    151.0 |v|rms=0.000 r_pot=2.73 stale= 2.0% rx=20.0Hz clip= 0.0% dt_max=51ms age_max=53ms
+   70.545 INFO  plain_cf_1 GATE_WAIT    below z=0.40 m: cf_0,cf_1,cf_2
+   70.600 INFO  plain_cf_2 GATE_WAIT    below z=0.40 m: cf_0,cf_1,cf_2
+   70.694 INFO  plain_cf_0 GATE_WAIT    below z=0.40 m: cf_0,cf_1,cf_2
+   75.449 INFO  cf_2    HB           rho= 1011.6 P=    470.9 |v|rms=0.000 r_pot=3.19 stale= 0.0% rx=20.2Hz clip= 0.0% dt_max=51ms age_max=42ms
+   75.444 INFO  cf_0    HB           rho= 1009.0 P=    364.8 |v|rms=0.000 r_pot=2.60 stale= 6.0% rx=19.8Hz clip= 0.0% dt_max=51ms age_max=53ms
+   75.495 INFO  cf_1    HB           rho= 1004.0 P=    161.4 |v|rms=0.000 r_pot=2.73 stale= 0.0% rx=20.0Hz clip= 0.0% dt_max=51ms age_max=41ms
+   75.545 INFO  plain_cf_1 GATE_WAIT    below z=0.40 m: cf_0,cf_1,cf_2
+   75.649 INFO  plain_cf_2 GATE_WAIT    below z=0.40 m: cf_0,cf_1,cf_2
+   75.694 INFO  plain_cf_0 GATE_WAIT    below z=0.40 m: cf_0,cf_1,cf_2
+   80.499 INFO  cf_2    HB           rho= 1012.2 P=    498.0 |v|rms=0.000 r_pot=3.19 stale= 0.0% rx=20.2Hz clip= 0.0% dt_max=51ms age_max=18ms
+   80.494 INFO  cf_0    HB           rho= 1009.7 P=    395.5 |v|rms=0.000 r_pot=2.61 stale= 0.0% rx=20.2Hz clip= 0.0% dt_max=51ms age_max=49ms
+   80.545 INFO  cf_1    HB           rho= 1004.1 P=    163.9 |v|rms=0.000 r_pot=2.72 stale= 0.0% rx=20.2Hz clip= 0.0% dt_max=51ms age_max=26ms
+   80.595 INFO  plain_cf_1 GATE_WAIT    below z=0.40 m: cf_0,cf_1,cf_2
+   80.649 INFO  plain_cf_2 GATE_WAIT    below z=0.40 m: cf_0,cf_1,cf_2
+   80.744 INFO  plain_cf_0 GATE_WAIT    below z=0.40 m: cf_0,cf_1,cf_2
+   85.545 INFO  cf_1    HB           rho= 1003.9 P=    158.4 |v|rms=0.000 r_pot=2.72 stale= 3.0% rx=19.8Hz clip= 0.0% dt_max=51ms age_max=54ms
+   85.549 INFO  cf_2    HB           rho= 1012.7 P=    518.3 |v|rms=0.001 r_pot=3.18 stale= 1.0% rx=20.0Hz clip= 0.0% dt_max=51ms age_max=50ms
+   85.544 INFO  cf_0    HB           rho= 1010.6 P=    430.3 |v|rms=0.000 r_pot=2.61 stale= 0.0% rx=20.2Hz clip= 0.0% dt_max=51ms age_max=28ms
+   85.596 INFO  plain_cf_1 GATE_WAIT    below z=0.40 m: cf_0,cf_1,cf_2
+   85.699 INFO  plain_cf_2 GATE_WAIT    below z=0.40 m: cf_0,cf_1,cf_2
+   85.744 INFO  plain_cf_0 GATE_WAIT    below z=0.40 m: cf_0,cf_1,cf_2
+   90.545 INFO  cf_1    HB           rho= 1003.5 P=    140.8 |v|rms=0.000 r_pot=2.71 stale= 0.0% rx=20.0Hz clip= 0.0% dt_max=51ms age_max=48ms
+   90.544 INFO  cf_0    HB           rho= 1011.2 P=    457.5 |v|rms=0.000 r_pot=2.62 stale= 6.0% rx=19.8Hz clip= 0.0% dt_max=51ms age_max=52ms
+   90.599 INFO  cf_2    HB           rho= 1013.0 P=    529.1 |v|rms=0.001 r_pot=3.18 stale= 1.0% rx=20.2Hz clip= 0.0% dt_max=52ms age_max=61ms
+   90.645 INFO  plain_cf_1 GATE_WAIT    below z=0.40 m: cf_0,cf_1,cf_2
+   90.749 INFO  plain_cf_2 GATE_WAIT    below z=0.40 m: cf_0,cf_1,cf_2
+   90.745 INFO  plain_cf_0 GATE_WAIT    below z=0.40 m: cf_0,cf_1,cf_2
+   95.595 INFO  cf_1    HB           rho= 1003.1 P=    124.7 |v|rms=0.000 r_pot=2.71 stale= 0.0% rx=20.2Hz clip= 0.0% dt_max=51ms age_max=32ms
+   95.599 INFO  cf_2    HB           rho= 1013.2 P=    538.0 |v|rms=0.000 r_pot=3.17 stale= 3.0% rx=19.8Hz clip= 0.0% dt_max=51ms age_max=51ms
+   95.594 INFO  cf_0    HB           rho= 1011.7 P=    475.2 |v|rms=0.000 r_pot=2.62 stale= 0.0% rx=20.2Hz clip= 0.0% dt_max=51ms age_max=31ms
+   95.695 INFO  plain_cf_1 GATE_WAIT    below z=0.40 m: cf_0,cf_1,cf_2
+   95.799 INFO  plain_cf_2 GATE_WAIT    below z=0.40 m: cf_0,cf_1,cf_2
+   95.794 INFO  plain_cf_0 GATE_WAIT    below z=0.40 m: cf_0,cf_1,cf_2
+   97.583 INFO  plain_cf_2 STOP         ticks=1949 stale=1.3% clipped=0.0% late=0 slow=0 warnings_so_far=0
+   97.568 INFO  plain_cf_0 STOP         ticks=1945 stale=1.4% clipped=0.0% late=0 slow=0 warnings_so_far=0
+   97.614 INFO  plain_cf_1 STOP         ticks=1951 stale=0.8% clipped=0.0% late=0 slow=0 warnings_so_far=0

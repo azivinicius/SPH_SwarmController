@@ -1,0 +1,59 @@
+# EXAMPLE crazyflies.yaml for REAL Crazyflies (3 drones). Copy it to wherever your Crazyswarm2
+# reads crazyflies.yaml and edit it. NOT TESTED ON HARDWARE -- check every line against the
+# Crazyswarm2 documentation for the version you have installed (fileversion 3 format).
+#
+# WARNING: `./dev_tmux.sh up` regenerates config/crazyflies.yaml for the SIMULATOR. Keep this
+# file under another name and copy it over only for real flights.
+fileversion: 3
+
+robots:
+  cf_0:
+    enabled: true
+    uri: radio://0/80/2M/E7E7E7E7E0      # radio://<dongle>/<channel>/<datarate>/<address>: set with cfclient
+    initial_position: [1.0, 0.0, 0.0]    # where you PLACE the drone, in the positioning system's frame (m)
+    type: cf21
+  cf_1:
+    enabled: true
+    uri: radio://0/80/2M/E7E7E7E7E1
+    initial_position: [-0.5, 0.87, 0.0]
+    type: cf21
+  cf_2:
+    enabled: true
+    uri: radio://0/80/2M/E7E7E7E7E2
+    initial_position: [-0.5, -0.87, 0.0]
+    type: cf21
+
+robot_types:
+  cf21:
+    motion_capture:
+      tracking: "off"      # Lighthouse / LPS: positions come from the on-board estimator.
+                           # With an external mocap system use the Crazyswarm2 mocap setup instead.
+    big_quad: false
+
+all:
+  firmware_logging:
+    enabled: true
+    default_topics:
+      status:              # battery voltage etc. -- keep this on for real flights
+        frequency: 1
+    custom_topics:
+      state:               # THE topic the SPH controller reads (x y z vx vy vz of the estimator)
+        frequency: 20      # lower it to 10 if the radio link is saturated (analyzer check C1 shows the real rate)
+        vars:
+          - "stateEstimate.x"
+          - "stateEstimate.y"
+          - "stateEstimate.z"
+          - "stateEstimate.vx"
+          - "stateEstimate.vy"
+          - "stateEstimate.vz"
+  firmware_params:
+    commander:
+      enHighLevel: 1       # needed for the takeoff / land services
+    stabilizer:
+      estimator: 2         # Kalman filter
+      controller: 1        # PID, same as the simulation
+    # locSrv.extPosStdDev / extQuatStdDev are only for an external (mocap) position feed
+  reference_frame: "world"
+  broadcasts:
+    num_repeats: 15
+    delay_between_repeats_ms: 1

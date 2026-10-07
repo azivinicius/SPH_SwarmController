@@ -1,0 +1,26 @@
+SPH RUN SUMMARY
+run: 20261006_053840_T1_baseline   label: T1_baseline   code: fc36220-dirty   drones: 2   mode: swarm
+window analysed: t = 9.2 .. 28.2 s (after flight start at 7.2 s)
+params: sph_gain=1.0 zeta=10.0 gamma=2.0 mass=7000.0 f_k=0.0 dt_model=0.05 policy=predict gate=none
+
+VERDICTS
+  [FAIL] C1  simulator speed (real-time factor): RTF 0.49 (p5 0.29), source rtf.csv
+  [FAIL] C9  closest approach between drones: min 0.11 m, median 0.11 m
+  [WARN] C10 SPH density regime: rho within +-10 % of rho0 0 % of the window; rho 707..707, P -7075..-7075
+  [INFO] C5  drone follows velocity commands: command rms only 0.017 m/s: too small to identify the drone model (this is normal for a calm SPH run). Run test T3 (step/chirp) for gain and lag.
+  [INFO] C6  drone speed when commanded ~0 (own drift): no stretch with |cmd| < 1 cm/s for 2 s in the window; run test T2 (zero command)
+  [INFO] C11 acceleration budget (rms, m/s^2): pressure 0.352, viscosity 0.008, damping 0.152, external 0.000, total 0.198 -> dominant: pressure
+  [INFO] C15 average command vs average motion: cf_0: cmd 25 mm/s (radial -25), moves 15 mm/s; cf_1: cmd 24 mm/s (radial -24), moves 14 mm/s
+  [PASS] C2  control tick timing: dt p50/p95/max = 50/51/59 ms (nominal 50); late 0.0 %; step cost p95 2.22 ms
+  [PASS] C3  ticks without a fresh state message: 4.6 % stale (longest run 1 ticks), 1.2 % ticks got 2+ messages; stale_policy=predict
+  [PASS] C4  predicted vs measured position: p95 gap 0.0 cm
+  [PASS] C7  oscillation of the drones: oscillation (>0.3 Hz) rms 0.001 m/s, dominant 0.42 Hz wall = 0.86 Hz sim (peak 184x median), amplitude trend 0.075 /s -> none/steady; slow part (<0.3 Hz, drift) rms 0.015 m/s
+  [PASS] C8  swarm shape and drift: mean radius from centroid 0.05 -> 0.05 m over 19 s (trend +0.0 mm/s); equilibrium (rho=rho0) ring radius n/a m; centroid moved 2 cm (0.9 mm/s); largest displacement 0.02 m (cf_0)
+  [PASS] C12 speed command saturation: 0.0 % of ticks clipped at 0.5 m/s
+  [PASS] C13 command chatter (direction flips tick to tick): 0 % of consecutive ticks reverse direction
+  [PASS] C14 altitude hold (z, commanded vz = 0): z mean 0.45 m (target 0.5), worst error 5 cm, worst slope 0.9 mm/s
+
+DIAGNOSIS (most important first)
+  [MED] TIME-BASE: The simulator runs at about 0.49x real time while the controller ticks at 20 Hz of WALL time: each control tick covers only 25 ms of simulated time instead of 50 ms, and the 20 Hz state topic arrives at about 19.3 Hz wall. The SPH model integrates dt=50 ms per tick, but only 25 ms of simulated time passed, so per SIMULATED second the controller applies 2.0x the acceleration the SPH model intends. Test T6/T7 (RTF sweep, dt_model scaled by RTF).
+
+EVENTS: 
