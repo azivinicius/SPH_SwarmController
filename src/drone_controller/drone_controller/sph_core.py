@@ -96,6 +96,10 @@ COMMON_DEFAULTS = {
     'z_margin': 0.3,            # m, the soft wall starts this far from z_min / z_max
     'z_wall_k': 2.0,            # m/s^2, wall force at the limit
     'z_stretch': 1.0,           # >1: drones keep more VERTICAL room (downwash); kernel uses dz / z_stretch
+    # --- which target shape pulls the drones (see potential.py / potential3d.py) ---
+    # default | circle | sphere | quartic   default = circle in 2D, sphere in 3D.  quartic = the rounded star
+    # (2D) / the star loop on a tilted plane (3D); R is then its size constant, f_beta is ignored and f_k / 2 scales the force (f_k = 2: original).
+    'potential': 'default',
 }
 
 
@@ -174,8 +178,11 @@ class SphCore:
             'density_on_rx': self.density_on_rx,
             'f_beta': self.f_beta, 'f_k': self.f_k,
             'dim': self.dim,
-            'potential': {'xc': self.potential.xc, 'yc': self.potential.yc, 'R': self.potential.R,
-                          'zc': getattr(self.potential, 'zc', None)},
+            'potential': {'shape': self.potential.shape,
+                          'xc': self.potential.xc, 'yc': self.potential.yc, 'R': self.potential.R,
+                          'zc': getattr(self.potential, 'zc', None),
+                          'a': getattr(self.potential, 'a', None), 'b': getattr(self.potential, 'b', None),
+                          'c': getattr(self.potential, 'c', None)},
             'z_limits': ({'z_min': self.z_min, 'z_max': self.z_max, 'z_margin': self.z_margin,
                           'z_wall_k': self.z_wall_k, 'max_vz': self.max_vz,
                           'z_stretch': any_p.z_stretch} if self.dim == 3 else None),
@@ -602,6 +609,20 @@ class SphCore:
         self.log.close()
 
 
+def _make_potential(cfg, dim):
+    """The potential selected by cfg['potential']: default | circle | sphere | quartic."""
+    kind = str(cfg.get('potential', 'default')).lower()
+    if kind not in ('default', 'circle', 'sphere', 'quartic'):
+        raise ValueError("potential must be default | circle | sphere | quartic")
+    if (kind == 'circle' and dim != 2) or (kind == 'sphere' and dim != 3):
+        raise ValueError(f"potential '{kind}' needs dim={2 if kind == 'circle' else 3}")
+    if dim == 3:
+        return Potential3D(xc=cfg['xc'], yc=cfg['yc'], zc=cfg['zc'], R=cfg['R'],
+                           shape='quartic' if kind == 'quartic' else 'sphere', gain=cfg['f_k'] / 2.0)
+    return Potential(xc=cfg['xc'], yc=cfg['yc'], R=cfg['R'], shape='quartic' if kind == 'quartic' else 'circle',
+                     gain=cfg['f_k'] / 2.0)   # gain only matters for the quartic: f_k = 2 is the original strength
+
+
 def build_core(cfg, egos_from_names, density_on_rx, tag, echo=None, write_meta=True, epoch_fn=None):
     """Create particles, logger and SphCore from a parameter dict (ROS-free).
     echo(level, text) mirrors WARN/ERROR events to the ROS log (None offline).
@@ -619,7 +640,7 @@ def build_core(cfg, egos_from_names, density_on_rx, tag, echo=None, write_meta=T
                           sph_gain=cfg['sph_gain'], z_stretch=cfg['z_stretch'])
             for n in names
         }
-        potential = Potential3D(xc=cfg['xc'], yc=cfg['yc'], zc=cfg['zc'], R=cfg['R'])
+        potential = _make_potential(cfg, 3)
     else:
         particles = {
             n: Particle(id=n, x=0.0, y=0.0, h=cfg['smoothing_h'], m=cfg['particle_mass'],
@@ -628,7 +649,7 @@ def build_core(cfg, egos_from_names, density_on_rx, tag, echo=None, write_meta=T
                         sph_gain=cfg['sph_gain'])
             for n in names
         }
-        potential = Potential(xc=cfg['xc'], yc=cfg['yc'], R=cfg['R'])
+        potential = _make_potential(cfg, 2)
 
     run_id = cfg['run_id'] or time.strftime('%Y%m%d_%H%M%S')
     logger = RunLogger(cfg['log_dir'], run_id=run_id, tag=tag, echo=echo)

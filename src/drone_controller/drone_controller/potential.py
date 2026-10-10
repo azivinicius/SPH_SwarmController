@@ -50,7 +50,7 @@ class Potential:
         cannot follow such a stiff force): R of 1 to 2 converges cleanly, R = 5 does not.
     """
 
-    def __init__(self, xc=0.0, yc=0.0, R=1.0, shape='circle', a=4.0, b=6.0, c=4.0, max_force=7.0):
+    def __init__(self, xc=0.0, yc=0.0, R=1.0, shape='circle', a=4.0, b=6.0, c=4.0, max_force=7.0, gain=1.0):
         if shape not in ('circle', 'quartic'):
             raise ValueError("shape must be 'circle' or 'quartic'")
         self.xc = xc                  # centre of the shape, world frame (m)
@@ -60,6 +60,7 @@ class Potential:
         self.a = a                    # quartic only: coefficients of a dx^4 - b dx^2 dy^2 + c dy^4
         self.b = b
         self.c = c
+        self.gain = gain              # quartic only: strength factor applied BEFORE the clip, so max_force stays the cap (1 = original)
         self.max_force = max_force    # quartic only: clip of each force component (m/s^2), 7 originally
 
     # ------------------------------------------------------------------ circle
@@ -137,7 +138,7 @@ class Potential:
         The force at the centre (xc, yc) is exactly zero and small around it (it grows with the cube of
         the distance), so a drone exactly at the centre barely moves out of it.
         """
-        G = 1                                   # gain (1 in the original file)
+        G = self.gain                           # gain (1 in the original file); applied BEFORE the clip
 
         dV = self.grad_V(x, y)
         fx = -G*dV[0]
@@ -163,7 +164,9 @@ class Potential:
 
         circle : -k * grad(phi) / |grad(phi)|^beta   ([0, 0] exactly on the circle and at its centre,
                  where grad(phi) is 0: avoids 0/0)
-        quartic: the clipped star force (beta and k are ignored)
+        quartic: the clipped star force (beta and k are ignored; the controller sets
+                 gain = f_k / 2 and the gain acts before the clip: POT_K=2 is the original strength, a smaller
+                 POT_K is weaker, and max_force is still the cap)
         """
         if self.shape == 'quartic':
             return self._force_quartic(x, y)

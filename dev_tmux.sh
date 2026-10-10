@@ -15,8 +15,7 @@
 #
 # Every run gets its own folder  src/logs/runs/<timestamp>_<RUN_LABEL>/  (tick/rx CSVs, events.log,
 # rtf.csv, meta.json). Label a run with:  RUN_LABEL=hover ./dev_tmux.sh up-swarm
-# DETACH=1 (or ATTACH=0) starts everything without attaching to tmux (used by tests/run_test.sh).
-# See TEST_GUIDE.md for the test battery.
+# DETACH=1 (or ATTACH=0) starts everything without attaching to tmux.
 #
 # Per-run overrides:  N_DRONES=5 POT_R=0.8 ./dev_tmux.sh up
 # Other config file:  CONF=configs/five.conf ./dev_tmux.sh up
@@ -126,6 +125,8 @@ resolve() {
   LAUNCH_ARGS="$LAUNCH_ARGS state_timeout_s:=${STATE_TIMEOUT_S:-0}"
   LAUNCH_ARGS="$LAUNCH_ARGS dim:=$SPH_DIM zc:=${POT_ZC:-1.0} max_vz:=${MAX_VZ:-0.25} z_min:=${Z_MIN:-0.25} z_max:=${Z_MAX:-2.5}"
   LAUNCH_ARGS="$LAUNCH_ARGS z_margin:=${Z_MARGIN:-0.3} z_wall_k:=${Z_WALL_K:-2.0} z_stretch:=${Z_STRETCH:-1.0}"
+  # target shape: POTENTIAL=default|circle|sphere|quartic ; with quartic, POT_K scales the force (2 = original, 0.5 = 4x weaker)
+  LAUNCH_ARGS="$LAUNCH_ARGS potential:=${POTENTIAL:-default}"
   LAUNCH_ARGS="$LAUNCH_ARGS run_id:=$RUN_ID run_label:=$RUN_LABEL git_rev:=$GIT_REV"
 }
 # which launch file the ctrl window runs; `up-swarm` switches it to the single-process controller

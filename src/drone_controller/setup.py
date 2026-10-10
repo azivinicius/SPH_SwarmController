@@ -18,12 +18,10 @@ setup(
     zip_safe=True,
     maintainer='Your Name',
     maintainer_email='you@example.com',
-    description='Step 2: minimal node skeleton, no control logic yet.',
+    description='SPH swarm controller for Crazyflies (CrazySim / Crazyswarm2).',
     license='Apache-2.0',
     entry_points={
         'console_scripts': [
-            'hello_node = drone_controller.hello_node:main',
-            'controller = drone_controller.controller:main',
             'plain_sph = drone_controller.plain_sph:main',
             'swarm_sph = drone_controller.swarm_sph:main',
             'particle_sim = drone_controller.particle_sim:main',

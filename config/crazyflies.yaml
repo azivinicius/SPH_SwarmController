@@ -4,27 +4,102 @@ robots:
   cf_0:
     enabled: true
     uri: udp://127.0.0.1:19850
-    initial_position: [0.2550, 0.0000, 0.0]
+    initial_position: [-0.6000, 0.4500, 0.0]
     type: cf_sim
   cf_1:
     enabled: true
     uri: udp://127.0.0.1:19851
-    initial_position: [0.0788, 0.2425, 0.0]
+    initial_position: [-0.3000, 0.4500, 0.0]
     type: cf_sim
   cf_2:
     enabled: true
     uri: udp://127.0.0.1:19852
-    initial_position: [-0.2063, 0.1499, 0.0]
+    initial_position: [0.0000, 0.4500, 0.0]
     type: cf_sim
   cf_3:
     enabled: true
     uri: udp://127.0.0.1:19853
-    initial_position: [-0.2063, -0.1499, 0.0]
+    initial_position: [0.3000, 0.4500, 0.0]
     type: cf_sim
   cf_4:
     enabled: true
     uri: udp://127.0.0.1:19854
-    initial_position: [0.0788, -0.2425, 0.0]
+    initial_position: [0.6000, 0.4500, 0.0]
+    type: cf_sim
+  cf_5:
+    enabled: true
+    uri: udp://127.0.0.1:19855
+    initial_position: [-0.6000, 0.1500, 0.0]
+    type: cf_sim
+  cf_6:
+    enabled: true
+    uri: udp://127.0.0.1:19856
+    initial_position: [-0.3000, 0.1500, 0.0]
+    type: cf_sim
+  cf_7:
+    enabled: true
+    uri: udp://127.0.0.1:19857
+    initial_position: [0.0000, 0.1500, 0.0]
+    type: cf_sim
+  cf_8:
+    enabled: true
+    uri: udp://127.0.0.1:19858
+    initial_position: [0.3000, 0.1500, 0.0]
+    type: cf_sim
+  cf_9:
+    enabled: true
+    uri: udp://127.0.0.1:19859
+    initial_position: [0.6000, 0.1500, 0.0]
+    type: cf_sim
+  cf_10:
+    enabled: true
+    uri: udp://127.0.0.1:19860
+    initial_position: [-0.6000, -0.1500, 0.0]
+    type: cf_sim
+  cf_11:
+    enabled: true
+    uri: udp://127.0.0.1:19861
+    initial_position: [-0.3000, -0.1500, 0.0]
+    type: cf_sim
+  cf_12:
+    enabled: true
+    uri: udp://127.0.0.1:19862
+    initial_position: [0.0000, -0.1500, 0.0]
+    type: cf_sim
+  cf_13:
+    enabled: true
+    uri: udp://127.0.0.1:19863
+    initial_position: [0.3000, -0.1500, 0.0]
+    type: cf_sim
+  cf_14:
+    enabled: true
+    uri: udp://127.0.0.1:19864
+    initial_position: [0.6000, -0.1500, 0.0]
+    type: cf_sim
+  cf_15:
+    enabled: true
+    uri: udp://127.0.0.1:19865
+    initial_position: [-0.6000, -0.4500, 0.0]
+    type: cf_sim
+  cf_16:
+    enabled: true
+    uri: udp://127.0.0.1:19866
+    initial_position: [-0.3000, -0.4500, 0.0]
+    type: cf_sim
+  cf_17:
+    enabled: true
+    uri: udp://127.0.0.1:19867
+    initial_position: [0.0000, -0.4500, 0.0]
+    type: cf_sim
+  cf_18:
+    enabled: true
+    uri: udp://127.0.0.1:19868
+    initial_position: [0.3000, -0.4500, 0.0]
+    type: cf_sim
+  cf_19:
+    enabled: true
+    uri: udp://127.0.0.1:19869
+    initial_position: [0.6000, -0.4500, 0.0]
     type: cf_sim
 
 robot_types:

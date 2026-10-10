@@ -1,38 +1,39 @@
 #!/usr/bin/env python3
-"""Plots of ONE run: trajectories, separation / collisions, SPH parameters and dynamics, timing + RTF, CPU.
+"""Plots of ONE run, shown in windows that stay open until you press Ctrl+C.
 
     python3 src/plot_plain_sph.py                      # newest run in src/logs/runs
     python3 src/plot_plain_sph.py src/logs/runs/<id>   # a given run (or `latest`)
-    python3 src/plot_plain_sph.py <run> --out figs     # write the PNGs somewhere else
-    (the images open in the default viewer when done; --no-open to skip)
-    python3 src/plot_plain_sph.py <run> --collide 0.12 --close 0.30 --no-open
+    python3 src/plot_plain_sph.py <run> --no-open      # only write the PNGs, no windows, exit at once
+    python3 src/plot_plain_sph.py <run> --out figs --collide 0.12 --close 0.30 --target-spacing 0.3
 
-Reads what the run folder holds (tick_*.csv, rx_*.csv, meta.json, rtf.csv, sys.csv) through the same
-loader as analyze_run.py, so the two never disagree about the files. Writes into <run>/plots/ :
+The PNGs go to <run>/plots/ . Each one opens in its own window (feh, else eog / display; install the
+small one with `sudo apt install feh`, or set PLOT_VIEWER="cmd args"). The script keeps running while the
+windows are open; Ctrl+C (or closing every window) ends it and closes all the windows it opened.
 
     00_summary.png      parameters (mass, h, rho0, gamma, zeta, gain, potential ...) and the key results
-    01_trajectories.png map of the paths (+ target circle when the potential is on), radius, altitude
+    01_trajectories.png map of the paths + target curve, altitude, and snapshots of the formation over time
+                        (links between neighbours: green = target spacing +-20 %, orange tighter, blue looser)
     02_separation.png   closest approach vs time, collision / close-approach count, spacing histogram,
                         and the mass / spacing balance (ring density vs spacing for this mass, h, N)
-    03_sph_dynamics.png rho/rho0, the acceleration terms, command vs measured speed, saturation
-    04_timing_rtf.png   RTF, control-loop jitter, step cost, stale ticks, state rate
-    05_resources.png    CPU cores per process group, clock + temperature, memory (needs sys.csv)
-    06_formation.png    snapshots grid -> formation with spacing links, spacing band, distance to the target
-                        circle (made for the particle sim, works for any run)
-    07_3d.png           3D runs only: paths + sphere, altitude vs floor/ceiling, distance to the sphere surface
+    03_sph_dynamics.png rho/rho0, pressure P, external (potential) force, speed
+    04_performance.png  RTF, busy cores per process group, CPU clock and temperature (needs rtf.csv / sys.csv)
+    05_3d.png           3D runs only: paths + sphere / loop, altitude vs floor/ceiling, distance to the target
 
-Old logs (logs/plain_sph_*.csv, no run folder) still work for the parts they contain.
 Distances are centre to centre in 3D (2D when there is no altitude). "Collision" = centre distance below
 --collide (default 0.15 m: a Crazyflie is ~0.10 m across), "close approach" = below --close (default 0.25 m,
 downwash range). One episode = one stretch below the threshold; gaps shorter than 0.5 s are merged.
 Only the flight window is counted (all drones airborne, first 2 s skipped, up to a divergence if any).
 """
 import argparse
+import atexit
 import math
 import os
-import platform
+import shlex
+import shutil
+import signal
 import subprocess
 import sys
+import time
 
 import numpy as np
 
@@ -82,17 +83,76 @@ def tfmt(v, nd=2, unit=''):
     return 'n/a' if v is None or (isinstance(v, float) and not math.isfinite(v)) else f'{v:.{nd}f}{unit}'
 
 
-def open_in_viewer(path):
+VIEWERS = [('feh', ['--scale-down', '--auto-zoom', '--title', '%f']), ('eog', ['--new-instance']),
+           ('display', []), ('ristretto', []), ('gpicview', [])]
+
+
+def find_viewer():
+    """Command that opens ONE image in its own window and stays alive while the window is open.
+    PLOT_VIEWER="cmd args" overrides the search."""
+    env = os.environ.get('PLOT_VIEWER')
+    if env:
+        return shlex.split(env)
+    for exe, extra in VIEWERS:
+        if shutil.which(exe):
+            return [exe] + extra
+    return None
+
+
+def show_and_wait(paths):
+    """Open every image in its own window and keep running until Ctrl+C (or until every window was closed
+    by hand); then close all the windows this script opened."""
+    cmd = find_viewer()
+    if cmd is None:
+        print('(no image viewer that can be closed from here: install one with  sudo apt install feh ;'
+              ' using xdg-open, those windows stay open when the script ends)')
+        for pth in paths:
+            subprocess.Popen(['xdg-open', pth], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        return
+    procs = []
+
+    def close_all():
+        for pr in procs:
+            if pr.poll() is None:
+                try:
+                    os.killpg(pr.pid, signal.SIGTERM)
+                except OSError:
+                    pass
+        t_end = time.time() + 1.5
+        while time.time() < t_end and any(pr.poll() is None for pr in procs):
+            time.sleep(0.05)
+        for pr in procs:
+            if pr.poll() is None:
+                try:
+                    os.killpg(pr.pid, signal.SIGKILL)
+                except OSError:
+                    pass
+
+    atexit.register(close_all)
+    for sig in (signal.SIGTERM, signal.SIGHUP):
+        signal.signal(sig, lambda *_: sys.exit(0))
+    for pth in paths:
+        try:
+            procs.append(subprocess.Popen(cmd + [pth], start_new_session=True,
+                                          stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL))
+        except OSError as exc:
+            print(f'(could not open {pth}: {exc})')
+    if not procs:
+        return
+    t0 = time.time()
+    print(f'{len(procs)} windows open ({cmd[0]}). Ctrl+C here closes them all.')
     try:
-        s = platform.system()
-        if s == 'Linux':
-            subprocess.Popen(['xdg-open', path], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-        elif s == 'Darwin':
-            subprocess.Popen(['open', path])
-        elif s == 'Windows':
-            os.startfile(path)  # noqa
-    except Exception as exc:                       # never fail because of the viewer
-        print(f'(could not open {path}: {exc})')
+        while True:
+            time.sleep(0.5)
+            if all(pr.poll() is not None for pr in procs):
+                if time.time() - t0 < 3.0:
+                    print('(the viewer handed the images to an already running window; Ctrl+C to finish)')
+                    while True:
+                        time.sleep(1.0)
+                break
+    except KeyboardInterrupt:
+        pass
+    print('closing windows')
 
 
 # ----------------------------------------------------------------------------- data
@@ -283,6 +343,31 @@ def shade_window(ax, D):
     ax.grid(True, alpha=0.3)
 
 
+def quartic_info(D):
+    """The quartic target (centre, R, a, b, c) when the run used it, else None. Old runs without a, b, c use the defaults."""
+    pt = D.core.get('potential') or {}
+    if str(pt.get('shape', D.P.get('potential', 'default'))).lower() != 'quartic' \
+            and str(D.P.get('potential', 'default')).lower() != 'quartic':
+        return None
+    g = lambda k, d: float(pt.get(k) if pt.get(k) is not None else d)
+    return dict(xc=g('xc', D.P.get('xc', 0.0)), yc=g('yc', D.P.get('yc', 0.0)), R=g('R', D.P.get('R', 1.0)),
+                a=g('a', 4.0), b=g('b', 6.0), c=g('c', 4.0))
+
+
+def quartic_curve(q, n=400):
+    """x, y of the curve a*dx^4 - b*dx^2*dy^2 + c*dy^4 = R (one point per angle)."""
+    t = np.linspace(0, 2 * math.pi, n)
+    ct, st = np.cos(t), np.sin(t)
+    r = (q['R'] / (q['a'] * ct ** 4 - q['b'] * ct ** 2 * st ** 2 + q['c'] * st ** 4)) ** 0.25
+    return q['xc'] + r * ct, q['yc'] + r * st
+
+
+def quartic_alpha1(q, x, y):
+    dx, dy = x - q['xc'], y - q['yc']
+    return q['a'] * dx ** 4 - q['b'] * dx ** 2 * dy ** 2 + q['c'] * dy ** 4 - q['R']
+
+
+
 def fig_summary(D, res, outdir):
     fig = plt.figure(figsize=(13, 8.5))
     ax = fig.add_axes([0.02, 0.02, 0.96, 0.9])
@@ -367,16 +452,20 @@ def fig_summary(D, res, outdir):
     return p
 
 
-def fig_trajectories(D, outdir):
+def fig_trajectories(D, outdir, target=0.3, nsnap=4):
+    """Top: map of the paths (+ target curve) and altitude.  Bottom: snapshots of the formation over the
+    flight window; a line joins every pair closer than 1.6x the target spacing (green = within +-20 % of
+    the target, orange = tighter, blue = looser)."""
     C = color_map(D.names)
     P = D.P
-    fig = plt.figure(figsize=(14, 7.5))
-    gs = fig.add_gridspec(2, 2, width_ratios=[1.15, 1], hspace=0.28, wspace=0.18)
-    am = fig.add_subplot(gs[:, 0])
-    ar_ = fig.add_subplot(gs[0, 1])
-    az = fig.add_subplot(gs[1, 1], sharex=ar_)
+    fig = plt.figure(figsize=(14, 11))
+    outer = fig.add_gridspec(2, 1, height_ratios=[1.5, 1], hspace=0.22)
+    top = outer[0].subgridspec(1, 2, width_ratios=[1.25, 1], wspace=0.18)
+    am = fig.add_subplot(top[0, 0])
+    az = fig.add_subplot(top[0, 1])
     xs, ys = [], []
-    pot_on = bool(P.get('f_k')) and all(P.get(k) is not None for k in ('xc', 'yc', 'R'))
+    pot_on = (bool(P.get('f_k')) and all(P.get(k) is not None for k in ('xc', 'yc', 'R'))
+              and str(P.get('potential', 'default')).lower() != 'quartic')   # quartic: not a circle
     for n in D.names:
         s = D.S[n]
         if not finite(s['x']):
@@ -398,17 +487,25 @@ def fig_trajectories(D, outdir):
         xc, yc, R = float(P['xc']), float(P['yc']), float(P['R'])
         xs += [xc - R, xc + R]
         ys += [yc - R, yc + R]
+    qi = quartic_info(D)
+    if qi:
+        qx, qy = quartic_curve(qi)
+        xs += [float(qx.min()), float(qx.max())]
+        ys += [float(qy.min()), float(qy.max())]
     span = max(max(xs) - min(xs), max(ys) - min(ys), 1.0)
     mg = 0.15 * span
     x0, x1, y0, y1 = min(xs) - mg, max(xs) + mg, min(ys) - mg, max(ys) + mg
-    if pot_on:
-        gx, gy = np.meshgrid(np.linspace(x0, x1, 250), np.linspace(y0, y1, 250))
-        s2 = ((gx - xc) ** 2 + (gy - yc) ** 2) / R ** 2 - 1.0
-        cf = am.contourf(gx, gy, np.log10(s2 ** 2 + 1e-3), levels=30, cmap='viridis', alpha=0.55)
-        fig.colorbar(cf, ax=am, label='log10(phi + 1e-3)', location='bottom', fraction=0.04, pad=0.09)
-        th = np.linspace(0, 2 * math.pi, 400)
-        am.plot(xc + R * np.cos(th), yc + R * np.sin(th), 'k--', lw=1.6, label=f'target circle R={R:g}')
-        am.plot(xc, yc, 'k+', ms=12, mew=2)
+
+    def target_curve(ax, lw):
+        if pot_on:
+            th = np.linspace(0, 2 * math.pi, 400)
+            ax.plot(xc + R * np.cos(th), yc + R * np.sin(th), 'k--', lw=lw, label=f'target circle R={R:g}')
+            ax.plot(xc, yc, 'k+', ms=10, mew=1.5)
+        if qi:
+            ax.plot(qx, qy, 'k--', lw=lw, label=f'quartic target R={qi["R"]:g}')
+            ax.plot(qi['xc'], qi['yc'], 'k+', ms=10, mew=1.5)
+
+    target_curve(am, 1.6)
     am.set_xlim(x0, x1)
     am.set_ylim(y0, y1)
     am.set_aspect('equal')
@@ -417,26 +514,6 @@ def fig_trajectories(D, outdir):
     am.set_title('paths: bold = flight window, faint = takeoff / rest   (o start, square end)')
     am.grid(True, alpha=0.3)
     am.legend(fontsize=7, loc='best', ncol=2)
-    # radius from the centroid (swarm shape) and, with the potential on, the distance to its centre
-    if D.grid is not None:
-        ok = [n for n in D.names if finite(D.S[n]['x'])]
-        stack_x = np.vstack([np.interp(D.grid, D.S[n]['t'], np.nan_to_num(D.S[n]['x'])) for n in ok])
-        stack_y = np.vstack([np.interp(D.grid, D.S[n]['t'], np.nan_to_num(D.S[n]['y'])) for n in ok])
-        cx, cy = stack_x.mean(axis=0), stack_y.mean(axis=0)
-        for i, n in enumerate(ok):
-            ar_.plot(D.grid, np.hypot(stack_x[i] - cx, stack_y[i] - cy), color=C[n], lw=1, label=n)
-            if pot_on:
-                ar_.plot(D.grid, np.hypot(stack_x[i] - xc, stack_y[i] - yc), color=C[n], lw=0.8, ls=':')
-        r_eq, _ = D.equilibrium()
-        if math.isfinite(r_eq):
-            ar_.axhline(r_eq, color='g', ls='--', lw=1.2, label=f'equilibrium radius {r_eq:.2f} m')
-        if pot_on:
-            ar_.axhline(R, color='k', ls='--', lw=1, label='R (target), dotted = distance to (xc,yc)')
-        ar_.legend(fontsize=7, ncol=2)
-    ar_.margins(y=0.3)
-    ar_.set_ylabel('distance from centroid (m)')
-    ar_.set_title('swarm radius')
-    shade_window(ar_, D)
     for n in D.names:
         s = D.S[n]
         if finite(s['z']):
@@ -446,9 +523,40 @@ def fig_trajectories(D, outdir):
     az.set_xlabel('time (s)')
     az.set_title(f'altitude (target {D.fixed_z} m)')
     shade_window(az, D)
-    fig.suptitle(f'{D.run.name}   trajectories', x=0.02, ha='left', fontsize=13)
+
+    # formation snapshots
+    ok = [n for n in D.names if finite(D.S[n]['x']) and finite(D.S[n]['y'])]
+    if ok and D.grid is not None:
+        g = D.grid
+        gm = (g >= D.w0) & (g <= D.w1)
+        g = g[gm] if gm.sum() > nsnap else g
+        X = np.vstack([np.interp(g, D.S[n]['t'], D.S[n]['x']) for n in ok])
+        Y = np.vstack([np.interp(g, D.S[n]['t'], D.S[n]['y']) for n in ok])
+        idx = np.unique(np.linspace(0, len(g) - 1, nsnap).astype(int))
+        bot = outer[1].subgridspec(1, len(idx), wspace=0.12)
+        for k, i in enumerate(idx):
+            ax = fig.add_subplot(bot[0, k])
+            target_curve(ax, 1.0)
+            for a in range(len(ok)):
+                for b in range(a + 1, len(ok)):
+                    d = math.hypot(X[a, i] - X[b, i], Y[a, i] - Y[b, i])
+                    if d < 1.6 * target:
+                        col = 'tab:green' if abs(d - target) <= 0.2 * target else ('tab:orange' if d < target else 'tab:blue')
+                        ax.plot([X[a, i], X[b, i]], [Y[a, i], Y[b, i]], color=col, lw=1.6, alpha=0.8, zorder=1)
+            for a, n in enumerate(ok):
+                ax.scatter(X[a, i], Y[a, i], s=60, color=C[n], edgecolor='k', zorder=3)
+                ax.annotate(n.replace('cf_', ''), (X[a, i], Y[a, i]), xytext=(4, 4), textcoords='offset points', fontsize=8)
+            ax.set_xlim(x0, x1)
+            ax.set_ylim(y0, y1)
+            ax.set_aspect('equal')
+            ax.set_title(f't = {g[i]:.1f} s', fontsize=10)
+            ax.grid(True, alpha=0.3)
+            if k:
+                ax.set_yticklabels([])
+    fig.suptitle(f'{D.run.name}   trajectories and formation   (links: green = {target:g} m +-20 %, orange = tighter, blue = looser)',
+                 x=0.02, y=0.94, ha='left', fontsize=13)
     p = os.path.join(outdir, '01_trajectories.png')
-    fig.savefig(p, dpi=115, bbox_inches='tight')
+    fig.savefig(p, dpi=110, bbox_inches='tight')
     plt.close(fig)
     return p
 
@@ -528,52 +636,44 @@ def fig_separation(D, res, outdir):
 
 
 def fig_sph(D, outdir):
+    """rho / rho0, pressure P, external (potential) force, speed."""
     C = color_map(D.names)
     rho0 = D.sph.get('rho_0') or 1000.0
     fig, ax = plt.subplots(4, 1, figsize=(12, 12), sharex=True)
-    tm = {}
-    acc = {k: [] for k in ('ap', 'av', 'ad', 'ae', 'a')}
-    tg = D.grid if D.grid is not None else np.arange(D.t_beg, D.t_end, 0.1)
+
+    def norm_of(T, k):
+        comps = [np.asarray(T[f'{k}_{c}'], dtype=float) for c in 'xyz' if f'{k}_{c}' in T]
+        comps = [c for c in comps if finite(c)]            # the z column is empty in 2D runs
+        return np.sqrt(sum(c ** 2 for c in comps)) if comps else None
+
     for n in D.names:
         T = D.R.ticks[n]
         t = D.S[n]['t']
         if 'rho' in T:
             ax[0].plot(t, np.asarray(T['rho']) / rho0, color=C[n], lw=1, label=n)
-        for k in acc:
-            if f'{k}_x' in T and finite(T[f'{k}_x']):
-                v = np.hypot(np.asarray(T[f'{k}_x']), np.asarray(T[f'{k}_y']))
-                m = np.isfinite(v) & np.isfinite(t)
-                if m.sum() > 2:
-                    acc[k].append(np.interp(tg, t[m], v[m]))
-        if 'cmd_x' in T:
-            ax[2].plot(t, np.hypot(T['cmd_raw_x'], T['cmd_raw_y']), color=C[n], lw=0.8, alpha=0.8)
+        if 'P' in T and finite(T['P']):
+            ax[1].plot(t, np.asarray(T['P'], dtype=float), color=C[n], lw=1)          # pressure P of the particle
+        v = norm_of(T, 'ae')                                                          # external force |F| (m/s^2, per unit mass)
+        if v is not None and len(v) == len(t):
+            ax[2].plot(t, v, color=C[n], lw=1)
+        if 'cmd_raw_x' in T:
+            ax[3].plot(t, np.hypot(T['cmd_raw_x'], T['cmd_raw_y']), color=C[n], lw=0.8, alpha=0.8)
         if 'meas_vx' in T and finite(T['meas_vx']):
-            ax[2].plot(t, np.hypot(T['meas_vx'], T['meas_vy']), color=C[n], lw=0.8, ls=':')
-        if 'clipped' in T:
-            k = max(int(2.0 / D.period), 2)
-            c = roll(np.asarray(T['clipped'], dtype=float) * 100, k)
-            ax[3].plot(t[k - 1:k - 1 + len(c)], c, color=C[n], lw=1)
+            ax[3].plot(t, np.hypot(T['meas_vx'], T['meas_vy']), color=C[n], lw=0.8, ls=':')
     ax[0].axhspan(0.9, 1.1, color='g', alpha=0.1)
     ax[0].axhline(1.0, color='g', lw=0.8, ls='--')
     ax[0].set_ylabel('rho / rho0  (green = +-10 %)')
     ax[0].legend(fontsize=7, ncol=min(D.n, 6))
-    names = {'ap': 'pressure', 'av': 'viscosity', 'ad': 'damping', 'ae': 'external potential', 'a': 'total dv/dt'}
-    for k, lst in acc.items():
-        if lst:
-            ax[1].plot(tg, np.nanmean(np.vstack(lst), axis=0), lw=1.6 if k == 'a' else 1, label=names[k],
-                       color='k' if k == 'a' else None)
-    ax[1].set_ylabel('mean |acceleration| (m/s^2)')
-    ax[1].set_yscale('symlog', linthresh=0.01)
-    ax[1].legend(fontsize=8, ncol=5, loc='lower right')
-    ax[2].axhline(D.max_v, color='r', ls=':', lw=1)
+    ax[1].set_ylabel('pressure P of each particle')
+    ax[1].axhline(0, color='k', lw=0.8)
+    ax[2].set_ylabel('external force |F| (potential), m/s^2')
+    ax[3].axhline(D.max_v, color='r', ls=':', lw=1)
     from matplotlib.lines import Line2D
-    ax[2].legend(handles=[Line2D([], [], color='k', lw=1, label='command (before clip)'),
+    ax[3].legend(handles=[Line2D([], [], color='k', lw=1, label='command (before clip)'),
                           Line2D([], [], color='k', lw=1, ls=':', label='measured'),
                           Line2D([], [], color='r', lw=1, ls=':', label='max_velocity')],
                  fontsize=8, ncol=3, loc='upper right')
-    ax[2].set_ylabel('speed (m/s)')
-    ax[3].set_ylabel('command saturated, 2 s avg (%)')
-    ax[3].set_ylim(0, 100)
+    ax[3].set_ylabel('speed (m/s)')
     ax[3].set_xlabel('time (s)')
     for a in ax:
         shade_window(a, D)
@@ -586,178 +686,53 @@ def fig_sph(D, outdir):
     return p
 
 
-def fig_timing(D, outdir):
-    C = color_map(D.names)
-    fig, ax = plt.subplots(5, 1, figsize=(12, 13), sharex=True)
-    if D.rtf_t is not None:
-        ax[0].plot(D.rtf_t, D.rtf_v, 'k', lw=1)
-        ax[0].axhline(1.0, color='g', lw=0.8, ls='--')
-        ax[0].axhline(0.9, color='orange', lw=0.8, ls=':', label='0.9 = reliable')
-        ax[0].axhline(0.6, color='r', lw=0.8, ls=':', label='0.6 = do not trust')
-        ax[0].set_ylim(0, max(1.15, float(np.nanmax(D.rtf_v)) * 1.1))
-        ax[0].legend(fontsize=8)
-    else:
-        ax[0].text(0.5, 0.5, 'no rtf.csv in this run', transform=ax[0].transAxes, ha='center')
-    ax[0].set_ylabel('RTF (sim s per wall s)')
-    for n in D.names:
-        T = D.R.ticks[n]
-        t = D.S[n]['t']
-        if 'wall_dt_ms' in T:
-            ax[1].plot(t, T['wall_dt_ms'], color=C[n], lw=0.6, alpha=0.8, label=n)
-        if 'step_ms' in T:
-            ax[2].plot(t, T['step_ms'], color=C[n], lw=0.6, alpha=0.8)
-        if 'rx_since' in T:
-            k = max(int(2.0 / D.period), 2)
-            st = roll((np.asarray(T['rx_since']) == 0).astype(float) * 100, k)
-            ax[3].plot(t[k - 1:k - 1 + len(st)], st, color=C[n], lw=1)
-        rx = D.R.rxs.get(n)
-        if rx and 'rx_dt_ms' in rx and len(rx['rx_dt_ms']) > 20:
-            tr = np.asarray(rx['epoch']) - D.E0 if (D.E0 is not None and finite(rx.get('epoch'))) else np.asarray(rx['t'])
-            hz = 1000.0 / np.clip(np.asarray(rx['rx_dt_ms']), 1, None)
-            k = 20
-            ax[4].plot(tr[k - 1:k - 1 + len(roll(hz, k))], roll(hz, k), color=C[n], lw=1)
-    ax[1].axhline(1000 * D.period, color='k', ls=':', lw=1)
-    ax[1].axhline(1500 * D.period, color='r', ls=':', lw=1)
-    ax[1].set_ylabel('time between ticks (ms)\n dotted: period, 1.5 x period')
-    ax[1].set_ylim(0, max(1.8 * 1000 * D.period, float(np.nanpercentile(np.concatenate(
-        [np.asarray(D.R.ticks[n]['wall_dt_ms']) for n in D.names if 'wall_dt_ms' in D.R.ticks[n]] or [np.array([0.0])]), 99.5)) * 1.1))
-    if ax[1].get_legend_handles_labels()[0]:
-        ax[1].legend(fontsize=7, ncol=min(D.n, 6), loc='upper left')
-    ax[2].axhline(1000 * D.period * 0.3, color='r', ls=':', lw=1)
-    ax[2].set_ylabel('control step cost (ms)\n red: 30 % of the period')
-    ax[2].set_yscale('log')
-    ax[3].set_ylabel('stale ticks, 2 s avg (%)')
-    ax[3].set_ylim(0, 100)
-    ax[4].axhline(20.0, color='k', ls=':', lw=1)
-    ax[4].set_ylabel('state messages per wall s\n dotted: 20 Hz')
-    ax[4].set_xlabel('time (s)')
+def fig_performance(D, outdir):
+    """RTF on its own panel, then CPU load and clock / temperature (one figure)."""
+    have_rtf = D.rtf_t is not None
+    have_sys = D.sys is not None and D.sys_t is not None
+    if not (have_rtf or have_sys):
+        return None
+    rows = (1 if have_rtf else 0) + (2 if have_sys else 0)
+    fig, ax = plt.subplots(rows, 1, figsize=(12, 3.6 * rows), sharex=True, squeeze=False)
+    ax = list(ax[:, 0])
+    i = 0
+    if have_rtf:
+        a = ax[i]
+        i += 1
+        a.plot(D.rtf_t, D.rtf_v, 'k', lw=1)
+        a.axhline(1.0, color='g', lw=0.8, ls='--')
+        a.axhline(0.9, color='orange', lw=0.8, ls=':', label='0.9 = reliable')
+        a.axhline(0.6, color='r', lw=0.8, ls=':', label='0.6 = do not trust')
+        a.set_ylim(0, max(1.15, float(np.nanmax(D.rtf_v)) * 1.1))
+        a.set_ylabel('RTF (sim s per wall s)')
+        a.legend(fontsize=8)
+    if have_sys:
+        s, t = D.sys, D.sys_t
+        a = ax[i]
+        i += 1
+        ys = [np.asarray(s['cpu_' + g]) for g in GROUPS]
+        labels = [GROUP_LABEL[g] for g in GROUPS]
+        keep = [k for k, y in enumerate(ys) if float(np.nanmax(y)) > 0.02]
+        a.stackplot(t, [ys[k] for k in keep], labels=[labels[k] for k in keep], alpha=0.85)
+        a.plot(t, np.asarray(s['cores_total']), 'k', lw=1.2, label='whole machine')
+        a.axhline(float(s['ncpu'][0]), color='r', ls='--', lw=1, label=f'{s["ncpu"][0]:.0f} threads')
+        a.axhline(float(s['ncore'][0]), color='r', ls=':', lw=1, label=f'{s["ncore"][0]:.0f} physical cores')
+        a.set_ylabel('busy cores, stacked by group')
+        a.legend(fontsize=7, ncol=4, loc='upper left')
+        a.set_ylim(0, float(s['ncpu'][0]) * 1.5)
+        a = ax[i]
+        a.plot(t, np.asarray(s['freq_mhz']), 'b', lw=1)
+        a.set_ylabel('mean CPU clock (MHz)', color='b')
+        a3 = a.twinx()
+        a3.plot(t, np.asarray(s['temp_c']), 'r', lw=1)
+        a3.set_ylabel('hottest zone (C)', color='r')
+    ax[-1].set_xlabel('time (s)')
     for a in ax:
         shade_window(a, D)
-    ax[0].set_title(f'{D.run.name}   timing and simulator speed', loc='left')
+    ax[0].set_title(f'{D.run.name}   simulator speed and machine load', loc='left')
     fig.tight_layout()
-    p = os.path.join(outdir, '04_timing_rtf.png')
+    p = os.path.join(outdir, '04_performance.png')
     fig.savefig(p, dpi=110)
-    plt.close(fig)
-    return p
-
-
-def fig_resources(D, outdir):
-    if D.sys is None or D.sys_t is None:
-        return None
-    s, t = D.sys, D.sys_t
-    fig, ax = plt.subplots(3, 1, figsize=(12, 10), sharex=True)
-    ys = [np.asarray(s['cpu_' + g]) for g in GROUPS]
-    labels = [GROUP_LABEL[g] for g in GROUPS]
-    keep = [i for i, y in enumerate(ys) if float(np.nanmax(y)) > 0.02]
-    ax[0].stackplot(t, [ys[i] for i in keep], labels=[labels[i] for i in keep], alpha=0.85)
-    outside = np.asarray(s['cores_outside'])
-    ax[0].plot(t, np.asarray(s['cores_total']), 'k', lw=1.2, label='whole machine')
-    ax[0].axhline(float(s['ncpu'][0]), color='r', ls='--', lw=1, label=f'{s["ncpu"][0]:.0f} threads')
-    ax[0].axhline(float(s['ncore'][0]), color='r', ls=':', lw=1, label=f'{s["ncore"][0]:.0f} physical cores')
-    ax[0].set_ylabel('busy cores, stacked by group')
-    ax[0].legend(fontsize=7, ncol=4, loc='upper left')
-    ax[0].set_ylim(0, float(s['ncpu'][0]) * 1.5)
-    if D.rtf_t is not None:
-        a2 = ax[0].twinx()
-        a2.plot(D.rtf_t, D.rtf_v, 'm', lw=1.3, label='RTF')
-        a2.set_ylim(0, max(1.15, float(np.nanmax(D.rtf_v)) * 1.1) * 1.5 / 1.15)
-        a2.set_ylabel('RTF (magenta)')
-    ax[1].plot(t, np.asarray(s['freq_mhz']), 'b', lw=1, label='clock (MHz)')
-    ax[1].set_ylabel('mean CPU clock (MHz)', color='b')
-    a3 = ax[1].twinx()
-    a3.plot(t, np.asarray(s['temp_c']), 'r', lw=1)
-    a3.set_ylabel('hottest zone (C)', color='r')
-    ax[2].plot(t, np.asarray(s['mem_used_mb']) / 1024.0, 'k', lw=1)
-    ax[2].axhline(float(s['mem_total_mb'][0]) / 1024.0, color='r', ls=':', lw=1)
-    ax[2].set_ylabel('memory in use (GB), red = total')
-    ax[2].set_xlabel('time (s)')
-    for a in ax:
-        shade_window(a, D)
-    ax[0].set_title(f'{D.run.name}   machine load', loc='left')
-    fig.tight_layout()
-    p = os.path.join(outdir, '05_resources.png')
-    fig.savefig(p, dpi=110)
-    plt.close(fig)
-    return p
-
-
-# ----------------------------------------------------------------------------- main
-def fig_formation(D, outdir, target=0.3, nsnap=6):
-    """Particle-sim figure: how the start layout (grid) turns into the formation.
-    Top: snapshots of the swarm over time, a line joins every pair closer than 1.6x the target spacing
-    (green = within +-20 % of the target, orange = tighter, blue = looser), the target circle when the
-    potential is on.  Bottom: nearest-neighbour spacing band vs time, and distance of the centroid / of
-    the particles to the target circle."""
-    ok = [n for n in D.names if finite(D.S[n]['x']) and finite(D.S[n]['y'])]
-    if len(ok) < 1 or D.grid is None:
-        return None
-    g = D.grid
-    X = np.vstack([np.interp(g, D.S[n]['t'], D.S[n]['x']) for n in ok])
-    Y = np.vstack([np.interp(g, D.S[n]['t'], D.S[n]['y']) for n in ok])
-    C = color_map(ok)
-    P = D.P
-    pot = bool(P.get('f_k')) and all(P.get(k) is not None for k in ('xc', 'yc', 'R'))
-    idx = np.unique(np.linspace(0, len(g) - 1, nsnap).astype(int))
-    fig = plt.figure(figsize=(3.6 * len(idx), 9.5))
-    gs = fig.add_gridspec(2, len(idx), height_ratios=[1.25, 1], hspace=0.32, wspace=0.12)
-    pad = 0.6
-    x0, x1 = float(np.nanmin(X)) - pad, float(np.nanmax(X)) + pad
-    y0, y1 = float(np.nanmin(Y)) - pad, float(np.nanmax(Y)) + pad
-    if pot:
-        x0, x1 = min(x0, P['xc'] - P['R'] - pad), max(x1, P['xc'] + P['R'] + pad)
-        y0, y1 = min(y0, P['yc'] - P['R'] - pad), max(y1, P['yc'] + P['R'] + pad)
-    for k, i in enumerate(idx):
-        ax = fig.add_subplot(gs[0, k])
-        if pot:
-            th = np.linspace(0, 2 * math.pi, 200)
-            ax.plot(P['xc'] + P['R'] * np.cos(th), P['yc'] + P['R'] * np.sin(th), 'k--', lw=1, alpha=0.6)
-        for a in range(len(ok)):
-            for b in range(a + 1, len(ok)):
-                d = math.hypot(X[a, i] - X[b, i], Y[a, i] - Y[b, i])
-                if d < 1.6 * target:
-                    col = 'tab:green' if abs(d - target) <= 0.2 * target else ('tab:orange' if d < target else 'tab:blue')
-                    ax.plot([X[a, i], X[b, i]], [Y[a, i], Y[b, i]], color=col, lw=1.6, alpha=0.8, zorder=1)
-        for a, n in enumerate(ok):
-            ax.scatter(X[a, i], Y[a, i], s=70, color=C[n], edgecolor='k', zorder=3)
-            ax.annotate(n.replace('cf_', ''), (X[a, i], Y[a, i]), xytext=(4, 4), textcoords='offset points', fontsize=8)
-        ax.set_xlim(x0, x1)
-        ax.set_ylim(y0, y1)
-        ax.set_aspect('equal')
-        ax.set_title(f't = {g[i]:.1f} s', fontsize=10)
-        ax.grid(True, alpha=0.3)
-        if k:
-            ax.set_yticklabels([])
-    gb = gs[1, :].subgridspec(1, 2, wspace=0.28)
-    a1 = fig.add_subplot(gb[0, 0])
-    nn = np.vstack([D.nn[n] for n in ok if n in D.nn]) if D.nn else None
-    if nn is not None:
-        a1.fill_between(g, nn.min(axis=0), nn.max(axis=0), alpha=0.25, label='nearest-neighbour spacing, min..max')
-        a1.plot(g, np.median(nn, axis=0), lw=1.8, label='median')
-    a1.axhspan(0.8 * target, 1.2 * target, color='tab:green', alpha=0.12, lw=0, label=f'target {target:g} m +-20 %')
-    a1.axhline(D.collide, color='r', ls=':', lw=1, label=f'collision {D.collide:g} m')
-    a1.set_xlabel('time (s)')
-    a1.set_ylabel('distance (m)')
-    a1.set_title('spacing between particles')
-    a1.legend(fontsize=8)
-    a1.grid(True, alpha=0.3)
-    a2 = fig.add_subplot(gb[0, 1])
-    cx, cy = X.mean(axis=0), Y.mean(axis=0)
-    if pot:
-        a2.plot(g, np.hypot(cx - P['xc'], cy - P['yc']), lw=1.8, label='centroid to circle centre')
-        rr = np.hypot(X - P['xc'], Y - P['yc'])
-        a2.fill_between(g, np.abs(rr - P['R']).min(axis=0), np.abs(rr - P['R']).max(axis=0), alpha=0.25,
-                        label='|distance to circle - R|, min..max')
-        a2.set_title(f'approach to the target circle (centre {P["xc"]:g},{P["yc"]:g}  R {P["R"]:g} m)')
-    else:
-        a2.plot(g, np.hypot(X - cx, Y - cy).mean(axis=0), lw=1.8, label='mean distance to centroid')
-        a2.set_title('swarm size (potential off)')
-    a2.set_xlabel('time (s)')
-    a2.set_ylabel('distance (m)')
-    a2.legend(fontsize=8)
-    a2.grid(True, alpha=0.3)
-    fig.suptitle(f'{D.run.name}   formation (particle sim)', x=0.02, ha='left', fontsize=13)
-    p = os.path.join(outdir, '06_formation.png')
-    fig.savefig(p, dpi=110, bbox_inches='tight')
     plt.close(fig)
     return p
 
@@ -773,6 +748,8 @@ def fig_3d(D, outdir):
     P = D.P
     pot = D.core.get('potential', {})
     xc, yc, zc, R = pot.get('xc'), pot.get('yc'), pot.get('zc'), pot.get('R')
+    if str(P.get('potential', 'default')).lower() == 'quartic':
+        R = None                                  # the quartic loop is not a sphere: draw no sphere
     zl = D.core.get('z_limits') or {}
     C = color_map(ok)
     fig = plt.figure(figsize=(14, 8.5))
@@ -784,18 +761,24 @@ def fig_3d(D, outdir):
         u, v = np.meshgrid(np.linspace(0, 2 * math.pi, 40), np.linspace(0, math.pi, 20))
         a3.plot_wireframe(xc + R * np.cos(u) * np.sin(v), yc + R * np.sin(u) * np.sin(v), zc + R * np.cos(v),
                           color='0.7', lw=0.4, alpha=0.6)
+    qi = quartic_info(D)
+    if qi:
+        qx, qy = quartic_curve(qi)
+        a3.plot(qx, qy, (qx + qy) / 2.0, 'k--', lw=1.6)        # the loop lies on the plane z = (x + y) / 2
     for n in ok:
         s_ = D.S[n]
         a3.plot(s_['x'], s_['y'], s_['z'], color=C[n], lw=0.8, alpha=0.6)
         a3.scatter(s_['x'][-1], s_['y'][-1], s_['z'][-1], color=C[n], s=45, edgecolor='k')
         az.plot(s_['t'], s_['z'], color=C[n], lw=1.2, label=n)
-        if None not in (xc, yc, zc, R):
+        if qi:
+            ar_.plot(s_['t'], np.abs(quartic_alpha1(qi, s_['x'], s_['y'])), color=C[n], lw=1.0)
+        elif None not in (xc, yc, zc, R):
             d = np.sqrt((s_['x'] - xc) ** 2 + (s_['y'] - yc) ** 2 + (s_['z'] - zc) ** 2)
             ar_.plot(s_['t'], d - R, color=C[n], lw=1.0)
     a3.set_xlabel('x (m)')
     a3.set_ylabel('y (m)')
     a3.set_zlabel('z (m)')
-    a3.set_title('paths, end positions and the potential sphere')
+    a3.set_title('paths, end positions and the quartic loop' if qi else 'paths, end positions and the potential sphere')
     if None not in (zc, R):
         az.axhspan(zc - R, zc + R, color='tab:green', alpha=0.1, lw=0, label='sphere z band')
     for key, lab in (('z_min', 'z_min (floor)'), ('z_max', 'z_max (ceiling)')):
@@ -806,12 +789,12 @@ def fig_3d(D, outdir):
     az.legend(fontsize=7, ncol=2)
     shade_window(az, D)
     ar_.axhline(0, color='k', lw=1)
-    ar_.set_ylabel('distance to the sphere surface (m)')
+    ar_.set_ylabel('|alpha1| (quartic)' if qi else 'distance to the sphere surface (m)')
     ar_.set_xlabel('time (s)')
-    ar_.set_title('|p - c| - R  (0 = on the surface)')
+    ar_.set_title('|alpha1|  (0 = on the curve)' if qi else '|p - c| - R  (0 = on the surface)')
     shade_window(ar_, D)
     fig.suptitle(f'{D.run.name}   3D', x=0.02, ha='left', fontsize=13)
-    p = os.path.join(outdir, '07_3d.png')
+    p = os.path.join(outdir, '05_3d.png')
     fig.savefig(p, dpi=110, bbox_inches='tight')
     plt.close(fig)
     return p
@@ -824,7 +807,7 @@ def main():
     ap.add_argument('--collide', type=float, default=0.15, help='centre distance counted as a collision (m)')
     ap.add_argument('--close', type=float, default=0.25, help='centre distance counted as a close approach (m)')
     ap.add_argument('--target-spacing', type=float, default=0.3, help='wanted neighbour spacing for the formation figure (m)')
-    ap.add_argument('--no-open', action='store_true', help='do not open the images in the default viewer')
+    ap.add_argument('--no-open', action='store_true', help='only write the PNGs: do not open windows / do not wait')
     ap.add_argument('--open', action='store_true', help=argparse.SUPPRESS)   # old flag, now the default
     a = ap.parse_args()
     path = a.run
@@ -845,9 +828,8 @@ def main():
         print(f'(run folder not writable, probably still owned by root: writing to {out}; '
               f'run ./dev_tmux.sh stop to fix the ownership)')
     res = D.results()
-    made = [fig_summary(D, res, out), fig_trajectories(D, out), fig_separation(D, res, out),
-            fig_sph(D, out), fig_timing(D, out), fig_resources(D, out),
-            fig_formation(D, out, a.target_spacing), fig_3d(D, out)]
+    made = [fig_summary(D, res, out), fig_trajectories(D, out, a.target_spacing), fig_separation(D, res, out),
+            fig_sph(D, out), fig_performance(D, out), fig_3d(D, out)]
     made = [m for m in made if m]
     print(f'run {D.run.name}: {D.n} drones, window {res["window"][0]:.1f}..{res["window"][1]:.1f} s')
     if 'dmin' in res:
@@ -859,8 +841,8 @@ def main():
         print(f'  busy threads {res["busy"]:.2f} of {res["ncpu"]:.0f}, clock {res["clock"]:.0f} MHz')
     for m in made:
         print(f'  saved {m}')
-        if not a.no_open:
-            open_in_viewer(m)
+    if made and not a.no_open:
+        show_and_wait(made)
 
 
 if __name__ == '__main__':

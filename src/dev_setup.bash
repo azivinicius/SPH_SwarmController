@@ -12,10 +12,6 @@ source /root/dev_ws/install/setup.bash
 # --- drone_controller ---
 export AMENT_PREFIX_PATH="/root/dev_ws/install/drone_controller:$AMENT_PREFIX_PATH"
 mkdir -p /root/dev_ws/install/drone_controller/lib/drone_controller
-ln -sf /root/dev_ws/install/drone_controller/bin/hello_node \
-       /root/dev_ws/install/drone_controller/lib/drone_controller/hello_node
-ln -sf /root/dev_ws/install/drone_controller/bin/controller \
-       /root/dev_ws/install/drone_controller/lib/drone_controller/controller
 ln -sf /root/dev_ws/install/drone_controller/bin/plain_sph \
        /root/dev_ws/install/drone_controller/lib/drone_controller/plain_sph
 ln -sf /root/dev_ws/install/drone_controller/bin/swarm_sph \

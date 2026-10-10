@@ -49,6 +49,7 @@ FLOAT_ARGS = {
 
 # name -> default (strings)
 STR_ARGS = {
+    'potential': 'default',      # default | circle | sphere | quartic
     'stale_policy': 'predict',   # predict | hold | skip
     'start_gate': 'none',        # none | all_known | flight
     'test_profile': 'none',      # none | zero | step | square | sine | chirp

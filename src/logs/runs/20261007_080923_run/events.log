@@ -1,2 +1,0 @@
-    0.000 INFO  swarm   START        swarm: 5 drones, egos=['cf_0', 'cf_1', 'cf_2', 'cf_3', 'cf_4'], label="run", sph_gain=0.05 zeta=10.0 f_k=2.0 gamma=2.0 m=129.541 policy=predict platform=sim fence=None state_timeout=0.0 gate=none clock=wall vmax=0.5 test=none amp=0.15 m/s period=4.0 s axis=x delay=3.0 s duration=60.0 s
-  185.138 INFO  swarm   STOP         ticks=0 stale=0.0% clipped=0.0% late=0 slow=0 warnings_so_far=0
