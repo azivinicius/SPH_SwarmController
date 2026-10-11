@@ -100,6 +100,8 @@ COMMON_DEFAULTS = {
     # default | circle | sphere | quartic   default = circle in 2D, sphere in 3D.  quartic = the rounded star
     # (2D) / the star loop on a tilted plane (3D); R is then its size constant, f_beta is ignored and f_k / 2 scales the force (f_k = 2: original).
     'potential': 'default',
+    'obstacles':'none',
+    'obs_mass': 10.0,
 }
 
 
@@ -118,7 +120,8 @@ class SphCore:
             raise ValueError(f'start_gate must be one of {START_GATES}')
         self.names = list(names)
         self.egos = list(egos)
-        self.p = particles                       # name -> Particle
+        self.p = particles 
+        self.obs = []
         self.potential = potential
         self.log = logger
         self._epoch = epoch_fn or time.time     # unix time; the offline twin passes its own clock
@@ -164,6 +167,19 @@ class SphCore:
         for n in self.egos:
             self.log.open_drone(n, legacy_dir=legacy_dir)
 
+    def add_obstacle(self, x, y, m, z=0.0):
+        """Register a static obstacle particle: same Particle(3D) as a drone, heavier, never moves."""
+        q = next(iter(self.p.values()))
+        oid = f'obs_{len(self.obs)}'
+        if self.dim == 3:
+            ob = Particle3D(id=oid, x=x, y=y, z=z, h=q.h, m=m, rho_0=q.rho_0, gamma=q.gamma, alpha=q.alpha,
+                        beta=q.beta, z_stretch=q.z_stretch, obstacle=True)
+        else:
+            ob = Particle(id=oid, x=x, y=y, h=q.h, m=m, rho_0=q.rho_0, gamma=q.gamma,
+                        alpha=q.alpha, beta=q.beta, obstacle=True)
+        self.obs.append(ob)
+        self.log.event('INFO', 'OBSTACLE', f'{oid} at x={x:.3f} y={y:.3f} z={z:.3f} m={m:.0f}', t=0.0)
+        return ob
     # ------------------------------------------------------------------ description
     def describe(self):
         """Goes into meta.json."""
@@ -217,7 +233,7 @@ class SphCore:
                            f'first state of {name}: x={x:.3f} y={y:.3f} z={z:.3f} '
                            f'({len(self.known)}/{len(self.names)} drones known)', t=now, name=name)
         if self.density_on_rx:
-            known = [self.p[n] for n in self.names if n in self.known]
+            known = [self.p[n] for n in self.names if n in self.known] + self.obs
             p.rho = p.next_rho(known)
             p.P = p.next_pressure()
         if name in self.es:
@@ -300,10 +316,10 @@ class SphCore:
         self._last_step_now = now
         gate_open = self._update_gate(now, tt)
 
-        if not self.density_on_rx:
-            for q in known:
-                q.rho = q.next_rho(known)
-                q.P = q.next_pressure()
+        field = known + self.obs                   # drones + obstacle particles
+        for q in (field if not self.density_on_rx else self.obs):
+            q.rho = q.next_rho(field)
+            q.P = q.next_pressure()
 
         cx = sum(q.x for q in known) / len(known)
         cy = sum(q.y for q in known) / len(known)
@@ -339,7 +355,7 @@ class SphCore:
                 ego.ext_force = self.potential.force(ego.x, ego.y, self.f_beta, self.f_k)
                 used = (ego.x, ego.y, ego.vel[0], ego.vel[1])
             neighbors = [q for q in known if q.id != name]
-            dvdt = ego.next_vel(neighbors)
+            dvdt = ego.next_vel(neighbors + self.obs)
             dists = [ego.distance_to(q) for q in neighbors]
             ages = [(now - self.rx[q.id]['t_last']) * 1e3 for q in neighbors]
             plan.append({
@@ -670,6 +686,18 @@ def build_core(cfg, egos_from_names, density_on_rx, tag, echo=None, write_meta=T
         dim=dim, max_vz=cfg['max_vz'], z_min=cfg['z_min'], z_max=cfg['z_max'],
         z_margin=cfg['z_margin'], z_wall_k=cfg['z_wall_k'],
     )
+          # obstacles: 2D 'x,y' | 3D 'x,y,z' (one particle) or 'x,y' (a pillar: column from z_min to z_max, h apart)
+    m_obs = cfg['obs_mass'] * cfg['particle_mass']
+    for item in str(cfg.get('obstacles', 'none')).replace(' ', '').split('/'):
+        if not item or item.lower() == 'none':
+            continue
+        v = [float(s) for s in item.split(',')]
+        if dim == 2 or len(v) == 3:
+            core.add_obstacle(v[0], v[1], m_obs, z=v[2] if len(v) == 3 else 0.0)
+        else:
+            n = max(1, int(round((cfg['z_max'] - cfg['z_min']) / cfg['smoothing_h']))) + 1
+            for k in range(n):
+                core.add_obstacle(v[0], v[1], m_obs, z=cfg['z_min'] + k * (cfg['z_max'] - cfg['z_min']) / max(n - 1, 1))
     if write_meta:
         meta = {
             'run_id': run_id, 'label': cfg['run_label'], 'git_rev': cfg['git_rev'],

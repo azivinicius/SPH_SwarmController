@@ -71,6 +71,33 @@ N_DRONES=20 SPH_MASS=auto POT_R=auto POTENTIAL=quartic SPH_H=0.3 SPH_SPACING=0.3
 
 N_DRONES=8 SPH_DIM=3 SPH_MASS=auto POT_R=auto SPH_GAIN=0.05 ./dev_tmux.sh up-particles
 
+# 3 drones, one obstacle beside the straight path
+N_DRONES=3 SPH_MASS=auto SPH_H=0.3 SPH_SPACING=0.3 SPH_GAIN=0.05 OBSTACLES='1.0,1.3' RUN_LABEL=obs1 ./dev_tmux.sh up
+
+# 5 drones through a "gate": two obstacles with a gap on the straight path
+N_DRONES=5 SPH_MASS=auto SPH_H=0.3 SPH_SPACING=0.5 SPH_GAIN=0.05 POT_K=2.0 OBSTACLES='0.5,1.7/1.7,0.5' RUN_LABEL=gate ./dev_tmux.sh up
+
+# 5 drones, star shape, with an obstacle sitting ON the star: they arrange around it
+N_DRONES=5 POTENTIAL=quartic SPH_MASS=auto SPH_H=0.3 SPH_SPACING=0.5 SPH_GAIN=0.05 POT_K=1.0 OBSTACLES='2.57,2.0' RUN_LABEL=star_obs ./dev_tmux.sh up
+
+./dev_tmux.sh stop
+# pillar (x,y = full-height column) + one obstacle in the air (x,y,z)
+N_DRONES=5 SPH_MASS=auto SPH_DIM=3 POT_K=4.0 SPH_GAIN=0.05 SPH_SPACING=0.5 OBSTACLES='0.5,1.5/1.5,0.5,0.8' RUN_LABEL=obs3d ./dev_tmux.sh up
+  
+./dev_tmux.sh stop
+N_DRONES=5 SPH_MASS=auto SPH_DIM=3 POTENTIAL=quartic POT_K=1.0 SPH_GAIN=0.05 SPH_SPACING=0.5 OBSTACLES='0.5,1.5' RUN_LABEL=star3d_pillar ./dev_tmux.sh up
+
+# 20 particles, star shape: two short walls on either side of the path
+N_DRONES=20 SPH_MASS=auto POT_R=auto POTENTIAL=quartic SPH_H=0.3 SPH_SPACING=0.3 SPH_GAIN=0.05 OBSTACLES='0.0,1.5/0.3,1.5/0.6,1.5/1.5,0.0/1.5,0.3/1.5,0.6' RUN_LABEL=walls ./dev_tmux.sh up-particles
+
+# 20 particles, star shape, obstacle in the centre of the star
+N_DRONES=20 SPH_MASS=auto POT_R=auto POTENTIAL=quartic SPH_H=0.3 SPH_SPACING=0.3 SPH_GAIN=0.05 OBSTACLES='2.0,2.0' RUN_LABEL=star_centre ./dev_tmux.sh up-particles
+
+# 8 particles, 3D: pillar + obstacle in the air
+N_DRONES=8 SPH_DIM=3 SPH_MASS=auto POT_R=auto SPH_GAIN=0.05 OBSTACLES='0.5,1.5/1.5,0.5,0.8' RUN_LABEL=obs3d_p ./dev_tmux.sh up-particles
+
+RVIZ=False GZ_GUI=1 N_DRONES=5 SPH_MASS=auto SPH_H=0.3 SPH_SPACING=0.5 SPH_GAIN=0.05 POT_K=2.0 ./dev_tmux.sh up
+
 
 #>>>>
 

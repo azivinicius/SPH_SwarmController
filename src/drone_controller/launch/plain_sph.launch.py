@@ -46,6 +46,7 @@ FLOAT_ARGS = {
     # --- 3D mode ---
     'dim': 2.0, 'zc': 1.0, 'max_vz': 0.25, 'z_min': 0.25, 'z_max': 2.5,
     'z_margin': 0.3, 'z_wall_k': 2.0, 'z_stretch': 1.0,
+    'obs_mass': 5.0,
 }
 
 # name -> default (strings)
@@ -62,6 +63,7 @@ STR_ARGS = {
     'gz_stats_topic': '',
     'platform': 'sim',           # sim | real
     'log_dir': '/root/dev_ws/src/logs',   # where logs/runs/<run_id>/ is written
+    'obstacles': 'none',
 }
 
 

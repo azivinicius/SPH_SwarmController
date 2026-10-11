@@ -1,0 +1,41 @@
+    0.000 INFO  plain_cf_2 START        plain_cf_2: 5 drones, egos=['cf_2'], label="run", sph_gain=0.05 zeta=30.0 f_k=2.0 gamma=2.0 m=194.322 policy=predict platform=sim fence=None state_timeout=0.0 gate=none clock=wall vmax=0.5 dim=2 test=none amp=0.15 m/s period=4.0 s axis=x delay=3.0 s duration=60.0 s
+    0.000 INFO  plain_cf_0 START        plain_cf_0: 5 drones, egos=['cf_0'], label="run", sph_gain=0.05 zeta=30.0 f_k=2.0 gamma=2.0 m=194.322 policy=predict platform=sim fence=None state_timeout=0.0 gate=none clock=wall vmax=0.5 dim=2 test=none amp=0.15 m/s period=4.0 s axis=x delay=3.0 s duration=60.0 s
+    0.339 INFO  cf_0    FIRST_RX     first state of cf_0: x=0.425 y=-0.000 z=0.015 (1/5 drones known)
+    0.345 INFO  cf_1    FIRST_RX     first state of cf_1: x=0.131 y=0.404 z=0.015 (2/5 drones known)
+    0.347 INFO  cf_2    FIRST_RX     first state of cf_2: x=-0.344 y=0.250 z=0.015 (3/5 drones known)
+    0.347 INFO  cf_3    FIRST_RX     first state of cf_3: x=-0.344 y=-0.250 z=0.015 (4/5 drones known)
+    0.349 INFO  cf_4    FIRST_RX     first state of cf_4: x=0.131 y=-0.404 z=0.015 (5/5 drones known)
+    0.000 INFO  plain_cf_1 START        plain_cf_1: 5 drones, egos=['cf_1'], label="run", sph_gain=0.05 zeta=30.0 f_k=2.0 gamma=2.0 m=194.322 policy=predict platform=sim fence=None state_timeout=0.0 gate=none clock=wall vmax=0.5 dim=2 test=none amp=0.15 m/s period=4.0 s axis=x delay=3.0 s duration=60.0 s
+    0.551 INFO  cf_0    FIRST_RX     first state of cf_0: x=0.425 y=-0.000 z=0.015 (1/5 drones known)
+    0.552 INFO  cf_1    FIRST_RX     first state of cf_1: x=0.131 y=0.404 z=0.015 (2/5 drones known)
+    0.553 INFO  cf_2    FIRST_RX     first state of cf_2: x=-0.344 y=0.250 z=0.015 (3/5 drones known)
+    0.556 INFO  cf_3    FIRST_RX     first state of cf_3: x=-0.344 y=-0.250 z=0.015 (4/5 drones known)
+    0.559 INFO  cf_4    FIRST_RX     first state of cf_4: x=0.131 y=-0.404 z=0.015 (5/5 drones known)
+    0.000 INFO  plain_cf_4 START        plain_cf_4: 5 drones, egos=['cf_4'], label="run", sph_gain=0.05 zeta=30.0 f_k=2.0 gamma=2.0 m=194.322 policy=predict platform=sim fence=None state_timeout=0.0 gate=none clock=wall vmax=0.5 dim=2 test=none amp=0.15 m/s period=4.0 s axis=x delay=3.0 s duration=60.0 s
+    0.000 INFO  plain_cf_3 START        plain_cf_3: 5 drones, egos=['cf_3'], label="run", sph_gain=0.05 zeta=30.0 f_k=2.0 gamma=2.0 m=194.322 policy=predict platform=sim fence=None state_timeout=0.0 gate=none clock=wall vmax=0.5 dim=2 test=none amp=0.15 m/s period=4.0 s axis=x delay=3.0 s duration=60.0 s
+    0.293 INFO  cf_0    FIRST_RX     first state of cf_0: x=0.425 y=-0.000 z=0.015 (1/5 drones known)
+    0.294 INFO  cf_1    FIRST_RX     first state of cf_1: x=0.131 y=0.404 z=0.015 (2/5 drones known)
+    0.294 INFO  cf_2    FIRST_RX     first state of cf_2: x=-0.344 y=0.250 z=0.015 (3/5 drones known)
+    0.295 INFO  cf_3    FIRST_RX     first state of cf_3: x=-0.344 y=-0.250 z=0.015 (4/5 drones known)
+    0.299 INFO  cf_4    FIRST_RX     first state of cf_4: x=0.131 y=-0.404 z=0.015 (5/5 drones known)
+    0.223 INFO  cf_0    FIRST_RX     first state of cf_0: x=0.425 y=-0.000 z=0.015 (1/5 drones known)
+    0.224 INFO  cf_1    FIRST_RX     first state of cf_1: x=0.131 y=0.404 z=0.015 (2/5 drones known)
+    0.224 INFO  cf_2    FIRST_RX     first state of cf_2: x=-0.344 y=0.250 z=0.015 (3/5 drones known)
+    0.225 INFO  cf_3    FIRST_RX     first state of cf_3: x=-0.344 y=-0.250 z=0.015 (4/5 drones known)
+    0.227 INFO  cf_4    FIRST_RX     first state of cf_4: x=0.131 y=-0.404 z=0.015 (5/5 drones known)
+    0.266 INFO  cf_0    FIRST_RX     first state of cf_0: x=0.425 y=-0.000 z=0.015 (1/5 drones known)
+    0.267 INFO  cf_1    FIRST_RX     first state of cf_1: x=0.131 y=0.404 z=0.015 (2/5 drones known)
+    0.267 INFO  cf_2    FIRST_RX     first state of cf_2: x=-0.344 y=0.250 z=0.015 (3/5 drones known)
+    0.268 INFO  cf_3    FIRST_RX     first state of cf_3: x=-0.344 y=-0.250 z=0.015 (4/5 drones known)
+    0.269 INFO  cf_4    FIRST_RX     first state of cf_4: x=0.131 y=-0.404 z=0.015 (5/5 drones known)
+    5.031 INFO  cf_2    HB           rho= 1001.3 P=     53.3 |v|rms=0.045 r_pot=2.89 stale=16.7% rx=16.2Hz clip= 0.0% dt_max=57ms age_max=115ms
+    5.015 INFO  cf_0    HB           rho= 1000.4 P=     16.3 |v|rms=0.045 r_pot=2.51 stale=16.0% rx=16.6Hz clip= 0.0% dt_max=61ms age_max=79ms
+    5.035 INFO  cf_1    HB           rho= 1005.3 P=    214.3 |v|rms=0.049 r_pot=2.42 stale=15.8% rx=17.0Hz clip= 0.0% dt_max=58ms age_max=82ms
+    5.011 INFO  cf_3    HB           rho= 1000.8 P=     34.0 |v|rms=0.049 r_pot=3.21 stale=18.9% rx=17.2Hz clip= 0.0% dt_max=61ms age_max=88ms
+    5.023 INFO  cf_4    HB           rho=  999.4 P=    -23.7 |v|rms=0.048 r_pot=3.01 stale=18.6% rx=17.2Hz clip= 0.0% dt_max=57ms age_max=100ms
+    6.323 WARN  cf_4    STALE_RUN    3 consecutive ticks (0.15 s) without a state message from cf_4
+    7.520 INFO  plain_cf_0 STOP         ticks=144 stale=15.3% clipped=0.0% late=0 slow=0 warnings_so_far=0
+    6.953 INFO  plain_cf_4 STOP         ticks=135 stale=20.0% clipped=0.0% late=0 slow=0 warnings_so_far=1
+    7.597 INFO  plain_cf_2 STOP         ticks=141 stale=17.0% clipped=0.0% late=0 slow=0 warnings_so_far=0
+    6.951 INFO  plain_cf_3 STOP         ticks=133 stale=18.8% clipped=0.0% late=0 slow=0 warnings_so_far=0
+    7.098 INFO  plain_cf_1 STOP         ticks=136 stale=17.6% clipped=0.0% late=0 slow=0 warnings_so_far=0

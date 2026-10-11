@@ -39,7 +39,7 @@ class Particle3D:
     dim = 3
 
     def __init__(self, id, x, y, z, h, m, rho_0=1000.0, gamma=1, alpha=1.0, beta=2.0,
-                 zetta_extra=5.0, sph_gain=1.0, z_stretch=1.0):
+                 zetta_extra=5.0, sph_gain=1.0, z_stretch=1.0, obstacle=False):
         self.id = id
         self.x, self.y, self.z = x, y, z
         self.h, self.m, self.rho_0 = h, m, rho_0
@@ -53,6 +53,7 @@ class Particle3D:
         self.P = self.B * ((self.rho / self.rho_0) ** self.gamma - 1)
         self.c = math.sqrt(self.gamma * (self.P + self.B) / self.rho)
         self.vel = [0.0, 0.0, 0.0]
+        self.obstacle = obstacle
 
     # ---- geometry ------------------------------------------------------------------------------
     def distance_to(self, q):
@@ -141,6 +142,8 @@ class Particle3D:
         return total
 
     def update_particle(self, rho, P, dvdt, dt):
+        if self.obstacle:
+            return                    # obstacles don't move
         self.rho, self.P = rho, P
         for i in range(3):
             self.vel[i] += dvdt[i] * dt

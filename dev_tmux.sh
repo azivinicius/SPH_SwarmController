@@ -127,6 +127,7 @@ resolve() {
   LAUNCH_ARGS="$LAUNCH_ARGS z_margin:=${Z_MARGIN:-0.3} z_wall_k:=${Z_WALL_K:-2.0} z_stretch:=${Z_STRETCH:-1.0}"
   # target shape: POTENTIAL=default|circle|sphere|quartic ; with quartic, POT_K scales the force (2 = original, 0.5 = 4x weaker)
   LAUNCH_ARGS="$LAUNCH_ARGS potential:=${POTENTIAL:-default}"
+  LAUNCH_ARGS="$LAUNCH_ARGS obstacles:=${OBSTACLES:-none} obs_mass:=${OBS_MASS:-10.0}"
   LAUNCH_ARGS="$LAUNCH_ARGS run_id:=$RUN_ID run_label:=$RUN_LABEL git_rev:=$GIT_REV"
 }
 # which launch file the ctrl window runs; `up-swarm` switches it to the single-process controller
@@ -178,6 +179,12 @@ up() {
   tmux send-keys -t "$SESSION:swarm" \
     "sleep $SIM_WAIT; $DC '$ROS_ENV && ros2 launch crazyflie launch.py backend:=cflib rviz:=$RVIZ'" C-m
 
+  # GZ_GUI=1: Gazebo window on the (headless) CrazySim server (default 0 here). Costs CPU: keep the RTF >= 0.9
+  if [ "${GZ_GUI:-0}" = "1" ]; then
+    tmux new-window -t "$SESSION" -n gui
+    tmux send-keys -t "$SESSION:gui" \
+      "sleep $SIM_WAIT; $DC 'cd /CrazySim/crazyflie-firmware && source tools/crazyflie-simulation/simulator_files/gazebo/launch/setup_gz.bash \$PWD \$PWD/sitl_make/build && gz sim -g'" C-m
+  fi
   # dev_setup.bash, NOT install/setup.bash (README known issue #1)
   tmux new-window -t "$SESSION" -n ctrl
   tmux send-keys -t "$SESSION:ctrl" \

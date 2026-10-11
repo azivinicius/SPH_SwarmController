@@ -27,9 +27,46 @@ def build_core(node, cfg, egos_from_names, density_on_rx, tag, write_meta=True):
         lg = node.get_logger()
         (lg.error if level == 'ERROR' else lg.warn)(text)
 
-    return sph_core.build_core(cfg, egos_from_names, density_on_rx, tag,
-                               echo=echo, write_meta=write_meta)
+    core, names = sph_core.build_core(cfg, egos_from_names, density_on_rx, tag,
+                                    echo=echo, write_meta=write_meta)
+    if write_meta:                      # one node per launch (swarm_sph, or plain_sph robot 0)
+        publish_obstacle_markers(node, core)
+    return core, names
 
+def publish_obstacle_markers(node, core, frame_id='world', topic='/obstacles/markers'):
+    """Draw the obstacle particles in RViz: MarkerArray on /obstacles/markers, published once and
+    latched (transient local), so an RViz opened later still gets it.
+      ns 'obstacles'       solid red spheres, diameter 0.1 m        -> where the particles are
+      ns 'obstacle_range'  transparent red spheres, diameter 4h     -> where they start pushing (2h)
+    2D: the kernel ignores z, the spheres are drawn at fixed_z (the flight height)."""
+    if not core.obs:
+        return
+    from geometry_msgs.msg import Point
+    from rclpy.qos import DurabilityPolicy, QoSProfile
+    from visualization_msgs.msg import Marker, MarkerArray
+
+    qos = QoSProfile(depth=1, durability=DurabilityPolicy.TRANSIENT_LOCAL)
+    node._obs_marker_pub = node.create_publisher(MarkerArray, topic, qos)   # keep a reference
+    h = core.obs[0].h
+    zs = getattr(core.obs[0], 'z_stretch', 1.0)
+    pts = [Point(x=float(o.x), y=float(o.y), z=float(o.z) if core.dim == 3 else float(core.fixed_z))
+           for o in core.obs]
+    arr = MarkerArray()
+    for i, (ns, d, dz, alpha) in enumerate((('obstacles', 0.1, 0.1, 1.0),
+                                            ('obstacle_range', 4 * h, 4 * h * zs, 0.15))):
+        mk = Marker()
+        mk.header.frame_id = frame_id
+        mk.header.stamp = node.get_clock().now().to_msg()
+        mk.ns, mk.id = ns, i
+        mk.type, mk.action = Marker.SPHERE_LIST, Marker.ADD
+        mk.pose.orientation.w = 1.0
+        mk.scale.x = mk.scale.y = d
+        mk.scale.z = dz
+        mk.color.r, mk.color.g, mk.color.b, mk.color.a = 1.0, 0.15, 0.1, alpha
+        mk.points = pts
+        arr.markers.append(mk)
+    node._obs_marker_pub.publish(arr)
+    node.get_logger().info(f'{len(core.obs)} obstacle particles published on {topic} (frame {frame_id})')
 
 def header_latency_ms(node, msg):
     """now - msg.header.stamp in ms, or None if the message has no usable stamp."""

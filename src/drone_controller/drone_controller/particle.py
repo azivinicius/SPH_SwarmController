@@ -65,9 +65,10 @@ def viscosity(qi, qj):
 
 class Particle:
     def __init__(self, id, x, y, h, m, rho_0=1000.0,
-                 gamma=1, alpha=1.0, beta=2.0, zetta_extra=5.0, sph_gain=1.0):
+                 gamma=1, alpha=1.0, beta=2.0, zetta_extra=5.0, sph_gain=1.0, obstacle=False):
 
         self.id = id
+        self.obstacle = obstacle      # True = obstacle: heavy particle that never moves (vel stays 0)
 
         self.x = x
         self.y = y
@@ -221,6 +222,8 @@ class Particle:
         return pi, P, dvdt, e
 
     def update_particle(self, rho, P, dvdt,  dt):
+        if self.obstacle:
+            return                    # obstacles don't move
         self.rho = rho
         self.P = P
         self.vel[0] += dvdt[0] * dt
