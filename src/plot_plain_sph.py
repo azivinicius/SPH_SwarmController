@@ -1296,7 +1296,7 @@ def fig_summary(D, res, outdir):
         line('fixed_z', f'{D.fixed_z} m'), line('f_k / f_beta', f'{P.get("f_k", "?")} / {P.get("f_beta", "?")}'),
         line('potential xc, yc, R', f'{P.get("xc", "?")}, {P.get("yc", "?")}, {P.get("R", "?")}'),
         line('test profile', str(P.get('test_profile', 'none'))),
-        line('obstacles', (f'{len(D.obs)}, mass x{P.get("obs_mass", "?")}, reach {D.obs_reach:g} m' if D.obs else 'none')),
+        line('obstacles', (f'{len(D.obs)}, ' + (f'sigma={P["obs_sigma"]}' if 'obs_sigma' in P else f'mass x{P.get("obs_mass", "?")}') + f', reach {D.obs_reach:g} m' if D.obs else 'none')),
     ]
     right = ['RESULTS (flight window)']
     w0, w1 = res['window']

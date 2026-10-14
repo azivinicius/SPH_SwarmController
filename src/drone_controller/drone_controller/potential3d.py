@@ -61,7 +61,7 @@ class Potential3D:
         cannot follow such a stiff force): R of 1 to 2 converges cleanly, R = 4 does not.
     """
 
-    def __init__(self, xc=0.0, yc=0.0, zc=0.0, R=1.0, shape='sphere', a=4.0, b=6.0, c=4.0, max_force=10.0, gain=1.0,
+    def __init__(self, xc=0.0, yc=0.0, zc=0.0, R=1.0, shape='sphere', a=4.0, b=6.0, c=4.0, max_force=3.0, gain=1.0,
                  G_base=1.0, G_a1=0.0, G_a2=5.0, z_gain=100.0):
         if shape not in ('sphere', 'quartic'):
             raise ValueError("shape must be 'sphere' or 'quartic'")
@@ -171,4 +171,9 @@ class Potential3D:
         norm_g = math.sqrt(g[0] ** 2 + g[1] ** 2 + g[2] ** 2)
         if norm_g < 1e-9:                         # exactly on the surface (or the centre): no force
             return np.zeros(3)
-        return -k * g / (norm_g ** beta)
+        f = -k * g / (norm_g ** beta)
+        if beta == 0:                             # raw gradient grows with the distance: cap it
+            n = math.sqrt(f[0] ** 2 + f[1] ** 2 + f[2] ** 2)
+            if n > self.max_force:
+                f = f * (self.max_force / n)      # length clip: keeps the direction
+        return f

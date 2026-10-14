@@ -51,13 +51,14 @@ physics and runs fine without it. After a reboot also start the container: `dock
 ```
 
 Every knob is an environment variable (defaults in `swarm.conf`). Examples:
+GZ_GUI=1 ./dev_tmux.sh up
 
 #>>>>
 N_DRONES=3 SPH_MASS=auto SPH_H=0.3 SPH_SPACING=0.3 SPH_GAIN=0.05 ./dev_tmux.sh up
 
-N_DRONES=5 SPH_MASS=auto SPH_H=0.3 SPH_SPACING=0.5 SPH_GAIN=0.05 POT_K=2.0 ./dev_tmux.sh up
+N_DRONES=5 SPH_MASS=auto SPH_H=0.3 SPH_SPACING=0.3 SPH_GAIN=0.05 POT_K=2.0 ./dev_tmux.sh up
 
-N_DRONES=5 POTENTIAL=quartic SPH_MASS=auto SPH_H=0.3 SPH_SPACING=0.5 SPH_GAIN=0.05 POT_K=1.0 ./dev_tmux.sh up
+N_DRONES=5 POTENTIAL=quartic SPH_MASS=auto SPH_H=0.3 SPH_SPACING=0.5 SPH_GAIN=0.5 POT_K=2.0 ./dev_tmux.sh up
 
 ./dev_tmux.sh stop
 N_DRONES=5 SPH_MASS=auto SPH_DIM=3 POT_K=4.0 SPH_GAIN=0.05 SPH_SPACING=0.5 ./dev_tmux.sh up

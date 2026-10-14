@@ -22,12 +22,12 @@ def read_params(node, overrides=None):
     return cfg
 
 
-def build_core(node, cfg, egos_from_names, density_on_rx, tag, write_meta=True):
+def build_core(node, cfg, egos_from_names, tag, write_meta=True):
     def echo(level, text):
         lg = node.get_logger()
         (lg.error if level == 'ERROR' else lg.warn)(text)
 
-    core, names = sph_core.build_core(cfg, egos_from_names, density_on_rx, tag,
+    core, names = sph_core.build_core(cfg, egos_from_names, tag,
                                     echo=echo, write_meta=write_meta)
     if write_meta:                      # one node per launch (swarm_sph, or plain_sph robot 0)
         publish_obstacle_markers(node, core)
@@ -126,7 +126,11 @@ class ControlDriver:
         tk = self.ticker.poll(w)
         if tk is not None:
             out = self.core.step(self.now(), tk[0], tk[1])
-            self._last_cmds.update({n: c for n, c in out.items() if c is not None})
+            for n, c in out.items():                 # None = publish nothing (gate, land): no keepalive
+                if c is None:
+                    self._last_cmds.pop(n, None)
+                else:
+                    self._last_cmds[n] = c
             self._send(out)
         elif self._last_cmds and w - self._last_pub >= self.keepalive:
             self._send(self._last_cmds)          # keepalive: same command, no integration

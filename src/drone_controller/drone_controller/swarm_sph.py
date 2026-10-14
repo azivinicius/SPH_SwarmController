@@ -18,7 +18,7 @@ from crazyflie_interfaces.msg import LogDataGeneric
 
 from drone_controller.commander import Commander
 from drone_controller.sph_ros import ControlDriver, build_core, header_latency_ms, read_params
-
+from std_msgs.msg import Empty
 
 class SwarmSphNode(Node):
     def __init__(self):
@@ -26,8 +26,7 @@ class SwarmSphNode(Node):
         # defaults that differ from plain_sph (the launch file passes everything anyway)
         cfg = read_params(self, {'particle_mass': 3000.0, 'gamma': 1.0, 'zetta_extra': 50.0})
         self._core, names = build_core(
-            self, cfg, egos_from_names=lambda n: list(n), density_on_rx=False,
-            tag='swarm')
+            self, cfg, egos_from_names=lambda n: list(n), tag='swarm')
         self._t0 = self.get_clock().now()
         period = cfg['control_period']
 
@@ -42,6 +41,8 @@ class SwarmSphNode(Node):
         self._driver = ControlDriver(self, cfg, self._core, self._now, self._publish)
         # ros2 service call /<node>/hover std_srvs/srv/Trigger : 0 m/s to the drones, latched
         self.create_service(Trigger, '~/hover', self._hover_srv)
+                # one message on /sph/land (Ctrl+b l in tmux, or ./dev_tmux.sh land) lands every drone
+        self.create_subscription(Empty, '/sph/land', self._land_cb, 10)
         self.get_logger().info(f'SPH swarm node started: {len(names)} drones in one process.')
 
     def _now(self):
@@ -54,7 +55,17 @@ class SwarmSphNode(Node):
         self._core.request_hover(self._now())
         resp.success, resp.message = True, 'controller now commands 0 m/s (drones hover); land them by hand'
         return resp
-
+    
+    def _land_cb(self, _msg):
+        if not self._core.request_land(self._now()):
+            return                                    # already landing
+        missing = [n for n, c in self._commanders.items() if not c.land()]
+        if missing:
+            self.get_logger().warn('land services not available for ' + ','.join(missing) +
+                                   ': the controller stopped commanding, but nothing lands them')
+        else:
+            self.get_logger().info('landing every drone')
+    
     def _publish(self, out):
         for name, cmd in out.items():
             if cmd is not None:

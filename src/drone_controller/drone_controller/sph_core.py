@@ -40,6 +40,7 @@ from drone_controller.sph_diag import CommandProfile, RunLogger, clip_norm
 
 STALE_POLICIES = ('predict', 'hold', 'skip')
 START_GATES = ('none', 'all_known', 'flight')
+FLIGHT_GATE_TIMEOUT_S = 40.0     # gate 'flight': start anyway this long after the first tick
 
 LOG_DIR = '/root/dev_ws/src/logs'
 
@@ -66,7 +67,7 @@ COMMON_DEFAULTS = {
     'control_period': 0.05,     # s, timer period
     'dt_model': 0.0,            # s, SPH integration step; 0 = same as control_period
     'stale_policy': 'predict',  # predict | hold | skip
-    'start_gate': 'none',       # none | all_known | flight
+    'start_gate': 'flight',       # none | all_known | flight
     'test_profile': 'none',     # none | zero | step | square | sine | chirp
     'test_amp': 0.15,           # m/s
     'test_period': 4.0,         # s
@@ -101,16 +102,17 @@ COMMON_DEFAULTS = {
     # (2D) / the star loop on a tilted plane (3D); R is then its size constant, f_beta is ignored and f_k / 2 scales the force (f_k = 2: original).
     'potential': 'default',
     'obstacles':'none',
-    'obs_mass': 10.0,
+    'obs_sigma': 10.0,       
 }
 
+SPH_MSG_LEN = 10                # /<drone>/sph message: x y z vx vy vz rho P c m
 
 class SphCore:
     def __init__(self, names, egos, particles, potential, logger, *,
                  f_beta=1.0, f_k=2.0, period=0.05, dt_model=None, max_velocity=0.5,
                  stale_policy='predict', start_gate='none', fixed_z=0.5,
                  flight_z_frac=0.8, flight_hold_s=1.0,
-                 density_on_rx=False, profile=None, legacy_dir=None,
+                 profile=None, legacy_dir=None,
                  hb_period=5.0, nb_fresh_ms=None, epoch_fn=None, sim_clock='wall',
                  fence=None, state_timeout_s=0.0, dim=2, max_vz=0.25, z_min=0.25, z_max=2.5,
                  z_margin=0.3, z_wall_k=2.0):
@@ -136,11 +138,11 @@ class SphCore:
         self.max_vz, self.z_min, self.z_max = float(max_vz), float(z_min), float(z_max)
         self.z_margin, self.z_wall_k = max(float(z_margin), 1e-6), float(z_wall_k)
         self.tripped = None                      # reason string once the safety latch fired
+        self.landing = False                     # True once a landing was requested (latched)
         self.stale_policy, self.start_gate = stale_policy, start_gate
         self.fixed_z = fixed_z
         self.gate_z = flight_z_frac * fixed_z
         self.flight_hold_s = flight_hold_s
-        self.density_on_rx = density_on_rx
         self.profile = profile or CommandProfile('none')
         self.hb_period = hb_period
         self.nb_fresh_ms = nb_fresh_ms if nb_fresh_ms else 3000.0 * self.period
@@ -156,6 +158,7 @@ class SphCore:
         self._gate_open = start_gate == 'none'
         self._gate_open_t = None
         self._flight_since = None
+        self._gate_t0 = None                 # first tick (time base of the flight-gate timeout)
         self._last_gate_msg = -1e9
         self._prof_t0 = None
         self._prof_done = False
@@ -191,7 +194,6 @@ class SphCore:
             'fence': self.fence, 'state_timeout_s': self.state_timeout_s,
             'stale_policy': self.stale_policy, 'start_gate': self.start_gate,
             'fixed_z': self.fixed_z, 'gate_z': self.gate_z,
-            'density_on_rx': self.density_on_rx,
             'f_beta': self.f_beta, 'f_k': self.f_k,
             'dim': self.dim,
             'potential': {'shape': self.potential.shape,
@@ -232,20 +234,49 @@ class SphCore:
             self.log.event('INFO', 'FIRST_RX',
                            f'first state of {name}: x={x:.3f} y={y:.3f} z={z:.3f} '
                            f'({len(self.known)}/{len(self.names)} drones known)', t=now, name=name)
-        if self.density_on_rx:
-            known = [self.p[n] for n in self.names if n in self.known] + self.obs
-            p.rho = p.next_rho(known)
-            p.P = p.next_pressure()
+        # if self.density_on_rx:
+        #     known = [self.p[n] for n in self.names if n in self.known] + self.obs
+        #     p.rho = p.next_rho(known)
+        #     p.P = p.next_pressure()
         if name in self.es:
             self.log.rx(name, {'t': now, 'epoch': self._epoch(), 'drone': name, 'rx_dt_ms': dt_ms,
                                'x': x, 'y': y, 'z': z, 'vx': vx, 'vy': vy, 'vz': vz,
                                'hdr_lat_ms': hdr_lat_ms})
 
+    
+    def on_sph(self, name, now, values):
+        """SPH state published by another drone's node on /<name>/sph: x y z vx vy vz rho P c m.
+        Position and velocity are handled as a state message; rho, P, c and m are the neighbour's
+        OWN values (computed by its node), so they are not recomputed here (Pimenta et al., 2013)."""
+        if name in self.egos or name not in self.p or len(values) < SPH_MSG_LEN:
+            return
+        self.on_state(name, now, values[:6])
+        q = self.p[name]
+        q.rho, q.P, q.c, q.m = (float(v) for v in values[6:SPH_MSG_LEN])
+
+    def sph_state(self, name):
+        """What this node publishes on /<name>/sph: measured x y z vx vy vz + its own rho P c m
+        (None until the drone's own state has arrived)."""
+        r = self.rx[name]
+        if r['t_last'] is None:
+            return None
+        p = self.p[name]
+        return [float(v) for v in r['meas']] + [float(p.rho), float(p.P), float(p.c), float(p.m)]
+
+    def _support(self, ego, cands):
+        """Particles of cands inside the kernel support of ego (distance < 2h of ego; in 3D the
+        kernel metric, dz / z_stretch). Only these enter ego's density and acceleration."""
+        r_sup = 2.0 * ego.h
+        if self.dim == 3:
+            return [q for q in cands if q.id != ego.id and ego.kdist(q) < r_sup]
+        return [q for q in cands if q.id != ego.id and ego.distance_to(q) < r_sup]
+    
     # ------------------------------------------------------------------ gate
     def _update_gate(self, now, tt=None):
-        tt = now if tt is None else tt
         if self._gate_open:
             return True
+        if self._gate_t0 is None:
+            self._gate_t0 = tt
         missing = [n for n in self.names if n not in self.known]
         low = []
         if self.start_gate == 'all_known':
@@ -259,6 +290,12 @@ class SphCore:
             else:
                 self._flight_since = None
                 ok = False
+        if not ok and self.start_gate == 'flight' and tt - self._gate_t0 >= FLIGHT_GATE_TIMEOUT_S:
+            ok = True
+            self.log.event('WARN', 'GATE_TIMEOUT',
+                           f'{FLIGHT_GATE_TIMEOUT_S:.0f} s without every drone at the flight altitude '
+                           f'(below z={self.gate_z:.2f} m: {",".join(low) or "-"}; '
+                           f'no state: {",".join(missing) or "-"}): starting anyway', t=now)
         if ok:
             self._gate_open, self._gate_open_t = True, now
             self.log.event('INFO', 'GATE_OPEN',
@@ -317,10 +354,24 @@ class SphCore:
         gate_open = self._update_gate(now, tt)
 
         field = known + self.obs                   # drones + obstacle particles
-        for q in (field if not self.density_on_rx else self.obs):
+        for q in self.obs:                         # obstacles: from EVERY known drone (eq. 37)
             q.rho = q.next_rho(field)
             q.P = q.next_pressure()
-
+        nbs = {}                                   # ego -> drones / obstacles within its 2h
+        for name in self.egos:
+            if name not in self.known:
+                continue
+            ego = self.p[name]
+            nbs[name] = (self._support(ego, known), self._support(ego, self.obs))
+            ego.rho = ego.next_rho([ego] + nbs[name][0] + nbs[name][1])   # own density only
+            ego.P = ego.next_pressure()
+            # for q in nbs[name][0]:                 # neighbours: recompute their rho / P / c here
+            #     if q.id in self.egos:
+            #         continue                       # swarm_sph: already computed as an ego
+            #     q.rho = q.next_rho([q] + self._support(q, known) + self._support(q, self.obs))
+            #     q.P = q.next_pressure()
+                
+        cx = sum(q.x for q in known) / len(known)
         cx = sum(q.x for q in known) / len(known)
         cy = sum(q.y for q in known) / len(known)
         cz = sum(q.z for q in known) / len(known) if self.dim == 3 else 0.0
@@ -354,8 +405,8 @@ class SphCore:
             else:
                 ego.ext_force = self.potential.force(ego.x, ego.y, self.f_beta, self.f_k)
                 used = (ego.x, ego.y, ego.vel[0], ego.vel[1])
-            neighbors = [q for q in known if q.id != name]
-            dvdt = ego.next_vel(neighbors + self.obs)
+            neighbors, obs_nb = nbs[name]
+            dvdt = ego.next_vel(neighbors + obs_nb)
             dists = [ego.distance_to(q) for q in neighbors]
             ages = [(now - self.rx[q.id]['t_last']) * 1e3 for q in neighbors]
             plan.append({
@@ -384,10 +435,13 @@ class SphCore:
                 st['stale_run'] += 1
                 self.stats['stale'] += 1
 
-            if self.tripped:
+            if self.landing:
+                src, raw = 'land', None                    # latched: publish nothing, the firmware lands
+            elif self.tripped:
                 src, raw = 'fence', (0.0,) * self.dim      # latched: hover command until restart
             elif not gate_open:
-                src, raw = 'gate', (0.0,) * self.dim
+                src, raw = 'gate', None                    # publish nothing: let the takeoff happen
+            
             elif prof_s is not None:
                 src, raw = f'test:{self.profile.kind}', self.profile.value(prof_s)
                 if self._prof_done:
@@ -543,6 +597,16 @@ class SphCore:
         """Same latch as the fence, triggered by hand (ROS service ~/hover)."""
         if not self.tripped:
             self._latch(why, now)
+    
+    def request_land(self, now):
+        """Stop commanding every ego, latched, so the firmware's high-level commander can land
+        them (the node then calls notify_setpoints_stop + land). False if already landing."""
+        if self.landing:
+            return False
+        self.landing = True
+        self.log.event('INFO', 'LAND', 'land requested: the controller stops commanding '
+                       '(latched); the drones land through the high-level commander', t=now)
+        return True
 
     # ------------------------------------------------------------------ event detectors
     def _detect(self, now, e, st, fresh, clipped, wall_dt, src):
@@ -639,7 +703,7 @@ def _make_potential(cfg, dim):
                      gain=cfg['f_k'] / 2.0)   # gain only matters for the quartic: f_k = 2 is the original strength
 
 
-def build_core(cfg, egos_from_names, density_on_rx, tag, echo=None, write_meta=True, epoch_fn=None):
+def build_core(cfg, egos_from_names, tag, echo=None, write_meta=True, epoch_fn=None):   
     """Create particles, logger and SphCore from a parameter dict (ROS-free).
     echo(level, text) mirrors WARN/ERROR events to the ROS log (None offline).
     egos_from_names(names) -> list of the drones THIS node controls."""
@@ -680,14 +744,17 @@ def build_core(cfg, egos_from_names, density_on_rx, tag, echo=None, write_meta=T
         f_beta=cfg['f_beta'], f_k=cfg['f_k'], period=cfg['control_period'],
         dt_model=cfg['dt_model'] or None, max_velocity=cfg['max_velocity'],
         stale_policy=cfg['stale_policy'], start_gate=cfg['start_gate'],
-        fixed_z=cfg['fixed_z'], density_on_rx=density_on_rx, profile=profile,
+        fixed_z=cfg['fixed_z'], profile=profile,
         fence=fence, state_timeout_s=cfg['state_timeout_s'],
         legacy_dir=cfg['log_dir'], epoch_fn=epoch_fn, sim_clock=cfg['sim_clock'],
         dim=dim, max_vz=cfg['max_vz'], z_min=cfg['z_min'], z_max=cfg['z_max'],
         z_margin=cfg['z_margin'], z_wall_k=cfg['z_wall_k'],
     )
           # obstacles: 2D 'x,y' | 3D 'x,y,z' (one particle) or 'x,y' (a pillar: column from z_min to z_max, h apart)
-    m_obs = cfg['obs_mass'] * cfg['particle_mass']
+    h = cfg['smoothing_h']
+    w0 = 10.0 / (7.0 * math.pi * h ** 2) if dim == 2 else 1.0 / (math.pi * h ** 3)   # W(0, h), 2D / 3D
+    m_obs = cfg['obs_sigma'] * cfg['rho_0'] / w0
+    
     for item in str(cfg.get('obstacles', 'none')).replace(' ', '').split('/'):
         if not item or item.lower() == 'none':
             continue

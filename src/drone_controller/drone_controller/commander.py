@@ -18,6 +18,8 @@ import numpy as np
 from crazyflie_interfaces.msg import FullState, VelocityWorld
 from rclpy.node import Node
 
+from crazyflie_interfaces.srv import Land, NotifySetpointsStop
+
 
 def quaternion_from_yaw(yaw: float) -> Tuple[float, float, float, float]:
     half_yaw = 0.5 * yaw
@@ -37,7 +39,28 @@ class Commander:
         self._velocity_world_publisher = node.create_publisher(
             VelocityWorld, f'/{robot_name}/cmd_velocity_world', 10
         )
+        # landing through the firmware's high-level commander (services of crazyflie_server)
+        self._notify_cli = node.create_client(NotifySetpointsStop, f'/{robot_name}/notify_setpoints_stop')
+        self._land_cli = node.create_client(Land, f'/{robot_name}/land')
 
+    def land(self, duration_s: float = 3.0, height: float = 0.0) -> bool:
+        """Hand the drone back to the high-level commander, then land it.  The caller must have
+        STOPPED publishing velocity setpoints.  notify_setpoints_stop lowers the priority of the
+        streamed setpoints; land is sent only after it returned (otherwise it could be ignored).
+        False if crazyflie_server's services are not available (e.g. particle_sim)."""
+        if not (self._notify_cli.service_is_ready() and self._land_cli.service_is_ready()):
+            return False
+        stop = NotifySetpointsStop.Request()
+        stop.group_mask = 0
+        stop.remain_valid_millisecs = 100
+        req = Land.Request()
+        req.group_mask = 0
+        req.height = float(height)
+        req.duration.sec = int(duration_s)
+        req.duration.nanosec = int((duration_s - int(duration_s)) * 1e9)
+        self._notify_cli.call_async(stop).add_done_callback(lambda _f: self._land_cli.call_async(req))
+        return True
+    
     def send_velocity(self, p_meas, v_des, fixed_z: float, yaw: float = 0.0) -> None:
         now = self._node.get_clock().now()
         if self._last_time is None:

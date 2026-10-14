@@ -50,7 +50,7 @@ class Potential:
         cannot follow such a stiff force): R of 1 to 2 converges cleanly, R = 5 does not.
     """
 
-    def __init__(self, xc=0.0, yc=0.0, R=1.0, shape='circle', a=4.0, b=6.0, c=4.0, max_force=7.0, gain=1.0):
+    def __init__(self, xc=0.0, yc=0.0, R=1.0, shape='circle', a=4.0, b=6.0, c=4.0, max_force=3.0, gain=1.0):
         if shape not in ('circle', 'quartic'):
             raise ValueError("shape must be 'circle' or 'quartic'")
         self.xc = xc                  # centre of the shape, world frame (m)
@@ -175,6 +175,10 @@ class Potential:
         norm_g = math.sqrt(g[0]**2 + g[1]**2)
         if norm_g < 1e-9:
             return np.zeros(2)
-
         # return -k*g          (raw gradient, same as beta = 0 without the division)
-        return -k * g / (norm_g ** beta)
+        f = -k * g / (norm_g ** beta)
+        if beta == 0:                           # raw gradient grows with the distance: cap it
+            n = math.hypot(f[0], f[1])
+            if n > self.max_force:
+                f = f * (self.max_force / n)    # length clip: keeps the direction
+        return f

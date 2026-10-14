@@ -46,14 +46,14 @@ FLOAT_ARGS = {
     # --- 3D mode ---
     'dim': 2.0, 'zc': 1.0, 'max_vz': 0.25, 'z_min': 0.25, 'z_max': 2.5,
     'z_margin': 0.3, 'z_wall_k': 2.0, 'z_stretch': 1.0,
-    'obs_mass': 5.0,
+    'obs_sigma': 10.0,
 }
 
 # name -> default (strings)
 STR_ARGS = {
     'potential': 'default',      # default | circle | sphere | quartic
     'stale_policy': 'predict',   # predict | hold | skip
-    'start_gate': 'none',        # none | all_known | flight
+    'start_gate': 'flight',        # none | all_known | flight
     'test_profile': 'none',      # none | zero | step | square | sine | chirp
     'test_axis': 'x',
     'run_id': '',                # '' = timestamp made here, ONE value shared by every node

@@ -117,7 +117,7 @@ resolve() {
   LAUNCH_ARGS="$LAUNCH_ARGS rho_0:=$SPH_RHO0 gamma:=$SPH_GAMMA alpha:=$SPH_ALPHA beta:=$SPH_BETA"
   LAUNCH_ARGS="$LAUNCH_ARGS zetta_extra:=$SPH_ZETTA xc:=$POT_XC yc:=$POT_YC R:=$POT_R f_k:=$POT_K f_beta:=$POT_BETA"
   LAUNCH_ARGS="$LAUNCH_ARGS sph_gain:=${SPH_GAIN:-1.0} control_period:=${CONTROL_PERIOD:-0.05} dt_model:=${DT_MODEL:-0.0}"
-  LAUNCH_ARGS="$LAUNCH_ARGS stale_policy:=${STALE_POLICY:-predict} start_gate:=${START_GATE:-none}"
+  LAUNCH_ARGS="$LAUNCH_ARGS stale_policy:=${STALE_POLICY:-predict} start_gate:=${START_GATE:-flight}"
   LAUNCH_ARGS="$LAUNCH_ARGS test_profile:=${TEST_PROFILE:-none} test_amp:=${TEST_AMP:-0.15} test_period:=${TEST_PERIOD:-4.0}"
   LAUNCH_ARGS="$LAUNCH_ARGS test_axis:=${TEST_AXIS:-x} test_delay:=${TEST_DELAY:-3.0} test_duration:=${TEST_DURATION:-60.0}"
   LAUNCH_ARGS="$LAUNCH_ARGS sim_clock:=${SIM_CLOCK:-wall} max_velocity:=${MAX_VELOCITY:-0.5} platform:=${PLATFORM:-sim}"
@@ -127,7 +127,7 @@ resolve() {
   LAUNCH_ARGS="$LAUNCH_ARGS z_margin:=${Z_MARGIN:-0.3} z_wall_k:=${Z_WALL_K:-2.0} z_stretch:=${Z_STRETCH:-1.0}"
   # target shape: POTENTIAL=default|circle|sphere|quartic ; with quartic, POT_K scales the force (2 = original, 0.5 = 4x weaker)
   LAUNCH_ARGS="$LAUNCH_ARGS potential:=${POTENTIAL:-default}"
-  LAUNCH_ARGS="$LAUNCH_ARGS obstacles:=${OBSTACLES:-none} obs_mass:=${OBS_MASS:-10.0}"
+  LAUNCH_ARGS="$LAUNCH_ARGS obstacles:=${OBSTACLES:-none} obs_sigma:=${OBS_SIGMA:-10.0}"
   LAUNCH_ARGS="$LAUNCH_ARGS run_id:=$RUN_ID run_label:=$RUN_LABEL git_rev:=$GIT_REV"
 }
 # which launch file the ctrl window runs; `up-swarm` switches it to the single-process controller
@@ -208,8 +208,9 @@ up() {
 
   # One key to stop everything, from any window:  Ctrl+b then K
   tmux bind-key K run-shell -b "cd '$PWD' && SESSION='$SESSION' CONF='$CONF' ./dev_tmux.sh stop"
-  tmux set-option -t "$SESSION" status-right " Ctrl+b K = stop all | Ctrl+b d = detach "
-  tmux set-option -t "$SESSION" status-right-length 60
+  tmux bind-key l run-shell -b "cd '$PWD' && SESSION='$SESSION' CONF='$CONF' ./dev_tmux.sh land"
+  tmux set-option -t "$SESSION" status-right " Ctrl+b l = land | Ctrl+b K = stop all | Ctrl+b d = detach "
+  tmux set-option -t "$SESSION" status-right-length 80
 
   tmux select-window -t "$SESSION:ctrl"
   [ "$ATTACH" = "0" ] && { echo "session '$SESSION' started (not attached)."; return 0; }
@@ -268,8 +269,10 @@ up_particles() {
     "$DC 'python3 /root/dev_ws/src/tools/sys_monitor.py --out /root/dev_ws/src/logs/runs/$RUN_ID/sys.csv'" C-m
 
   tmux bind-key K run-shell -b "cd '$PWD' && SESSION='$SESSION' CONF='$CONF' ./dev_tmux.sh stop"
-  tmux set-option -t "$SESSION" status-right " Ctrl+b K = stop all | Ctrl+b d = detach "
-  tmux set-option -t "$SESSION" status-right-length 60
+  tmux bind-key l run-shell -b "cd '$PWD' && SESSION='$SESSION' CONF='$CONF' ./dev_tmux.sh land"
+  tmux set-option -t "$SESSION" status-right " Ctrl+b l = land | Ctrl+b K = stop all | Ctrl+b d = detach "
+  tmux set-option -t "$SESSION" status-right-length 80
+
   tmux select-window -t "$SESSION:ctrl"
   [ "$ATTACH" = "0" ] && { echo "session '$SESSION' started (not attached)."; return 0; }
   exec tmux attach -t "$SESSION"
@@ -304,6 +307,11 @@ stop() {
 
   tmux kill-session -t "$SESSION" 2>/dev/null
   echo "stopped."
+}
+
+land() {
+  docker compose exec -T crazysim bash -lc "$ROS_ENV && ros2 topic pub -w 1 -t 5 -r 5 /sph/land std_msgs/msg/Empty '{}'" >/dev/null 2>&1 \
+    && echo "land requested" || echo "land request failed (is the controller running?)"
 }
 
 check() {
@@ -345,6 +353,7 @@ case "${1:-up}" in
   analyze) shift; analyze "$@" ;;
   attach) exec tmux attach -t "$SESSION" ;;
   stop)   stop ;;
+  land)   land ;;
   show)   show ;;
   check)  check ;;
   *)      echo "usage: $0 {up|up-swarm|up-particles|attach|stop|show|check|analyze [run_id]}"; exit 1 ;;
