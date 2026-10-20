@@ -275,6 +275,11 @@ class Analysis:
         # divergence: a Crazyflie commanded <= 0.5 m/s never really moves at > 3 m/s or climbs 1 m above
         # the target; if it does, the estimate blew up / the drone crashed and every later number is garbage
         self.diverged_at, self.diverged_why = None, ''
+        core = (r.meta or {}).get('core', {})
+        if int(float(core.get('dim', 2) or 2)) == 3:
+            z_bad = float((core.get('z_limits') or {}).get('z_max', 2.5)) + 0.5
+        else:
+            z_bad = self.fixed_z + 1.0
         for n in self.names:
             T = r.ticks[n]
             if 'meas_vx' not in T or not np.isfinite(T['meas_vx']).any():

@@ -28,6 +28,8 @@ FLOAT_ARGS = {
     'R': 0.5,
     'f_beta': 1.0,
     'f_k': 2.0,
+    'f_kt': 0.0,
+    'f_g1': 0.0,
     # --- diagnostics / test switches (defaults == old behaviour) ---
     'sph_gain': 1.0,
     'control_period': 0.05,
@@ -46,6 +48,7 @@ FLOAT_ARGS = {
     'dim': 2.0, 'zc': 1.0, 'max_vz': 0.25, 'z_min': 0.25, 'z_max': 2.5,
     'z_margin': 0.3, 'z_wall_k': 2.0, 'z_stretch': 1.0,
     'obs_sigma': 10.0,
+    'test_side': 1.0,
 }
 
 # name -> default (strings)

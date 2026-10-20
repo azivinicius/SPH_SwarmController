@@ -61,8 +61,8 @@ class Potential3D:
         cannot follow such a stiff force): R of 1 to 2 converges cleanly, R = 4 does not.
     """
 
-    def __init__(self, xc=0.0, yc=0.0, zc=0.0, R=1.0, shape='sphere', a=4.0, b=6.0, c=4.0, max_force=3.0, gain=1.0,
-                 G_base=1.0, G_a1=0.0, G_a2=5.0, z_gain=100.0):
+    def __init__(self, xc=0.0, yc=0.0, zc=0.0, R=1.0, shape='sphere', a=4.0, b=6.0, c=4.0, max_force=12.0, gain=1.0,
+                 G_base=1.0, G_a1=30.0, G_a2=30.0, z_gain=1.0, kt=0.0):
         if shape not in ('sphere', 'quartic'):
             raise ValueError("shape must be 'sphere' or 'quartic'")
         self.xc, self.yc, self.zc, self.R = xc, yc, zc, R      # centre (m) and size (m, see above)
@@ -74,6 +74,7 @@ class Potential3D:
         self.G_a1 = G_a1                   # quartic only: extra gain per unit |alpha1| (0 = off)
         self.G_a2 = G_a2                   # quartic only: extra gain per unit |alpha2| (distance to the plane)
         self.z_gain = z_gain               # quartic only: extra factor on the vertical force (100 originally)
+        self.kt = kt                       # quartic only: circulation gain H (Goncalves 2010, eq. 19); 0 = off, sign = direction
 
     # ------------------------------------------------------------------ sphere
     def s(self, x, y, z):
@@ -149,7 +150,17 @@ class Potential3D:
         if np.linalg.norm(F) > self.max_force:        # keep the direction, cap the length
             F = F / np.linalg.norm(F) * self.max_force
 
-        return [F[0], F[1], self.z_gain*F[2]]
+        out = [F[0], F[1], self.z_gain*F[2]]
+        if self.kt:
+            # circulation (Goncalves 2010, eq. 16): H * (grad alpha1 x grad alpha2), tangent to the loop.
+            # Added AFTER the z gain so its vertical part is not scaled by 100 (it stays in the plane);
+            # length-clipped to max_force because, as in the paper, the wedge product is not normalised.
+            T = self.kt * np.cross(self.grad_alpha1(x, y, z), self.grad_alpha2(x, y, z))
+            nT = np.linalg.norm(T)
+            if nT > self.max_force:
+                T = T / nT * self.max_force
+            out = [out[0] + T[0], out[1] + T[1], out[2] + T[2]]
+        return out
 
     # ------------------------------------------------------------------ what the controller calls
     def force(self, x, y, z, beta=1.0, k=2.0):

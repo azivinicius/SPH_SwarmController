@@ -92,7 +92,7 @@ class Particle:
         # {'press': [ax, ay], 'visc': [..], 'damp': [..], 'ext': [..], 'total': [..]}
         self.last_terms = None
 
-        self.B = (200 * self.rho * 9.8 * (1/98)) / 1
+        self.B = (200 * self.rho * 9.8 * (1/98)) / self.gamma
         self.P = self.B * ((self.rho / self.rho_0)**self.gamma - 1)
         self.c = math.sqrt(self.gamma * (self.P + self.B) / self.rho)
 
@@ -129,7 +129,7 @@ class Particle:
             self.c = 0.0
             return 0.0
 
-        self.B = 20.0 * self.rho
+        self.B = (20.0/self.gamma) * self.rho
         P = self.B * ((self.rho / self.rho_0)**self.gamma - 1.0)
         self.c = math.sqrt(self.gamma * (P + self.B) / self.rho)
 

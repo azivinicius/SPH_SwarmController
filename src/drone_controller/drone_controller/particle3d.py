@@ -49,7 +49,7 @@ class Particle3D:
         self.zetta_extra, self.sph_gain = zetta_extra, sph_gain
         self.z_stretch = max(float(z_stretch), 1e-6)
         self.last_terms = None
-        self.B = 20.0 * self.rho
+        self.B = (20.0/self.gamma) * self.rho
         self.P = self.B * ((self.rho / self.rho_0) ** self.gamma - 1)
         self.c = math.sqrt(self.gamma * (self.P + self.B) / self.rho)
         self.vel = [0.0, 0.0, 0.0]
@@ -112,7 +112,7 @@ class Particle3D:
             self.P = 0.0
             self.c = 0.0
             return 0.0
-        self.B = 20.0 * self.rho
+        self.B = (20.0/self.gamma) * self.rho
         P = self.B * ((self.rho / self.rho_0) ** self.gamma - 1.0)
         self.c = math.sqrt(self.gamma * (P + self.B) / self.rho)
         return P

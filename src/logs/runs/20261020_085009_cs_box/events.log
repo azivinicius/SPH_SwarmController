@@ -1,0 +1,18 @@
+    0.000 INFO  plain_cf_0 START        plain_cf_0: 1 drones, egos=['cf_0'], label="cs_box", sph_gain=0.0 zeta=40.0 f_k=0.0 gamma=7.0 m=100.0 policy=hold platform=sim fence=None state_timeout=0.0 gate=flight clock=wall vmax=0.2 dim=2 test=box amp=0.2 m/s period=6.0 s axis=x delay=6.0 s duration=40.0 s
+    0.079 INFO  cf_0    FIRST_RX     first state of cf_0: x=0.000 y=0.000 z=0.015 (1/1 drones known)
+    0.080 INFO  plain_cf_0 GATE_WAIT    below z=0.40 m: cf_0
+    5.030 INFO  cf_0    HB           rho=  505.3 P=  -1431.4 |v|rms=0.000 r_pot=0.00 stale= 2.0% rx=20.2Hz clip= 0.0% dt_max=58ms age_max=127ms
+    5.130 INFO  plain_cf_0 GATE_WAIT    below z=0.40 m: cf_0
+   10.080 INFO  cf_0    HB           rho=  505.3 P=  -1431.4 |v|rms=0.000 r_pot=0.00 stale= 0.0% rx=20.2Hz clip= 0.0% dt_max=50ms age_max=14ms
+   10.130 INFO  plain_cf_0 GATE_WAIT    below z=0.40 m: cf_0
+   15.080 INFO  cf_0    HB           rho=  505.3 P=  -1431.4 |v|rms=0.000 r_pot=0.00 stale= 7.0% rx=19.8Hz clip= 0.0% dt_max=56ms age_max=151ms
+   15.180 INFO  plain_cf_0 GATE_WAIT    below z=0.40 m: cf_0
+   17.380 INFO  plain_cf_0 GATE_OPEN    start gate "flight" open: controller now acts
+   17.380 INFO  plain_cf_0 TEST_START   test profile starts: box amp=0.2 m/s period=6.0 s axis=x delay=6.0 s duration=40.0 s
+   20.130 INFO  cf_0    HB           rho=  505.3 P=  -1431.4 |v|rms=0.000 r_pot=0.00 stale= 0.0% rx=20.2Hz clip= 0.0% dt_max=51ms age_max=19ms
+   25.130 INFO  cf_0    HB           rho=  505.3 P=  -1431.4 |v|rms=0.000 r_pot=0.00 stale= 7.0% rx=19.8Hz clip= 0.0% dt_max=51ms age_max=52ms
+   30.180 INFO  cf_0    HB           rho=  505.3 P=  -1431.4 |v|rms=0.000 r_pot=0.00 stale= 0.0% rx=20.2Hz clip= 0.0% dt_max=50ms age_max=48ms
+   35.180 INFO  cf_0    HB           rho=  505.3 P=  -1431.4 |v|rms=0.000 r_pot=0.01 stale= 0.0% rx=20.0Hz clip= 0.0% dt_max=51ms age_max=43ms
+   40.230 INFO  cf_0    HB           rho=  505.3 P=  -1431.4 |v|rms=0.001 r_pot=0.01 stale= 0.0% rx=20.2Hz clip= 0.0% dt_max=51ms age_max=36ms
+   45.280 INFO  cf_0    HB           rho=  505.3 P=  -1431.4 |v|rms=0.001 r_pot=0.02 stale= 0.0% rx=20.2Hz clip= 0.0% dt_max=50ms age_max=22ms
+   49.100 INFO  plain_cf_0 STOP         ticks=981 stale=1.6% clipped=0.0% late=0 slow=0 warnings_so_far=0

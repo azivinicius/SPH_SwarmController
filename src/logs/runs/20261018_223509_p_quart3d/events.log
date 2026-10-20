@@ -1,0 +1,350 @@
+    0.000 INFO  plain_cf_5 START        plain_cf_5: 8 drones, egos=['cf_5'], label="p_quart3d", sph_gain=0.5 zeta=40.0 f_k=40.0 gamma=7.0 m=28.1399 policy=predict platform=sim fence=None state_timeout=0.0 gate=all_known clock=wall vmax=0.5 dim=3 test=none amp=0.15 m/s period=4.0 s axis=x delay=3.0 s duration=60.0 s
+    0.000 INFO  plain_cf_0 START        plain_cf_0: 8 drones, egos=['cf_0'], label="p_quart3d", sph_gain=0.5 zeta=40.0 f_k=40.0 gamma=7.0 m=28.1399 policy=predict platform=sim fence=None state_timeout=0.0 gate=all_known clock=wall vmax=0.5 dim=3 test=none amp=0.15 m/s period=4.0 s axis=x delay=3.0 s duration=60.0 s
+    0.000 INFO  plain_cf_3 START        plain_cf_3: 8 drones, egos=['cf_3'], label="p_quart3d", sph_gain=0.5 zeta=40.0 f_k=40.0 gamma=7.0 m=28.1399 policy=predict platform=sim fence=None state_timeout=0.0 gate=all_known clock=wall vmax=0.5 dim=3 test=none amp=0.15 m/s period=4.0 s axis=x delay=3.0 s duration=60.0 s
+    0.000 INFO  plain_cf_1 START        plain_cf_1: 8 drones, egos=['cf_1'], label="p_quart3d", sph_gain=0.5 zeta=40.0 f_k=40.0 gamma=7.0 m=28.1399 policy=predict platform=sim fence=None state_timeout=0.0 gate=all_known clock=wall vmax=0.5 dim=3 test=none amp=0.15 m/s period=4.0 s axis=x delay=3.0 s duration=60.0 s
+    0.000 INFO  plain_cf_6 START        plain_cf_6: 8 drones, egos=['cf_6'], label="p_quart3d", sph_gain=0.5 zeta=40.0 f_k=40.0 gamma=7.0 m=28.1399 policy=predict platform=sim fence=None state_timeout=0.0 gate=all_known clock=wall vmax=0.5 dim=3 test=none amp=0.15 m/s period=4.0 s axis=x delay=3.0 s duration=60.0 s
+    0.000 INFO  plain_cf_4 START        plain_cf_4: 8 drones, egos=['cf_4'], label="p_quart3d", sph_gain=0.5 zeta=40.0 f_k=40.0 gamma=7.0 m=28.1399 policy=predict platform=sim fence=None state_timeout=0.0 gate=all_known clock=wall vmax=0.5 dim=3 test=none amp=0.15 m/s period=4.0 s axis=x delay=3.0 s duration=60.0 s
+    0.000 INFO  plain_cf_7 START        plain_cf_7: 8 drones, egos=['cf_7'], label="p_quart3d", sph_gain=0.5 zeta=40.0 f_k=40.0 gamma=7.0 m=28.1399 policy=predict platform=sim fence=None state_timeout=0.0 gate=all_known clock=wall vmax=0.5 dim=3 test=none amp=0.15 m/s period=4.0 s axis=x delay=3.0 s duration=60.0 s
+    0.000 INFO  plain_cf_2 START        plain_cf_2: 8 drones, egos=['cf_2'], label="p_quart3d", sph_gain=0.5 zeta=40.0 f_k=40.0 gamma=7.0 m=28.1399 policy=predict platform=sim fence=None state_timeout=0.0 gate=all_known clock=wall vmax=0.5 dim=3 test=none amp=0.15 m/s period=4.0 s axis=x delay=3.0 s duration=60.0 s
+   20.446 INFO  cf_0    FIRST_RX     first state of cf_0: x=-0.500 y=0.500 z=0.480 (1/8 drones known)
+   20.420 INFO  cf_3    FIRST_RX     first state of cf_3: x=-0.500 y=0.000 z=0.453 (1/8 drones known)
+   20.401 INFO  cf_1    FIRST_RX     first state of cf_1: x=0.000 y=0.500 z=0.553 (1/8 drones known)
+   20.324 INFO  cf_2    FIRST_RX     first state of cf_2: x=0.500 y=0.500 z=0.380 (1/8 drones known)
+   20.367 INFO  cf_4    FIRST_RX     first state of cf_4: x=0.000 y=0.000 z=0.415 (1/8 drones known)
+   20.666 INFO  cf_5    FIRST_RX     first state of cf_5: x=0.500 y=0.000 z=0.402 (1/8 drones known)
+   20.354 INFO  cf_7    FIRST_RX     first state of cf_7: x=0.250 y=-0.500 z=0.463 (1/8 drones known)
+   20.377 INFO  cf_6    FIRST_RX     first state of cf_6: x=-0.250 y=-0.500 z=0.425 (1/8 drones known)
+   20.376 INFO  plain_cf_4 GATE_WAIT    no state yet from cf_0,cf_1,cf_2,cf_3,cf_5,cf_6,cf_7
+   20.376 INFO  cf_4    HB           rho=  331.7 P=   -947.4 |v|rms=0.000 r_pot=2.20 stale= 0.0% rx= 0.2Hz clip= 0.0% dt_max=0ms age_max=9ms
+   20.335 INFO  cf_4    FIRST_RX     first state of cf_4: x=0.000 y=0.000 z=0.415 (2/8 drones known)
+   20.386 INFO  cf_4    FIRST_RX     first state of cf_4: x=0.000 y=0.000 z=0.415 (2/8 drones known)
+   20.676 INFO  cf_4    FIRST_RX     first state of cf_4: x=0.000 y=0.000 z=0.415 (2/8 drones known)
+   20.364 INFO  cf_4    FIRST_RX     first state of cf_4: x=0.000 y=0.000 z=0.415 (2/8 drones known)
+   20.458 INFO  cf_4    FIRST_RX     first state of cf_4: x=0.000 y=0.000 z=0.415 (2/8 drones known)
+   20.412 INFO  cf_4    FIRST_RX     first state of cf_4: x=0.000 y=0.000 z=0.415 (2/8 drones known)
+   20.432 INFO  cf_4    FIRST_RX     first state of cf_4: x=0.000 y=0.000 z=0.415 (2/8 drones known)
+   20.336 INFO  plain_cf_2 GATE_WAIT    no state yet from cf_0,cf_1,cf_3,cf_5,cf_6,cf_7
+   20.336 INFO  cf_2    HB           rho=  331.7 P=   -947.4 |v|rms=0.000 r_pot=1.54 stale= 0.0% rx= 0.2Hz clip= 0.0% dt_max=0ms age_max=12ms
+   20.460 INFO  cf_2    FIRST_RX     first state of cf_2: x=0.500 y=0.500 z=0.380 (3/8 drones known)
+   20.434 INFO  cf_2    FIRST_RX     first state of cf_2: x=0.500 y=0.500 z=0.380 (3/8 drones known)
+   20.367 INFO  cf_2    FIRST_RX     first state of cf_2: x=0.500 y=0.500 z=0.380 (3/8 drones known)
+   20.415 INFO  cf_2    FIRST_RX     first state of cf_2: x=0.500 y=0.500 z=0.380 (3/8 drones known)
+   20.389 INFO  cf_2    FIRST_RX     first state of cf_2: x=0.500 y=0.500 z=0.380 (3/8 drones known)
+   20.380 INFO  cf_2    FIRST_RX     first state of cf_2: x=0.500 y=0.500 z=0.380 (2/8 drones known)
+   20.680 INFO  cf_2    FIRST_RX     first state of cf_2: x=0.500 y=0.500 z=0.380 (3/8 drones known)
+   20.419 INFO  plain_cf_1 GATE_WAIT    no state yet from cf_0,cf_3,cf_5,cf_6,cf_7
+   20.419 INFO  cf_1    HB           rho=  334.5 P=   -955.3 |v|rms=0.000 r_pot=1.86 stale= 0.0% rx= 0.2Hz clip= 0.0% dt_max=0ms age_max=18ms
+   20.684 INFO  cf_1    FIRST_RX     first state of cf_1: x=0.000 y=0.500 z=0.553 (4/8 drones known)
+   20.466 INFO  cf_1    FIRST_RX     first state of cf_1: x=0.000 y=0.500 z=0.553 (4/8 drones known)
+   20.439 INFO  cf_1    FIRST_RX     first state of cf_1: x=0.000 y=0.500 z=0.553 (4/8 drones known)
+   20.395 INFO  cf_1    FIRST_RX     first state of cf_1: x=0.000 y=0.500 z=0.553 (4/8 drones known)
+   20.396 INFO  plain_cf_6 GATE_WAIT    no state yet from cf_0,cf_3,cf_5,cf_7
+   20.387 INFO  cf_1    FIRST_RX     first state of cf_1: x=0.000 y=0.500 z=0.553 (3/8 drones known)
+   20.344 INFO  cf_1    FIRST_RX     first state of cf_1: x=0.000 y=0.500 z=0.553 (3/8 drones known)
+   20.396 INFO  cf_6    HB           rho=  332.0 P=   -948.0 |v|rms=0.000 r_pot=2.72 stale= 0.0% rx= 0.2Hz clip= 0.0% dt_max=0ms age_max=19ms
+   20.375 INFO  cf_1    FIRST_RX     first state of cf_1: x=0.000 y=0.500 z=0.553 (4/8 drones known)
+   20.469 INFO  cf_6    FIRST_RX     first state of cf_6: x=-0.250 y=-0.500 z=0.425 (5/8 drones known)
+   20.442 INFO  cf_6    FIRST_RX     first state of cf_6: x=-0.250 y=-0.500 z=0.425 (5/8 drones known)
+   20.346 INFO  cf_6    FIRST_RX     first state of cf_6: x=-0.250 y=-0.500 z=0.425 (4/8 drones known)
+   20.389 INFO  cf_6    FIRST_RX     first state of cf_6: x=-0.250 y=-0.500 z=0.425 (4/8 drones known)
+   20.376 INFO  cf_6    FIRST_RX     first state of cf_6: x=-0.250 y=-0.500 z=0.425 (5/8 drones known)
+   20.424 INFO  cf_6    FIRST_RX     first state of cf_6: x=-0.250 y=-0.500 z=0.425 (4/8 drones known)
+   20.689 INFO  cf_6    FIRST_RX     first state of cf_6: x=-0.250 y=-0.500 z=0.425 (5/8 drones known)
+   20.472 INFO  plain_cf_0 GATE_WAIT    no state yet from cf_3,cf_5,cf_7
+   20.472 INFO  cf_0    HB           rho=  334.4 P=   -954.9 |v|rms=0.000 r_pot=2.30 stale= 0.0% rx= 0.2Hz clip= 0.0% dt_max=0ms age_max=25ms
+   20.428 INFO  cf_0    FIRST_RX     first state of cf_0: x=-0.500 y=0.500 z=0.480 (5/8 drones known)
+   20.447 INFO  cf_0    FIRST_RX     first state of cf_0: x=-0.500 y=0.500 z=0.480 (6/8 drones known)
+   20.691 INFO  cf_0    FIRST_RX     first state of cf_0: x=-0.500 y=0.500 z=0.480 (6/8 drones known)
+   20.350 INFO  cf_0    FIRST_RX     first state of cf_0: x=-0.500 y=0.500 z=0.480 (5/8 drones known)
+   20.393 INFO  cf_0    FIRST_RX     first state of cf_0: x=-0.500 y=0.500 z=0.480 (5/8 drones known)
+   20.402 INFO  cf_0    FIRST_RX     first state of cf_0: x=-0.500 y=0.500 z=0.480 (5/8 drones known)
+   20.693 INFO  plain_cf_5 GATE_WAIT    no state yet from cf_3,cf_7
+   20.693 INFO  cf_5    HB           rho=  337.8 P=   -964.7 |v|rms=0.000 r_pot=1.90 stale= 0.0% rx= 0.2Hz clip= 0.0% dt_max=0ms age_max=27ms
+   20.382 INFO  cf_0    FIRST_RX     first state of cf_0: x=-0.500 y=0.500 z=0.480 (6/8 drones known)
+   20.431 INFO  cf_5    FIRST_RX     first state of cf_5: x=0.500 y=0.000 z=0.402 (6/8 drones known)
+   20.354 INFO  cf_5    FIRST_RX     first state of cf_5: x=0.500 y=0.000 z=0.402 (6/8 drones known)
+   20.477 INFO  cf_5    FIRST_RX     first state of cf_5: x=0.500 y=0.000 z=0.402 (6/8 drones known)
+   20.383 INFO  plain_cf_7 GATE_WAIT    no state yet from cf_3,cf_5
+   20.383 INFO  cf_7    HB           rho=  334.9 P=   -956.3 |v|rms=0.000 r_pot=2.42 stale= 0.0% rx= 0.2Hz clip= 0.0% dt_max=0ms age_max=29ms
+   20.451 INFO  cf_5    FIRST_RX     first state of cf_5: x=0.500 y=0.000 z=0.402 (7/8 drones known)
+   20.407 INFO  cf_5    FIRST_RX     first state of cf_5: x=0.500 y=0.000 z=0.402 (6/8 drones known)
+   20.398 INFO  cf_5    FIRST_RX     first state of cf_5: x=0.500 y=0.000 z=0.402 (6/8 drones known)
+   20.385 INFO  cf_5    FIRST_RX     first state of cf_5: x=0.500 y=0.000 z=0.402 (7/8 drones known)
+   20.433 INFO  cf_7    FIRST_RX     first state of cf_7: x=0.250 y=-0.500 z=0.463 (7/8 drones known)
+   20.356 INFO  cf_7    FIRST_RX     first state of cf_7: x=0.250 y=-0.500 z=0.463 (7/8 drones known)
+   20.453 INFO  cf_7    FIRST_RX     first state of cf_7: x=0.250 y=-0.500 z=0.463 (8/8 drones known)
+   20.408 INFO  cf_7    FIRST_RX     first state of cf_7: x=0.250 y=-0.500 z=0.463 (7/8 drones known)
+   20.400 INFO  cf_7    FIRST_RX     first state of cf_7: x=0.250 y=-0.500 z=0.463 (7/8 drones known)
+   20.481 INFO  cf_7    FIRST_RX     first state of cf_7: x=0.250 y=-0.500 z=0.463 (7/8 drones known)
+   20.699 INFO  cf_7    FIRST_RX     first state of cf_7: x=0.250 y=-0.500 z=0.463 (7/8 drones known)
+   20.469 INFO  plain_cf_3 GATE_OPEN    start gate "all_known" open: controller now acts
+   20.469 INFO  cf_3    HB           rho=  337.9 P=   -964.9 |v|rms=0.000 r_pot=2.56 stale= 0.0% rx= 0.2Hz clip=100.0% dt_max=0ms age_max=48ms
+   20.453 INFO  cf_3    FIRST_RX     first state of cf_3: x=-0.500 y=0.000 z=0.453 (8/8 drones known)
+   20.405 INFO  cf_3    FIRST_RX     first state of cf_3: x=-0.500 y=0.000 z=0.453 (8/8 drones known)
+   20.418 INFO  cf_3    FIRST_RX     first state of cf_3: x=-0.500 y=0.000 z=0.453 (8/8 drones known)
+   20.499 INFO  cf_3    FIRST_RX     first state of cf_3: x=-0.500 y=0.000 z=0.453 (8/8 drones known)
+   20.718 INFO  cf_3    FIRST_RX     first state of cf_3: x=-0.500 y=0.000 z=0.453 (8/8 drones known)
+   20.377 INFO  cf_3    FIRST_RX     first state of cf_3: x=-0.500 y=0.000 z=0.453 (8/8 drones known)
+   20.429 INFO  cf_3    FIRST_RX     first state of cf_3: x=-0.500 y=0.000 z=0.453 (8/8 drones known)
+   20.426 INFO  plain_cf_4 GATE_OPEN    start gate "all_known" open: controller now acts
+   20.385 INFO  plain_cf_2 GATE_OPEN    start gate "all_known" open: controller now acts
+   20.469 INFO  plain_cf_1 GATE_OPEN    start gate "all_known" open: controller now acts
+   20.445 INFO  plain_cf_6 GATE_OPEN    start gate "all_known" open: controller now acts
+   20.522 INFO  plain_cf_0 GATE_OPEN    start gate "all_known" open: controller now acts
+   20.743 INFO  plain_cf_5 GATE_OPEN    start gate "all_known" open: controller now acts
+   20.433 INFO  plain_cf_7 GATE_OPEN    start gate "all_known" open: controller now acts
+   20.586 WARN  cf_2    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   20.943 WARN  cf_5    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   21.743 INFO  cf_5    CLIP_END     saturation lasted 20 ticks
+   21.769 INFO  cf_3    RHO_OK       density 806 = 0.81 x rho_0 (P=-1793, n_nb=5, nearest 0.07 m)
+   21.746 INFO  cf_6    RHO_OK       density 826 = 0.83 x rho_0 (P=-1740, n_nb=5, nearest 0.06 m)
+   21.776 INFO  cf_4    RHO_OK       density 835 = 0.84 x rho_0 (P=-1709, n_nb=6, nearest 0.10 m)
+   21.833 INFO  cf_7    RHO_OK       density 826 = 0.83 x rho_0 (P=-1740, n_nb=6, nearest 0.16 m)
+   21.919 INFO  cf_1    RHO_OK       density 814 = 0.81 x rho_0 (P=-1775, n_nb=5, nearest 0.09 m)
+   22.193 INFO  cf_5    RHO_OK       density 824 = 0.82 x rho_0 (P=-1747, n_nb=6, nearest 0.13 m)
+   22.372 INFO  cf_0    RHO_OK       density 862 = 0.86 x rho_0 (P=-1594, n_nb=6, nearest 0.23 m)
+   22.769 WARN  cf_1    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   22.776 WARN  cf_4    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   22.786 INFO  cf_2    CLIP_END     saturation lasted 48 ticks
+   23.294 WARN  cf_5    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   23.035 WARN  cf_2    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   23.686 INFO  cf_2    CLIP_END     saturation lasted 17 ticks
+   23.936 WARN  cf_2    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   24.072 WARN  cf_0    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   24.034 WARN  cf_7    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   24.136 INFO  cf_2    RHO_OK       density 808 = 0.81 x rho_0 (P=-1789, n_nb=3, nearest 0.17 m)
+   24.326 WARN  cf_4    RHO_HIGH     density 1202 = 1.20 x rho_0 (P=8979, n_nb=5, nearest 0.04 m)
+   24.419 WARN  cf_1    RHO_HIGH     density 1203 = 1.20 x rho_0 (P=9099, n_nb=5, nearest 0.05 m)
+   24.519 INFO  cf_1    CLIP_END     saturation lasted 39 ticks
+   24.568 WARN  cf_3    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   24.596 WARN  cf_6    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   24.676 INFO  cf_4    CLIP_END     saturation lasted 42 ticks
+   24.769 WARN  cf_1    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   24.922 INFO  cf_0    CLIP_END     saturation lasted 21 ticks
+   24.926 WARN  cf_4    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   24.969 INFO  cf_1    CLIP_END     saturation lasted 8 ticks
+   25.443 WARN  cf_5    RHO_HIGH     density 1211 = 1.21 x rho_0 (P=9736, n_nb=7, nearest 0.11 m)
+   25.219 WARN  cf_1    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   25.183 WARN  cf_7    RHO_HIGH     density 1213 = 1.21 x rho_0 (P=9934, n_nb=7, nearest 0.04 m)
+   25.322 WARN  cf_0    RHO_HIGH     density 1234 = 1.23 x rho_0 (P=11810, n_nb=7, nearest 0.05 m)
+   25.545 INFO  cf_5    CLIP_END     saturation lasted 49 ticks
+   25.286 WARN  cf_2    RHO_LOW      density 792 = 0.79 x rho_0 (P=-1820, n_nb=5, nearest 0.16 m)
+   25.396 INFO  cf_6    CLIP_END     saturation lasted 20 ticks
+   25.396 INFO  cf_6    HB           rho=  858.0 P=   -336.1 |v|rms=0.306 r_pot=2.03 stale= 0.0% rx=20.0Hz clip=23.0% dt_max=52ms age_max=22ms
+   25.693 INFO  cf_5    HB           rho=  873.0 P=   1348.0 |v|rms=0.263 r_pot=1.47 stale= 0.0% rx=20.0Hz clip=72.0% dt_max=52ms age_max=30ms
+   25.426 INFO  cf_4    HB           rho=  912.0 P=   2417.8 |v|rms=0.285 r_pot=1.45 stale= 0.0% rx=20.2Hz clip=59.4% dt_max=50ms age_max=10ms
+   25.386 INFO  cf_2    HB           rho=  510.5 P=   -905.3 |v|rms=0.190 r_pot=0.99 stale= 0.0% rx=20.2Hz clip=98.0% dt_max=52ms age_max=14ms
+   25.469 INFO  cf_1    HB           rho=  863.6 P=   1234.4 |v|rms=0.265 r_pot=1.35 stale= 0.0% rx=20.2Hz clip=59.4% dt_max=50ms age_max=19ms
+   25.522 INFO  cf_0    HB           rho=  772.3 P=    312.0 |v|rms=0.297 r_pot=1.74 stale= 0.0% rx=20.2Hz clip=27.7% dt_max=51ms age_max=26ms
+   25.433 INFO  cf_7    CLIP_END     saturation lasted 32 ticks
+   25.433 INFO  cf_7    HB           rho=  890.2 P=   1742.5 |v|rms=0.311 r_pot=1.83 stale= 0.0% rx=20.2Hz clip=34.7% dt_max=52ms age_max=31ms
+   25.519 INFO  cf_3    CLIP_END     saturation lasted 23 ticks
+   25.519 INFO  cf_3    HB           rho=  879.8 P=    197.8 |v|rms=0.297 r_pot=1.97 stale= 0.0% rx=20.2Hz clip=25.7% dt_max=51ms age_max=48ms
+   25.476 INFO  cf_4    RHO_OK       density 1193 = 1.19 x rho_0 (P=8352, n_nb=7, nearest 0.06 m)
+   25.793 WARN  cf_5    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   25.585 INFO  cf_2    CLIP_END     saturation lasted 37 ticks
+   25.822 WARN  cf_0    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   25.733 WARN  cf_7    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   25.869 WARN  cf_3    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   25.836 WARN  cf_2    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   25.969 INFO  cf_3    CLIP_END     saturation lasted 6 ticks
+   26.119 INFO  cf_1    CLIP_END     saturation lasted 22 ticks
+   26.096 WARN  cf_6    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   26.268 WARN  cf_3    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   26.235 INFO  cf_2    CLIP_END     saturation lasted 12 ticks
+   26.369 WARN  cf_1    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   26.522 WARN  cf_0    RHO_HIGH     density 1202 = 1.20 x rho_0 (P=9011, n_nb=7, nearest 0.03 m)
+   26.433 WARN  cf_7    RHO_HIGH     density 1201 = 1.20 x rho_0 (P=8939, n_nb=7, nearest 0.02 m)
+   26.485 WARN  cf_2    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   26.596 INFO  cf_6    CLIP_END     saturation lasted 14 ticks
+   26.893 WARN  cf_5    RHO_HIGH     density 1216 = 1.22 x rho_0 (P=10154, n_nb=7, nearest 0.13 m)
+   26.586 INFO  cf_2    CLIP_END     saturation lasted 6 ticks
+   26.776 INFO  cf_4    CLIP_END     saturation lasted 41 ticks
+   26.846 WARN  cf_6    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   26.836 WARN  cf_2    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   27.026 WARN  cf_4    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   27.245 INFO  cf_6    CLIP_END     saturation lasted 12 ticks
+   27.233 INFO  cf_7    CLIP_END     saturation lasted 34 ticks
+   27.236 INFO  cf_2    CLIP_END     saturation lasted 12 ticks
+   27.469 INFO  cf_1    CLIP_END     saturation lasted 26 ticks
+   27.496 WARN  cf_6    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   27.483 WARN  cf_7    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   27.569 INFO  cf_3    CLIP_END     saturation lasted 30 ticks
+   27.485 WARN  cf_2    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   27.719 WARN  cf_1    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   27.772 INFO  cf_0    RHO_OK       density 1196 = 1.20 x rho_0 (P=8541, n_nb=7, nearest 0.06 m)
+   27.818 WARN  cf_3    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   27.919 INFO  cf_1    CLIP_END     saturation lasted 8 ticks
+   27.983 WARN  cf_7    RHO_HIGH     density 1202 = 1.20 x rho_0 (P=9045, n_nb=7, nearest 0.07 m)
+   28.169 WARN  cf_1    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   28.419 INFO  cf_3    CLIP_END     saturation lasted 16 ticks
+   28.383 INFO  cf_7    CLIP_END     saturation lasted 22 ticks
+   28.385 INFO  cf_2    CLIP_END     saturation lasted 22 ticks
+   28.669 WARN  cf_3    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   28.722 INFO  cf_0    CLIP_END     saturation lasted 62 ticks
+   28.635 WARN  cf_7    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   28.676 INFO  cf_4    CLIP_END     saturation lasted 37 ticks
+   28.635 WARN  cf_2    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   28.695 INFO  cf_6    CLIP_END     saturation lasted 28 ticks
+   28.972 WARN  cf_0    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   29.194 INFO  cf_5    CLIP_END     saturation lasted 72 ticks
+   28.926 WARN  cf_4    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   28.945 WARN  cf_6    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   28.985 INFO  cf_2    CLIP_END     saturation lasted 11 ticks
+   29.443 WARN  cf_5    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   29.272 INFO  cf_0    CLIP_END     saturation lasted 10 ticks
+   29.235 WARN  cf_2    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   29.446 INFO  cf_6    CLIP_END     saturation lasted 14 ticks
+   29.522 WARN  cf_0    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   29.745 INFO  cf_5    CLIP_END     saturation lasted 10 ticks
+   29.486 INFO  cf_2    CLIP_END     saturation lasted 9 ticks
+   29.719 INFO  cf_1    CLIP_END     saturation lasted 35 ticks
+   29.696 WARN  cf_6    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   29.994 WARN  cf_5    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   29.726 INFO  cf_4    CLIP_END     saturation lasted 20 ticks
+   29.735 WARN  cf_2    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   29.969 WARN  cf_1    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   29.945 INFO  cf_6    CLIP_END     saturation lasted 9 ticks
+   29.976 WARN  cf_4    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   30.222 INFO  cf_0    CLIP_END     saturation lasted 18 ticks
+   30.218 INFO  cf_3    CLIP_END     saturation lasted 35 ticks
+   30.196 WARN  cf_6    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   30.185 INFO  cf_7    CLIP_END     saturation lasted 35 ticks
+   30.269 INFO  cf_1    CLIP_END     saturation lasted 10 ticks
+   30.326 INFO  cf_4    CLIP_END     saturation lasted 11 ticks
+   30.472 WARN  cf_0    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   30.695 INFO  cf_5    HB           rho= 1030.4 P=   2523.2 |v|rms=0.146 r_pot=0.69 stale= 0.0% rx=20.0Hz clip=98.0% dt_max=52ms age_max=30ms
+   30.468 WARN  cf_3    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   30.426 INFO  cf_4    HB           rho= 1061.5 P=   3132.2 |v|rms=0.125 r_pot=0.58 stale= 0.0% rx=20.0Hz clip=96.0% dt_max=51ms age_max=10ms
+   30.447 INFO  cf_6    HB           rho= 1015.4 P=    502.6 |v|rms=0.115 r_pot=1.03 stale= 0.0% rx=20.2Hz clip=90.1% dt_max=52ms age_max=22ms
+   30.522 INFO  cf_0    HB           rho= 1193.3 P=   9243.7 |v|rms=0.101 r_pot=0.89 stale= 0.0% rx=20.0Hz clip=96.0% dt_max=51ms age_max=27ms
+   30.435 WARN  cf_7    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   30.435 INFO  cf_7    HB           rho= 1146.0 P=   6830.5 |v|rms=0.125 r_pot=0.82 stale= 0.0% rx=20.0Hz clip=96.0% dt_max=52ms age_max=31ms
+   30.436 INFO  cf_2    HB           rho= 1014.1 P=    497.9 |v|rms=0.085 r_pot=0.51 stale= 0.0% rx=20.2Hz clip=93.1% dt_max=52ms age_max=14ms
+   30.519 WARN  cf_1    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   30.519 INFO  cf_1    HB           rho= 1051.1 P=   1498.1 |v|rms=0.102 r_pot=0.51 stale= 0.0% rx=20.2Hz clip=95.0% dt_max=50ms age_max=19ms
+   30.568 INFO  cf_3    HB           rho= 1040.1 P=   1146.7 |v|rms=0.119 r_pot=1.01 stale= 0.0% rx=20.2Hz clip=93.1% dt_max=51ms age_max=48ms
+   30.576 WARN  cf_4    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   30.645 INFO  cf_6    CLIP_END     saturation lasted 13 ticks
+   30.722 INFO  cf_0    CLIP_END     saturation lasted 9 ticks
+   30.993 INFO  cf_5    CLIP_END     saturation lasted 24 ticks
+   30.768 INFO  cf_3    CLIP_END     saturation lasted 10 ticks
+   30.869 INFO  cf_1    CLIP_END     saturation lasted 11 ticks
+   30.876 INFO  cf_4    CLIP_END     saturation lasted 10 ticks
+   30.896 WARN  cf_6    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   30.972 WARN  cf_0    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   31.243 WARN  cf_5    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   31.018 WARN  cf_3    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   31.120 WARN  cf_1    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   31.126 WARN  cf_4    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   31.186 INFO  cf_2    CLIP_END     saturation lasted 33 ticks
+   31.544 INFO  cf_5    CLIP_END     saturation lasted 10 ticks
+   31.469 INFO  cf_1    CLIP_END     saturation lasted 11 ticks
+   31.476 INFO  cf_4    CLIP_END     saturation lasted 11 ticks
+   31.435 WARN  cf_2    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   31.794 WARN  cf_5    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   31.596 INFO  cf_6    CLIP_END     saturation lasted 18 ticks
+   31.719 WARN  cf_1    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   31.726 WARN  cf_4    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   31.845 WARN  cf_6    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   31.876 INFO  cf_4    CLIP_END     saturation lasted 7 ticks
+   31.969 INFO  cf_3    CLIP_END     saturation lasted 23 ticks
+   32.096 INFO  cf_6    CLIP_END     saturation lasted 9 ticks
+   32.126 WARN  cf_4    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   32.219 WARN  cf_3    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   32.346 WARN  cf_6    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   32.335 INFO  cf_2    CLIP_END     saturation lasted 22 ticks
+   32.587 WARN  cf_2    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   32.826 INFO  cf_4    CLIP_END     saturation lasted 18 ticks
+   32.922 INFO  cf_0    CLIP_END     saturation lasted 43 ticks
+   33.143 INFO  cf_5    CLIP_END     saturation lasted 31 ticks
+   32.969 INFO  cf_1    CLIP_END     saturation lasted 29 ticks
+   33.076 WARN  cf_4    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   33.172 WARN  cf_0    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   33.394 WARN  cf_5    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   33.219 WARN  cf_1    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   33.318 INFO  cf_3    CLIP_END     saturation lasted 26 ticks
+   33.419 INFO  cf_1    CLIP_END     saturation lasted 8 ticks
+   33.426 INFO  cf_4    CLIP_END     saturation lasted 11 ticks
+   33.386 INFO  cf_2    CLIP_END     saturation lasted 20 ticks
+   33.572 INFO  cf_0    CLIP_END     saturation lasted 12 ticks
+   33.568 WARN  cf_3    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   33.669 WARN  cf_1    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   33.676 WARN  cf_4    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   33.635 WARN  cf_2    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   33.822 WARN  cf_0    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   33.869 INFO  cf_1    CLIP_END     saturation lasted 8 ticks
+   33.876 INFO  cf_4    CLIP_END     saturation lasted 8 ticks
+   34.193 INFO  cf_5    CLIP_END     saturation lasted 20 ticks
+   33.945 INFO  cf_6    CLIP_END     saturation lasted 36 ticks
+   34.119 WARN  cf_1    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   34.126 WARN  cf_4    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   34.444 WARN  cf_5    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   34.196 WARN  cf_6    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   34.369 INFO  cf_1    CLIP_END     saturation lasted 9 ticks
+   34.445 INFO  cf_6    CLIP_END     saturation lasted 9 ticks
+   34.619 WARN  cf_1    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   34.695 WARN  cf_6    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   34.818 INFO  cf_3    CLIP_END     saturation lasted 29 ticks
+   34.869 INFO  cf_1    CLIP_END     saturation lasted 9 ticks
+   34.926 INFO  cf_4    CLIP_END     saturation lasted 20 ticks
+   35.294 INFO  cf_5    CLIP_END     saturation lasted 21 ticks
+   35.069 WARN  cf_3    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   35.119 WARN  cf_1    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   35.172 INFO  cf_0    CLIP_END     saturation lasted 31 ticks
+   35.176 WARN  cf_4    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   35.543 WARN  cf_5    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   35.319 INFO  cf_1    CLIP_END     saturation lasted 8 ticks
+   35.422 WARN  cf_0    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   35.468 INFO  cf_3    CLIP_END     saturation lasted 12 ticks
+   35.522 INFO  cf_0    HB           rho= 1072.5 P=   2019.7 |v|rms=0.057 r_pot=0.76 stale= 0.0% rx=20.0Hz clip=96.0% dt_max=52ms age_max=28ms
+   35.743 INFO  cf_5    HB           rho= 1033.9 P=    979.0 |v|rms=0.053 r_pot=0.60 stale= 0.0% rx=20.2Hz clip=95.0% dt_max=52ms age_max=31ms
+   35.476 INFO  cf_4    CLIP_END     saturation lasted 10 ticks
+   35.476 INFO  cf_4    HB           rho=  919.8 P=  -1106.2 |v|rms=0.042 r_pot=0.58 stale= 0.0% rx=20.2Hz clip=92.1% dt_max=50ms age_max=10ms
+   35.437 INFO  cf_2    HB           rho=  978.7 P=   -317.3 |v|rms=0.046 r_pot=0.53 stale= 0.0% rx=20.0Hz clip=97.0% dt_max=52ms age_max=14ms
+   35.496 INFO  cf_6    HB           rho=  995.7 P=     15.1 |v|rms=0.029 r_pot=0.83 stale= 0.0% rx=20.2Hz clip=95.0% dt_max=52ms age_max=22ms
+   35.483 INFO  cf_7    HB           rho=  966.4 P=   -524.7 |v|rms=0.048 r_pot=0.60 stale= 0.0% rx=20.2Hz clip=100.0% dt_max=52ms age_max=31ms
+   35.569 WARN  cf_1    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   35.569 INFO  cf_1    HB           rho=  995.5 P=    -21.8 |v|rms=0.046 r_pot=0.51 stale= 0.0% rx=20.2Hz clip=92.1% dt_max=51ms age_max=19ms
+   35.843 INFO  cf_5    CLIP_END     saturation lasted 10 ticks
+   35.619 INFO  cf_3    HB           rho= 1011.7 P=    353.1 |v|rms=0.058 r_pot=0.81 stale= 0.0% rx=20.2Hz clip=95.0% dt_max=51ms age_max=48ms
+   35.599 INFO  cf_6    CLIP_END     saturation lasted 22 ticks
+   35.719 WARN  cf_3    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   35.635 INFO  cf_2    CLIP_END     saturation lasted 44 ticks
+   35.726 WARN  cf_4    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   36.093 WARN  cf_5    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   35.846 WARN  cf_6    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   35.885 WARN  cf_2    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   36.019 INFO  cf_3    CLIP_END     saturation lasted 10 ticks
+   35.976 INFO  cf_4    CLIP_END     saturation lasted 9 ticks
+   36.033 INFO  cf_7    CLIP_END     saturation lasted 116 ticks
+   36.222 INFO  cf_0    CLIP_END     saturation lasted 20 ticks
+   36.269 WARN  cf_3    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   36.226 WARN  cf_4    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   36.319 INFO  cf_1    CLIP_END     saturation lasted 19 ticks
+   36.283 WARN  cf_7    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   36.472 WARN  cf_0    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   36.485 INFO  cf_2    CLIP_END     saturation lasted 16 ticks
+   36.569 WARN  cf_1    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   36.576 INFO  cf_4    CLIP_END     saturation lasted 11 ticks
+   36.672 INFO  cf_0    CLIP_END     saturation lasted 8 ticks
+   36.669 INFO  cf_3    CLIP_END     saturation lasted 12 ticks
+   36.736 WARN  cf_2    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   36.819 INFO  cf_1    CLIP_END     saturation lasted 9 ticks
+   36.826 WARN  cf_4    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   36.922 WARN  cf_0    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   36.919 WARN  cf_3    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   36.985 INFO  cf_2    CLIP_END     saturation lasted 9 ticks
+   37.069 WARN  cf_1    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   37.183 INFO  cf_7    CLIP_END     saturation lasted 22 ticks
+   37.236 WARN  cf_2    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   37.319 INFO  cf_1    CLIP_END     saturation lasted 9 ticks
+   37.433 WARN  cf_7    CLIP_START   speed command saturated at 0.5 m/s for 5 ticks
+   37.527 INFO  plain_cf_4 STOP         ticks=344 stale=0.0% clipped=83.7% late=0 slow=0 warnings_so_far=17
+   37.561 INFO  plain_cf_1 STOP         ticks=343 stale=0.0% clipped=83.1% late=0 slow=0 warnings_so_far=19
+   37.484 INFO  plain_cf_2 STOP         ticks=343 stale=0.0% clipped=95.3% late=0 slow=0 warnings_so_far=17
+   37.825 INFO  plain_cf_5 STOP         ticks=343 stale=0.0% clipped=89.2% late=0 slow=0 warnings_so_far=13
+   37.581 INFO  plain_cf_3 STOP         ticks=343 stale=0.0% clipped=74.1% late=0 slow=0 warnings_so_far=13
+   37.607 INFO  plain_cf_0 STOP         ticks=343 stale=0.0% clipped=75.5% late=0 slow=0 warnings_so_far=13
+   37.514 INFO  plain_cf_7 STOP         ticks=343 stale=0.0% clipped=78.7% late=0 slow=0 warnings_so_far=10
+   37.536 INFO  plain_cf_6 STOP         ticks=343 stale=0.0% clipped=72.6% late=0 slow=0 warnings_so_far=13

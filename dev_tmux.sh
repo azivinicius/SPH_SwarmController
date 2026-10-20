@@ -16,6 +16,7 @@
 # Every run gets its own folder  src/logs/runs/<timestamp>_<RUN_LABEL>/  (tick/rx CSVs, events.log,
 # rtf.csv, meta.json). Label a run with:  RUN_LABEL=hover ./dev_tmux.sh up-swarm
 # DETACH=1 (or ATTACH=0) starts everything without attaching to tmux.
+# CTRL=0 (up only): CrazySim + Crazyswarm2 WITHOUT the SPH controller (go_to tests: ./real_tmux.sh square).
 #
 # Per-run overrides:  N_DRONES=5 POT_R=0.8 ./dev_tmux.sh up
 # Other config file:  CONF=configs/five.conf ./dev_tmux.sh up
@@ -115,15 +116,15 @@ resolve() {
   # every SPH / potential knob from swarm.conf goes to the controller (both launch files accept them)
   LAUNCH_ARGS="total_robots:=$N_DRONES fixed_z:=$FIXED_Z particle_mass:=$SPH_MASS smoothing_h:=$SPH_H"
   LAUNCH_ARGS="$LAUNCH_ARGS rho_0:=$SPH_RHO0 gamma:=$SPH_GAMMA alpha:=$SPH_ALPHA beta:=$SPH_BETA"
-  LAUNCH_ARGS="$LAUNCH_ARGS zetta_extra:=$SPH_ZETTA xc:=$POT_XC yc:=$POT_YC R:=$POT_R f_k:=$POT_K f_beta:=$POT_BETA"
+  LAUNCH_ARGS="$LAUNCH_ARGS zetta_extra:=$SPH_ZETTA xc:=$POT_XC yc:=$POT_YC R:=$POT_R f_k:=$POT_K f_kt:=$POT_KT f_g1:=$POT_G1 f_beta:=$POT_BETA"
   LAUNCH_ARGS="$LAUNCH_ARGS sph_gain:=${SPH_GAIN:-1.0} control_period:=${CONTROL_PERIOD:-0.05} dt_model:=${DT_MODEL:-0.0}"
   LAUNCH_ARGS="$LAUNCH_ARGS stale_policy:=${STALE_POLICY:-predict} start_gate:=${START_GATE:-flight}"
   LAUNCH_ARGS="$LAUNCH_ARGS test_profile:=${TEST_PROFILE:-none} test_amp:=${TEST_AMP:-0.15} test_period:=${TEST_PERIOD:-4.0}"
-  LAUNCH_ARGS="$LAUNCH_ARGS test_axis:=${TEST_AXIS:-x} test_delay:=${TEST_DELAY:-3.0} test_duration:=${TEST_DURATION:-60.0}"
-  LAUNCH_ARGS="$LAUNCH_ARGS sim_clock:=${SIM_CLOCK:-wall} max_velocity:=${MAX_VELOCITY:-0.5} platform:=${PLATFORM:-sim}"
+  LAUNCH_ARGS="$LAUNCH_ARGS test_axis:=${TEST_AXIS:-x} test_delay:=${TEST_DELAY:-3.0} test_duration:=${TEST_DURATION:-60.0} test_side:=${TEST_SIDE:-1.0}"
+  LAUNCH_ARGS="$LAUNCH_ARGS sim_clock:=${SIM_CLOCK:-wall} max_velocity:=${MAX_VELOCITY:-0.2} platform:=${PLATFORM:-sim}"
   LAUNCH_ARGS="$LAUNCH_ARGS fence_xmin:=${FENCE_XMIN:-nan} fence_xmax:=${FENCE_XMAX:-nan} fence_ymin:=${FENCE_YMIN:-nan} fence_ymax:=${FENCE_YMAX:-nan}"
   LAUNCH_ARGS="$LAUNCH_ARGS state_timeout_s:=${STATE_TIMEOUT_S:-0}"
-  LAUNCH_ARGS="$LAUNCH_ARGS dim:=$SPH_DIM zc:=${POT_ZC:-1.0} max_vz:=${MAX_VZ:-0.25} z_min:=${Z_MIN:-0.25} z_max:=${Z_MAX:-2.5}"
+  LAUNCH_ARGS="$LAUNCH_ARGS dim:=$SPH_DIM zc:=${POT_ZC:-1.0} max_vz:=${MAX_VZ:-0.2} z_min:=${Z_MIN:-0.25} z_max:=${Z_MAX:-2.5}"
   LAUNCH_ARGS="$LAUNCH_ARGS z_margin:=${Z_MARGIN:-0.3} z_wall_k:=${Z_WALL_K:-2.0} z_stretch:=${Z_STRETCH:-1.0}"
   # target shape: POTENTIAL=default|circle|sphere|quartic ; with quartic, POT_K scales the force (2 = original, 0.5 = 4x weaker)
   LAUNCH_ARGS="$LAUNCH_ARGS potential:=${POTENTIAL:-default}"
@@ -137,7 +138,7 @@ show() {
   resolve
   echo "config file : $CONF"
   echo "drones      : $N_DRONES (spawn radius $SPAWN_RADIUS m)   dim: $SPH_DIM   mass: $SPH_MASS   potential R: $POT_R"
-  [ "$SPH_DIM" = "3" ] && echo "3D sphere   : centre ($POT_XC, $POT_YC, ${POT_ZC:-1.0}), z limits ${Z_MIN:-0.25}..${Z_MAX:-2.5} m, max_vz ${MAX_VZ:-0.25} m/s, z_stretch ${Z_STRETCH:-1.0}"
+  [ "$SPH_DIM" = "3" ] && echo "3D sphere   : centre ($POT_XC, $POT_YC, ${POT_ZC:-1.0}), z limits ${Z_MIN:-0.25}..${Z_MAX:-2.5} m, max_vz ${MAX_VZ:-0.2} m/s, z_stretch ${Z_STRETCH:-1.0}"
   echo "launch file : $CTRL_LAUNCH"
   echo "launch args : $LAUNCH_ARGS"
   echo "run id      : $RUN_ID   (logs: src/logs/runs/$RUN_ID)"
@@ -186,9 +187,12 @@ up() {
       "sleep $SIM_WAIT; $DC 'cd /CrazySim/crazyflie-firmware && source tools/crazyflie-simulation/simulator_files/gazebo/launch/setup_gz.bash \$PWD \$PWD/sitl_make/build && gz sim -g'" C-m
   fi
   # dev_setup.bash, NOT install/setup.bash (README known issue #1)
-  tmux new-window -t "$SESSION" -n ctrl
-  tmux send-keys -t "$SESSION:ctrl" \
-    "sleep $((SIM_WAIT + SWARM_WAIT)); $DC '$ROS_ENV && cd /root/dev_ws && colcon build --symlink-install && source src/dev_setup.bash && ros2 launch drone_controller $CTRL_LAUNCH $LAUNCH_ARGS'" C-m
+  # CTRL=0: no SPH controller (only the high-level commander drives the drones)
+  if [ "${CTRL:-1}" = "1" ]; then
+    tmux new-window -t "$SESSION" -n ctrl
+    tmux send-keys -t "$SESSION:ctrl" \
+      "sleep $((SIM_WAIT + SWARM_WAIT)); $DC '$ROS_ENV && cd /root/dev_ws && colcon build --symlink-install && source src/dev_setup.bash && ros2 launch drone_controller $CTRL_LAUNCH $LAUNCH_ARGS'" C-m
+  fi
 
   # Gazebo real-time factor -> logs/runs/<id>/rtf.csv
   tmux new-window -t "$SESSION" -n rtf
@@ -212,28 +216,94 @@ up() {
   tmux set-option -t "$SESSION" status-right " Ctrl+b l = land | Ctrl+b K = stop all | Ctrl+b d = detach "
   tmux set-option -t "$SESSION" status-right-length 80
 
-  tmux select-window -t "$SESSION:ctrl"
+  tmux select-window -t "$SESSION:$([ "${CTRL:-1}" = "1" ] && echo ctrl || echo swarm)"
   [ "$ATTACH" = "0" ] && { echo "session '$SESSION' started (not attached)."; return 0; }
   exec tmux attach -t "$SESSION"
 }
 
-# Physics-less particles in Gazebo: particle_sim integrates /cf_i/cmd_velocity_world, publishes
-# /cf_i/state and moves coloured spheres in a zero-gravity world. No firmware, no crazyflie_server.
+# Physics-less particles, shown in RViz: particle_sim integrates /cf_i/cmd_velocity_world, publishes
+# /cf_i/state and /particles/markers. No Gazebo, no firmware, no crazyflie_server (so no rtf.csv, SIM_CLOCK=wall).
 #   N_DRONES=5 SPH_MASS=auto SPH_H=0.3 SPH_SPACING=0.3 SPH_GAIN=0.05 ./dev_tmux.sh up-particles
 # controller: PART_CTRL=plain (default, one node per drone) | swarm (one process for all)
 # 3D: SPH_DIM=3 (sphere potential; POT_ZC, Z_MIN, Z_MAX, MAX_VZ, Z_STRETCH, PART_TAU_Z, PART_ZDRIFT, PART_ZJITTER)
-# knobs: PART_LAYOUT (grid|ring, default grid) PART_TAU (0.15) PART_DELAY (0.1) PART_VIZ (gz|rviz|none) PART_VIZ_HZ (5) PART_WAIT (8) GZ_GUI (1)
+# knobs: PART_LAYOUT (grid|ring, default grid) PART_TAU (0.15) PART_DELAY (0.1) PART_VIZ_HZ (5) PART_WAIT (8)
+
+# RViz config for the particle run, regenerated every run:
+# fixed frame 'world', a grid, the particles and the obstacles, camera on the potential centre.
+write_rviz_cfg() {
+  cat > "$1" <<EOF
+Panels:
+  - Class: rviz_common/Displays
+    Name: Displays
+Visualization Manager:
+  Class: ""
+  Displays:
+    - Class: rviz_default_plugins/Grid
+      Name: Grid
+      Enabled: true
+      Value: true
+      Plane: XY
+      Cell Size: 0.5
+      Plane Cell Count: 20
+      Reference Frame: <Fixed Frame>
+    - Class: rviz_default_plugins/Marker
+      Name: Particles
+      Enabled: true
+      Value: true
+      Topic:
+        Value: /particles/markers
+        Depth: 5
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+    - Class: rviz_default_plugins/MarkerArray
+      Name: Obstacles
+      Enabled: true
+      Value: true
+      Topic:
+        Value: /obstacles/markers
+        Depth: 5
+        Durability Policy: Transient Local
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+  Enabled: true
+  Global Options:
+    Background Color: 48; 48; 48
+    Fixed Frame: world
+    Frame Rate: 30
+  Name: root
+  Tools:
+    - Class: rviz_default_plugins/MoveCamera
+  Value: true
+  Views:
+    Current:
+      Class: rviz_default_plugins/Orbit
+      Name: Current View
+      Target Frame: <Fixed Frame>
+      Distance: 6
+      Focal Point:
+        X: ${POT_XC}
+        Y: ${POT_YC}
+        Z: ${FIXED_Z}
+      Pitch: 0.9
+      Yaw: 0.8
+    Saved: ~
+Window Geometry:
+  Height: 800
+  Width: 1200
+EOF
+}
+
 up_particles() {
+  START_GATE=all_known
   resolve
   if tmux has-session -t "$SESSION" 2>/dev/null; then
     echo "A '$SESSION' tmux session is already running: $0 stop first."; exit 1
   fi
-  local WORLD=src/particles_world.sdf
-  local SPHERE_ARG=()                       # 3D: draw the potential sphere in the world
-  [ "$SPH_DIM" = "3" ] && SPHERE_ARG=(--sphere "$POT_XC,$POT_YC,${POT_ZC:-1.0},$POT_R")
+  # no Gazebo here: the controller must tick on wall time
+  [ "${SIM_CLOCK:-wall}" = "gz" ] && { echo "up-particles runs without Gazebo: use SIM_CLOCK=wall"; exit 1; }
   python3 gen_config.py --n "$N_DRONES" --radius "$SPAWN_RADIUS" --layout "${PART_LAYOUT:-grid}" \
-          --spacing "$SPH_SPACING" --config-dir config --world "$WORLD" --fixed-z "$FIXED_Z" \
-          "${SPHERE_ARG[@]}" || exit 1
+          --spacing "$SPH_SPACING" --config-dir config || exit 1
   local POS
   POS=$(tr -d ' ' < config/agents.txt | paste -sd/ -)
   fresh_container
@@ -241,19 +311,16 @@ up_particles() {
   echo "run id: $RUN_ID  -> src/logs/runs/$RUN_ID   (analyse with: ./dev_tmux.sh analyze)"
   xhost +local:root >/dev/null 2>&1
   local PARAMS="-p total_robots:=$N_DRONES -p fixed_z:=$FIXED_Z -p initial_positions:=$POS"
-  PARAMS="$PARAMS -p tau:=${PART_TAU:-0.15} -p delay:=${PART_DELAY:-0.1} -p world:=particles"
-  PARAMS="$PARAMS -p viz:=${PART_VIZ:-gz} -p viz_hz:=${PART_VIZ_HZ:-5.0}"
+  PARAMS="$PARAMS -p tau:=${PART_TAU:-0.15} -p delay:=${PART_DELAY:-0.1}"
+  PARAMS="$PARAMS -p viz:=rviz -p viz_hz:=${PART_VIZ_HZ:-5.0}"
   # vertical channel (3D): slower lag than x/y, climb limit, optional sinking drift, start-height jitter
-  PARAMS="$PARAMS -p tau_z:=${PART_TAU_Z:-0.3} -p max_vz:=${MAX_VZ:-0.25} -p z_drift:=${PART_ZDRIFT:-0.0}"
+  PARAMS="$PARAMS -p tau_z:=${PART_TAU_Z:-0.3} -p max_vz:=${MAX_VZ:-0.2} -p z_drift:=${PART_ZDRIFT:-0.0}"
   [ "$SPH_DIM" = "3" ] && PARAMS="$PARAMS -p z_jitter:=${PART_ZJITTER:-0.12}"
 
-  tmux new-session -d -s "$SESSION" -n sim
-  tmux send-keys -t "$SESSION:sim" \
-    "$DC 'rm -rf /tmp/gz*; gz sim -s -r /root/dev_ws/src/particles_world.sdf'" C-m
-  if [ "${GZ_GUI:-1}" = "1" ]; then
-    tmux new-window -t "$SESSION" -n gui
-    tmux send-keys -t "$SESSION:gui" "sleep 3; $DC 'gz sim -g'" C-m
-  fi
+  # display: RViz only (particles on /particles/markers, obstacles on /obstacles/markers); no Gazebo at all
+  write_rviz_cfg src/particles.rviz
+  tmux new-session -d -s "$SESSION" -n rviz
+  tmux send-keys -t "$SESSION:rviz" "sleep 3; $DC '$ROS_ENV && rviz2 -d /root/dev_ws/src/particles.rviz'" C-m
 
   tmux new-window -t "$SESSION" -n ctrl
   tmux send-keys -t "$SESSION:ctrl" \
@@ -261,9 +328,6 @@ up_particles() {
 
   tmux new-window -t "$SESSION" -n part
   tmux send-keys -t "$SESSION:part" "sleep $((${PART_WAIT:-8} + 25)); $DC '$ROS_ENV && cd /root/dev_ws && source src/dev_setup.bash && ros2 run drone_controller particle_sim --ros-args $PARAMS'" C-m
-  tmux new-window -t "$SESSION" -n rtf
-  tmux send-keys -t "$SESSION:rtf" \
-    "sleep 5; $DC '$ROS_ENV && python3 /root/dev_ws/src/tools/rtf_logger.py --out /root/dev_ws/src/logs/runs/$RUN_ID/rtf.csv'" C-m
   tmux new-window -t "$SESSION" -n sys
   tmux send-keys -t "$SESSION:sys" \
     "$DC 'python3 /root/dev_ws/src/tools/sys_monitor.py --out /root/dev_ws/src/logs/runs/$RUN_ID/sys.csv'" C-m
@@ -272,7 +336,6 @@ up_particles() {
   tmux bind-key l run-shell -b "cd '$PWD' && SESSION='$SESSION' CONF='$CONF' ./dev_tmux.sh land"
   tmux set-option -t "$SESSION" status-right " Ctrl+b l = land | Ctrl+b K = stop all | Ctrl+b d = detach "
   tmux set-option -t "$SESSION" status-right-length 80
-
   tmux select-window -t "$SESSION:ctrl"
   [ "$ATTACH" = "0" ] && { echo "session '$SESSION' started (not attached)."; return 0; }
   exec tmux attach -t "$SESSION"

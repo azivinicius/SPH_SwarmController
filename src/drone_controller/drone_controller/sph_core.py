@@ -102,7 +102,9 @@ COMMON_DEFAULTS = {
     # (2D) / the star loop on a tilted plane (3D); R is then its size constant, f_beta is ignored and f_k / 2 scales the force (f_k = 2: original).
     'potential': 'default',
     'obstacles':'none',
-    'obs_sigma': 10.0,       
+    'obs_sigma': 10.0,  
+    'f_kt': 0.0,
+    'f_g1': 0.0,         # G1: extra convergence gain per unit |alpha1| (quartic), 0 = off         
 }
 
 SPH_MSG_LEN = 10                # /<drone>/sph message: x y z vx vy vz rho P c m
@@ -698,9 +700,10 @@ def _make_potential(cfg, dim):
         raise ValueError(f"potential '{kind}' needs dim={2 if kind == 'circle' else 3}")
     if dim == 3:
         return Potential3D(xc=cfg['xc'], yc=cfg['yc'], zc=cfg['zc'], R=cfg['R'],
-                           shape='quartic' if kind == 'quartic' else 'sphere', gain=cfg['f_k'] / 2.0)
+                       shape='quartic' if kind == 'quartic' else 'sphere', gain=cfg['f_k'] / 2.0,
+                       kt=cfg.get('f_kt', 0.0), G_a1=cfg.get('f_g1', 0.0))
     return Potential(xc=cfg['xc'], yc=cfg['yc'], R=cfg['R'], shape='quartic' if kind == 'quartic' else 'circle',
-                     gain=cfg['f_k'] / 2.0)   # gain only matters for the quartic: f_k = 2 is the original strength
+                gain=cfg['f_k'] / 2.0, kt=cfg.get('f_kt', 0.0), G_a1=cfg.get('f_g1', 0.0))
 
 
 def build_core(cfg, egos_from_names, tag, echo=None, write_meta=True, epoch_fn=None):   

@@ -50,7 +50,8 @@ class Potential:
         cannot follow such a stiff force): R of 1 to 2 converges cleanly, R = 5 does not.
     """
 
-    def __init__(self, xc=0.0, yc=0.0, R=1.0, shape='circle', a=4.0, b=6.0, c=4.0, max_force=3.0, gain=1.0):
+    def __init__(self, xc=0.0, yc=0.0, R=1.0, shape='circle', a=4.0, b=6.0, c=4.0, max_force=8.0, gain=1.0, kt=0.0,
+                 G_base=1.0, G_a1=0.0):
         if shape not in ('circle', 'quartic'):
             raise ValueError("shape must be 'circle' or 'quartic'")
         self.xc = xc                  # centre of the shape, world frame (m)
@@ -62,7 +63,9 @@ class Potential:
         self.c = c
         self.gain = gain              # quartic only: strength factor applied BEFORE the clip, so max_force stays the cap (1 = original)
         self.max_force = max_force    # quartic only: clip of each force component (m/s^2), 7 originally
-
+        self.kt = kt                  # quartic only: tangential (circulation) gain H; 0 = off, sign = direction
+        self.G_base = G_base          # quartic only: gain floor
+        self.G_a1 = G_a1              # quartic only: extra gain per unit |alpha1| (stronger push inside the star); 0 = off
     # ------------------------------------------------------------------ circle
     def s(self, x, y):
         """Circle equation: 0 on the circle, negative inside, positive outside."""
@@ -70,7 +73,7 @@ class Potential:
 
     def phi(self, x, y):
         """The circle's hill: s squared, so it is 0 on the circle and positive everywhere else."""
-        s_val = self.s(x, y)
+        s_val = self.s(x, y)    
         return s_val * s_val
 
     def grad_phi(self, x, y):
@@ -138,11 +141,13 @@ class Potential:
         The force at the centre (xc, yc) is exactly zero and small around it (it grows with the cube of
         the distance), so a drone exactly at the centre barely moves out of it.
         """
-        G = self.gain                           # gain (1 in the original file); applied BEFORE the clip
+        G = self.gain * (self.G_base + self.G_a1 * abs(self.alpha1(x, y)))   # Goncalves Def. 6: G(q) >= 0                         # gain (1 in the original file); applied BEFORE the clip
 
         dV = self.grad_V(x, y)
-        fx = -G*dV[0]
-        fy = -G*dV[1]
+        ga = self.grad_alpha1(x, y)
+        H = self.kt                             # circulation: grad(alpha1) rotated by +90 deg (tangent to the star)
+        fx = -G*dV[0] + H*(-ga[1])
+        fy = -G*dV[1] + H*( ga[0])  
         norm = math.hypot(fx, fy)
         if norm > self.max_force:
             # fx = fx / norm * self.max_force      (length clip, disabled in the original)

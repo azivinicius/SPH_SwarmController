@@ -54,11 +54,9 @@ Every knob is an environment variable (defaults in `swarm.conf`). Examples:
 GZ_GUI=1 ./dev_tmux.sh up
 
 #>>>>
-N_DRONES=3 SPH_MASS=auto SPH_H=0.3 SPH_SPACING=0.3 SPH_GAIN=0.05 ./dev_tmux.sh up
+N_DRONES=5 SPH_MASS=auto SPH_H=0.3 SPH_SPACING=0.3 SPH_GAIN=0.05 ./dev_tmux.sh up
 
-N_DRONES=5 SPH_MASS=auto SPH_H=0.3 SPH_SPACING=0.3 SPH_GAIN=0.05 POT_K=2.0 ./dev_tmux.sh up
-
-N_DRONES=5 POTENTIAL=quartic SPH_MASS=auto SPH_H=0.3 SPH_SPACING=0.5 SPH_GAIN=0.5 POT_K=2.0 ./dev_tmux.sh up
+N_DRONES=5 POTENTIAL=quartic SPH_MASS=auto SPH_H=0.3 SPH_SPACING=0.5 SPH_GAIN=0.5 POT_K=4.0 ./dev_tmux.sh up
 
 ./dev_tmux.sh stop
 N_DRONES=5 SPH_MASS=auto SPH_DIM=3 POT_K=4.0 SPH_GAIN=0.05 SPH_SPACING=0.5 ./dev_tmux.sh up
@@ -76,10 +74,81 @@ N_DRONES=8 SPH_DIM=3 SPH_MASS=auto POT_R=auto SPH_GAIN=0.05 ./dev_tmux.sh up-par
 N_DRONES=3 SPH_MASS=auto SPH_H=0.3 SPH_SPACING=0.3 SPH_GAIN=0.05 OBSTACLES='1.0,1.3' RUN_LABEL=obs1 ./dev_tmux.sh up
 
 # 5 drones through a "gate": two obstacles with a gap on the straight path
-N_DRONES=5 SPH_MASS=auto SPH_H=0.3 SPH_SPACING=0.5 SPH_GAIN=0.05 POT_K=2.0 OBSTACLES='0.5,1.7/1.7,0.5' RUN_LABEL=gate ./dev_tmux.sh up
+N_DRONES=5 SPH_MASS=auto SPH_H=0.3 SPH_SPACING=0.5 SPH_GAIN=0.05 POT_K=2.0 OBSTACLES='0.5,1.7/1.5,0.5' RUN_LABEL=gate ./dev_tmux.sh up
 
-# 5 drones, star shape, with an obstacle sitting ON the star: they arrange around it
-N_DRONES=5 POTENTIAL=quartic SPH_MASS=auto SPH_H=0.3 SPH_SPACING=0.5 SPH_GAIN=0.05 POT_K=1.0 OBSTACLES='2.57,2.0' RUN_LABEL=star_obs ./dev_tmux.sh up
+# ---------- base comum (rode uma vez no terminal) ----------
+export N_DRONES=5 SPH_MASS=auto SPH_H=0.3 SPH_SPACING=0.3 SPH_GAIN=0.5
+
+# ---------- PARTÍCULAS (sem física) ----------
+# 1. potencial circular
+RUN_LABEL=p_circ ./dev_tmux.sh up-particles
+# 1.1 potencial circular (muitas partículas)    
+N_DRONES=20 POT_K=10.0 POT_R=0.96 SPH_GAMMA=3.0 SPH_SPACING=0.3 SPH_ZETTA=50.0 RUN_LABEL=p_circ_20 ./dev_tmux.sh up-particles
+# 2. quártico 2D
+N_DRONES=12 POTENTIAL=quartic POT_K=10.0 POT_R=0.23 SPH_GAMMA=3.0 SPH_SPACING=0.4 SPH_ZETTA=50.0 RUN_LABEL=p_quart2d ./dev_tmux.sh up-particles
+
+N_DRONES=5 POTENTIAL=quartic POT_K=20.0 POT_R=0.035 SPH_GAMMA=3.0 SPH_SPACING=0.6 SPH_ZETTA=50.0 RUN_LABEL=p_quart2d ./dev_tmux.sh up-particles
+N_DRONES=6 POTENTIAL=quartic POT_K=20.0 POT_R=0.072 SPH_GAMMA=3.0 SPH_SPACING=0.6 SPH_ZETTA=50.0 RUN_LABEL=p_quart2d ./dev_tmux.sh up-particles
+
+# 3. esférico
+N_DRONES=8 RUN_LABEL=p_esfera POT_K=2.0 POT_R=0.41 SPH_SPACING=0.5 SPH_DIM=3 POT_ZC=1.2 ./dev_tmux.sh up-particles
+N_DRONES=12 RUN_LABEL=p_esfera POT_K=2.0 POT_R=0.29 SPH_SPACING=0.3 SPH_DIM=3 POT_ZC=0.7 ./dev_tmux.sh up-particles
+
+# 4. quártico 3D
+N_DRONES=8 SPH_GAMMA=3.0 RUN_LABEL=p_quart3d SPH_DIM=3 POTENTIAL=quartic POT_R=0.23 POT_XC=1.5 POT_YC=1.5 POT_K=10.0 SPH_MASS=330 SPH_H=0.5 SPH_SPACING=0.5 ./dev_tmux.sh up-particles
+
+N_DRONES=12 SPH_GAMMA=3.0 RUN_LABEL=p_quart3d SPH_DIM=3 POTENTIAL=quartic POT_R=0.1 POT_XC=1.5 POT_YC=1.5 POT_K=20.0 SPH_MASS=70.0 SPH_H=0.3 SPH_SPACING=0.3 SPH_GAIN=0.5 ./dev_tmux.sh up-particles
+
+# 5. quártico tangente 2D
+N_DRONES=12 POTENTIAL=quartic POT_K=10.0 POT_R=0.23 SPH_GAMMA=3.0 SPH_SPACING=0.4 SPH_ZETTA=50.0 POT_KT=1.0 RUN_LABEL=p_quart2d_tang ./dev_tmux.sh up-particles
+# 6. quártico tangente 3D     
+N_DRONES=8 SPH_GAMMA=3.0 RUN_LABEL=p_quart3d_tang SPH_DIM=3 POTENTIAL=quartic POT_R=0.23 POT_XC=1.5 POT_YC=1.5 POT_K=10.0 SPH_MASS=330 SPH_H=0.5 SPH_SPACING=0.5 POT_KT=1.0 ./dev_tmux.sh up-particles
+
+# ---------- DRONES (CrazySim) ----------
+# ---------- base comum (rode uma vez no terminal) ----------
+export N_DRONES=5 SPH_MASS=auto SPH_H=0.3 SPH_SPACING=0.3 SPH_GAIN=0.5
+
+# 1. potencial circular
+RUN_LABEL=cs_circ ./dev_tmux.sh up
+# 1.1 potencial circular, 8 drones                               [20 -> 8: R = 0,3 / (2 sen(pi/8)) = 0,39]
+N_DRONES=8 POT_K=10.0 POT_R=0.39 SPH_GAMMA=3.0 SPH_SPACING=0.3 SPH_ZETTA=50.0 RUN_LABEL=cs_circ_8 ./dev_tmux.sh up
+
+# 2. quártico 2D                                                  [12 -> 6: ver nota 1]
+N_DRONES=6 POTENTIAL=quartic POT_K=20.0 POT_R=0.072 SPH_GAMMA=3.0 SPH_SPACING=0.6 SPH_H=0.5 SPH_ZETTA=50.0 RUN_LABEL=cs_quart2d_6 ./dev_tmux.sh up
+N_DRONES=5 POTENTIAL=quartic POT_K=20.0 POT_R=0.035 SPH_GAMMA=3.0 SPH_SPACING=0.6 SPH_H=0.5 SPH_ZETTA=50.0 RUN_LABEL=cs_quart2d_5 ./dev_tmux.sh up
+
+# 3. esférico
+N_DRONES=8 RUN_LABEL=cs_esfera_8 POT_K=2.0 POT_R=0.41 SPH_SPACING=0.5 SPH_DIM=3 POT_ZC=1.2 ./dev_tmux.sh up
+#                                                                 [12 -> 6: octaedro, R = 0,3 / 1,41 = 0,21]
+N_DRONES=6 RUN_LABEL=cs_esfera_6 POT_K=2.0 POT_R=0.21 SPH_SPACING=0.3 SPH_DIM=3 POT_ZC=0.7 ./dev_tmux.sh up
+
+# 4. quártico 3D
+N_DRONES=8 SPH_GAMMA=3.0 RUN_LABEL=cs_quart3d_8 SPH_DIM=3 POTENTIAL=quartic POT_R=0.23 POT_XC=1.5 POT_YC=1.5 POT_K=10.0 SPH_MASS=330 SPH_H=0.5 SPH_SPACING=0.5 ./dev_tmux.sh up
+#                                                                 [12 -> 6: ver nota 2]
+N_DRONES=6 SPH_GAMMA=3.0 RUN_LABEL=cs_quart3d_6 SPH_DIM=3 POTENTIAL=quartic POT_R=0.07 POT_XC=1.5 POT_YC=1.5 POT_K=60.0 SPH_MASS=330 SPH_H=0.5 SPH_SPACING=0.5 ./dev_tmux.sh up
+
+# 5. quártico tangente 2D                                         [12 -> 6: ver notas 1 e 3]
+N_DRONES=6 POTENTIAL=quartic POT_K=20.0 POT_R=0.072 SPH_GAMMA=3.0 SPH_SPACING=0.6 SPH_H=0.5 SPH_ZETTA=50.0 POT_KT=2.0 RUN_LABEL=cs_quart2d_tang_6 ./dev_tmux.sh up
+# 6. quártico tangente 3D (já era 8)
+N_DRONES=8 SPH_GAMMA=3.0 RUN_LABEL=cs_quart3d_tang_8 SPH_DIM=3 POTENTIAL=quartic POT_R=0.23 POT_XC=1.5 POT_YC=1.5 POT_K=10.0 SPH_MASS=330 SPH_H=0.5 SPH_SPACING=0.5 POT_KT=1.0 ./dev_tmux.sh up
+
+# ---------- OBSTÁCULOS (CrazySim) ----------
+export N_DRONES=5 SPH_MASS=auto SPH_H=0.3 SPH_SPACING=0.3 SPH_GAIN=0.5
+
+# ---------- 13. obstáculo 2D sobre o círculo (R = 0,8), no lado de chegada (225°) ----------
+N_DRONES=8 POT_R=0.8 POT_K=10.0 SPH_GAMMA=3.0 SPH_ZETTA=50.0 OBSTACLES="1.43,1.43" RUN_LABEL=p_obs2d ./dev_tmux.sh up-particles
+N_DRONES=8 POT_R=0.8 POT_K=10.0 SPH_GAMMA=3.0 SPH_ZETTA=50.0 OBSTACLES="1.43,1.43" RUN_LABEL=cs_obs2d ./dev_tmux.sh up
+
+# ---------- 14. obstáculo 3D sobre a esfera (R = 0,8), no ponto voltado para a decolagem ----------
+N_DRONES=8 SPH_DIM=3 POT_ZC=1.4 POT_R=0.8 POT_K=2.0 OBSTACLES="1.46,1.46,1.16" RUN_LABEL=p_obs3d ./dev_tmux.sh up-particles
+N_DRONES=8 SPH_DIM=3 POT_ZC=1.4 POT_R=0.8 POT_K=2.0 OBSTACLES="1.46,1.46,1.16" RUN_LABEL=cs_obs3d ./dev_tmux.sh up
+
+# ---------- 15. obstáculo próximo à estrela, com circulação ----------
+N_DRONES=5 POTENTIAL=quartic POT_R=1.0 POT_KT=4.5 OBSTACLES="2.0,2.85" OBS_SIGMA=2.0 RUN_LABEL=p_obs_estrela_tang ./dev_tmux.sh up-particles
+N_DRONES=5 POTENTIAL=quartic POT_R=1.0 POT_KT=4.5 OBSTACLES="2.0,2.85" OBS_SIGMA=2.0 RUN_LABEL=cs_obs_estrela_tang ./dev_tmux.sh up
+
+# ---------- 16. estrela sem circulação, obstáculo no meio do lado de baixo (lado de chegada) ----------
+N_DRONES=12 POTENTIAL=quartic POT_K=10.0 POT_R=0.23 SPH_GAMMA=3.0 SPH_SPACING=0.4 SPH_ZETTA=50.0 OBSTACLES="2.0,1.51" RUN_LABEL=p_obs_estrela ./dev_tmux.sh up-particles
 
 ./dev_tmux.sh stop
 # pillar (x,y = full-height column) + one obstacle in the air (x,y,z)
@@ -98,6 +167,8 @@ N_DRONES=20 SPH_MASS=auto POT_R=auto POTENTIAL=quartic SPH_H=0.3 SPH_SPACING=0.3
 N_DRONES=8 SPH_DIM=3 SPH_MASS=auto POT_R=auto SPH_GAIN=0.05 OBSTACLES='0.5,1.5/1.5,0.5,0.8' RUN_LABEL=obs3d_p ./dev_tmux.sh up-particles
 
 RVIZ=False GZ_GUI=1 N_DRONES=5 SPH_MASS=auto SPH_H=0.3 SPH_SPACING=0.5 SPH_GAIN=0.05 POT_K=2.0 ./dev_tmux.sh up
+
+
 
 
 #>>>>
@@ -177,19 +248,54 @@ REAL_DRONES.md               checklist for real Crazyflies
 
 `src/` is bind-mounted: after editing Python files in `src/`, `dev_tmux.sh up*` rebuilds (`colcon build`)
 for you. `config/` changes need a restart.
+### Testes da cadeia de comando (CrazySim e drones reais)
 
-## 7. Problems that already happened
+Valida o voo e o seu pacote (subscribers → `sph_core` → Commander) com SPH e potencial desligados.
+Faça na ordem da tabela: os testes 1–2 usam só o firmware e o Crazyswarm2; do 3 em diante entra o `drone_controller`.
 
-- **`ros2 run ... No executable found`**: every executable needs an entry in
-  `src/drone_controller/setup.py` (`console_scripts`) AND a symlink block in `src/dev_setup.bash`
-  (colcon does not classify the package as `ament_python` here, so `lib/drone_controller/` is filled by hand).
-- **Run folder owned by root** (plot cannot write): `./dev_tmux.sh stop` fixes it, or
-  `sudo chown -R $USER:$USER ~/SPH_Project/src/logs`.
-- **Container not running after a reboot**: `docker compose up -d crazysim`.
-- **`ros2: command not found` in `docker compose exec ... bash -lc`**: source
-  `/opt/ros/humble/setup.bash` and `/CrazySim/crazyswarm2_ws/install/setup.bash` first (`dev_tmux.sh` does).
-- **`pkill -f name` inside `bash -lc` kills its own shell**: use `pkill -f '[n]ame'`.
-- **Leftover processes after a crash**: `docker compose exec crazysim ps aux | grep -E 'gz|cf2|ruby|ros2'`.
-- **Low RTF**: do section 2; close other heavy programs; read `04_performance.png`. Below 0.6 do not
-  trust the result. `SIM_CLOCK=gz` makes the controller follow simulated time and ignore the RTF.
-- **Recovering a crashed drone in CrazySim**: `./dev_tmux.sh stop`, then `up` again.
+Base para os testes do controlador no CrazySim (rode uma vez no terminal):
+```bash
+export N_DRONES=4 SPH_GAIN=0 POT_K=0 STALE_POLICY=hold AUTO_TAKEOFF=1 SPH_MASS=100.0
+```
+Nos drones reais, `./real_tmux.sh ctrl` já fixa esses parâmetros (amplitude 0,2 m/s, período `SQ_STEP`).
+
+| # | Teste | O que valida | CrazySim (`dev_tmux.sh`) | Real (`real_tmux.sh`) |
+|---|---|---|---|---|
+| 1 | Decolar e pousar | Rádio, estimador, `/all/takeoff` e `/all/land` | `CTRL=0 ./dev_tmux.sh up` → `./real_tmux.sh takeoff` → `./real_tmux.sh land` | `up` → `takeoff` → `land` |
+| 2 | Quadrado com `go_to` | High-level commander e posição no mundo, sem o seu pacote | igual ao 1, com `SQ_N=4 ./real_tmux.sh square` | `SQ_N=1..4 square` |
+| 3 | `zero` | Cadeia completa sem movimento; deriva em pairado | `TEST_PROFILE=zero ./dev_tmux.sh up` | `TEST=zero ctrl` |
+| 4 | `step` | Resposta ao degrau: ganho, atraso, sobressinal | `TEST_PROFILE=step TEST_AMP=0.2 TEST_PERIOD=4 TEST_AXIS=x ./dev_tmux.sh up` | `TEST=step ctrl` |
+| 5 | `square` | Degraus alternados ±amp: reversão de sentido | `TEST_PROFILE=square TEST_AMP=0.2 TEST_PERIOD=6 ./dev_tmux.sh up` | `TEST=square ctrl` |
+| 6 | `sine` | Seguimento de referência suave: fase e amplitude | `TEST_PROFILE=sine TEST_AMP=0.2 TEST_PERIOD=8 ./dev_tmux.sh up` | `TEST=sine ctrl` |
+| 7 | `chirp` | Resposta em frequência (0,05 a 1,5 Hz) | `TEST_PROFILE=chirp TEST_AMP=0.15 TEST_DURATION=60 ./dev_tmux.sh up` | `TEST=chirp ctrl` |
+| 8 | `box` | Quadrado gerado pelo seu controlador: malha de posição, saturação de 0,2 m/s, sentido anti-horário | `TEST_PROFILE=box TEST_AMP=0.2 TEST_PERIOD=6 TEST_DELAY=6 TEST_DURATION=40 TEST_SIDE=1.0 POT_XC=0 POT_YC=0 RUN_LABEL=cs_box ./dev_tmux.sh up` | `TEST=box ctrl` |
+
+Notas:
+- `CTRL=0` sobe o CrazySim e o Crazyswarm2 sem a janela `ctrl`; encerre com `./dev_tmux.sh stop`, não com o `stop` do `real_tmux.sh`.
+- Os testes 4–7 mandam o mesmo comando para todos os drones, que se deslocam em bloco ao longo de `TEST_AXIS`; nos reais, confira a cerca (±1,5 m) e o espaço livre.
+- O teste 8 usa no máximo 4 drones (um por vértice). O `TEST_PERIOD` deve ser pelo menos `TEST_SIDE`/0,2 s mais uma folga.
+- Drones reais: comece com 1 drone e suba até 4. Sequência: `up` → `takeoff` → `square` ou `ctrl` → `land` (ou `Ctrl+b l`) → `stop`.
+- Depois de cada ensaio: `./dev_tmux.sh analyze`. Em `tick_*.csv`, `clipped` indica quando a saturação agiu, e `rx_since`/`state_age_ms` indicam atraso de mensagens.
+
+export SPAWN_RADIUS=1.0 SPH_MASS=auto SPH_H=0.5 SPH_SPACING=0.6 SPH_GAIN=0.5 SPH_GAMMA=3.0 SPH_ZETTA=50.0 \
+       POT_XC=0 POT_YC=0 FENCE_XMIN=-1.5 FENCE_XMAX=1.5 FENCE_YMIN=-1.5 FENCE_YMAX=1.5 \
+       HL_HEIGHT=0.8 FIXED_Z=0.8 TAKEOFF_HEIGHT=0.8 Z_MAX=1.0
+# reais: ./real_tmux.sh up -> takeoff -> (comando) -> land -> stop
+# no CrazySim: troque "./real_tmux.sh ctrl" por "N_DRONES=<N> ./dev_tmux.sh up" (sem o TEST=)
+
+# ---------- 3 drones ----------
+SQ_N=3 ./real_tmux.sh square
+TEST=box ./real_tmux.sh ctrl
+POT_K=10.0 POT_R=0.346 RUN_LABEL=real_circ_3 ./real_tmux.sh ctrl
+
+# ---------- 4 drones ----------
+SQ_N=4 ./real_tmux.sh square
+TEST=box ./real_tmux.sh ctrl
+POT_K=10.0 POT_R=0.424 RUN_LABEL=real_circ_4 ./real_tmux.sh ctrl
+POTENTIAL=quartic POT_K=60.0 POT_R=0.0142 RUN_LABEL=real_quart2d_4 ./real_tmux.sh ctrl
+POTENTIAL=quartic POT_K=60.0 POT_R=0.0142 POT_KT=6.0 RUN_LABEL=real_quart2d_tang_4 ./real_tmux.sh ctrl
+
+# ---------- 5 drones ----------
+POT_K=10.0 POT_R=0.51 RUN_LABEL=real_circ_5 ./real_tmux.sh ctrl
+POTENTIAL=quartic POT_K=20.0 POT_R=0.035 RUN_LABEL=real_quart2d_5 ./real_tmux.sh ctrl
+POTENTIAL=quartic POT_K=20.0 POT_R=0.035 POT_KT=3.0 RUN_LABEL=real_quart2d_tang_5 ./real_tmux.sh ctrl

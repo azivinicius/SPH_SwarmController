@@ -251,7 +251,7 @@ class RunLogger:
 
 
 # --------------------------------------------------------------------------- test commands
-PROFILE_KINDS = ('none', 'zero', 'step', 'square', 'sine', 'chirp')
+PROFILE_KINDS = ('none', 'zero', 'step', 'square', 'sine', 'chirp', 'box')
 
 
 class CommandProfile:
@@ -264,12 +264,17 @@ class CommandProfile:
         square  +amp / -amp alternating, full cycle = `period` s
         sine    amp * sin(2 pi t / period)
         chirp   sine whose frequency sweeps 0.05 -> 1.5 Hz (log) over `duration` s
+        box     square path, CLOSED LOOP on the measured position: drone i (its index in the
+                name list) flies to vertex i during `delay` s, then every `period` s each drone
+                takes the NEXT vertex (counter-clockwise), for `duration` s.  Square of side
+                `side` centred on `centre`; command = clip(gain * (vertex - position), amp).
 
     The command is the same for every drone (the swarm translates as a block), along
     `axis` = x or y.  Time zero is when the start gate opens (see SphCore).
     """
 
-    def __init__(self, kind='none', amp=0.15, period=4.0, axis='x', delay=3.0, duration=60.0):
+    def __init__(self, kind='none', amp=0.15, period=4.0, axis='x', delay=3.0, duration=60.0,
+                 side=1.0, centre=(0.0, 0.0), gain=1.0):
         if kind not in PROFILE_KINDS:
             raise ValueError(f'test_profile must be one of {PROFILE_KINDS}, got {kind!r}')
         if axis not in ('x', 'y'):
@@ -277,6 +282,7 @@ class CommandProfile:
         self.kind, self.amp, self.period = kind, float(amp), max(float(period), 1e-3)
         self.axis, self.delay, self.duration = axis, float(delay), max(float(duration), 1.0)
         self.f0, self.f1 = 0.05, 1.5
+        self.side, self.centre, self.gain = float(side), (float(centre[0]), float(centre[1])), float(gain)
 
     @property
     def active(self):
@@ -292,7 +298,7 @@ class CommandProfile:
             return self.delay + 4 * self.period
         if self.kind == 'sine':
             return self.delay + 4 * self.period
-        if self.kind == 'chirp':
+        if self.kind in ('chirp', 'box'):
             return self.delay + self.duration
         return 0.0
 
@@ -315,11 +321,36 @@ class CommandProfile:
             return self.amp * math.sin(phase)
         return 0.0
 
-    def value(self, s):
+    def ref(self, s, index=0):
+        """box: reference point (x, y) on the square perimeter and its velocity (vx, vy).
+        Drone `index` holds vertex `index` until `delay`, then the point runs counter-clockwise
+        along the perimeter, one side every `period` s (speed = side / period)."""
+        h = self.side / 2.0
+        V = ((-h, -h), (h, -h), (h, h), (-h, h))
+        u = max(s - self.delay, 0.0) / self.period          # sides travelled
+        k = int(u)
+        f = u - k
+        a, b = V[(index + k) % 4], V[(index + k + 1) % 4]
+        x = self.centre[0] + a[0] + f * (b[0] - a[0])
+        y = self.centre[1] + a[1] + f * (b[1] - a[1])
+        if s < self.delay:
+            return x, y, 0.0, 0.0
+        sp = 1.0 / self.period                               # (b - a) has length `side`
+        return x, y, sp * (b[0] - a[0]), sp * (b[1] - a[1])
+
+    def value(self, s, pos=None, index=0):
+        if self.kind == 'box':
+            if pos is None:
+                return (0.0, 0.0)
+            x, y, vx, vy = self.ref(s, index)
+            return clip_norm(vx + self.gain * (x - pos[0]), vy + self.gain * (y - pos[1]), self.amp)
         v = self.scalar(s)
         return (v, 0.0) if self.axis == 'x' else (0.0, v)
 
     def describe(self):
+        if self.kind == 'box':
+            return (f'box side={self.side} m centre={self.centre} max speed={self.amp} m/s '
+                    f'{self.period} s per side, gain={self.gain} 1/s, delay={self.delay} s duration={self.duration} s')
         return (f'{self.kind} amp={self.amp} m/s period={self.period} s axis={self.axis} '
                 f'delay={self.delay} s duration={self.duration} s')
 

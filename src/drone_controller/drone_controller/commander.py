@@ -101,12 +101,19 @@ class Commander:
         rate, which is NOT the same as holding a fixed altitude -- it's
         just "don't move vertically right now."
         """
-        vxy = self._clip_norm(np.asarray(velocity_xy, dtype=float), self._max_velocity)
+        # clip the MODULUS of the full velocity vector (vx, vy, vz), keeping its direction
+        v = np.array([float(velocity_xy[0]), float(velocity_xy[1]), float(vz)])
+        v = self._clip_norm(v, self._max_velocity)
 
         msg = VelocityWorld()
         msg.header.stamp = self._node.get_clock().now().to_msg()
         msg.header.frame_id = 'world'
-        msg.vel.x, msg.vel.y, msg.vel.z = float(vxy[0]), float(vxy[1]), float(vz)
+        msg.vel.x, msg.vel.y, msg.vel.z = float(v[0]), float(v[1]), float(v[2])
+
+        # msg = VelocityWorld()
+        # msg.header.stamp = self._node.get_clock().now().to_msg()
+        # msg.header.frame_id = 'world'
+        # msg.vel.x, msg.vel.y, msg.vel.z = float(vxy[0]), float(vxy[1]), float(vz)
         msg.yaw_rate = float(yaw_rate)
         self._velocity_world_publisher.publish(msg)
 
