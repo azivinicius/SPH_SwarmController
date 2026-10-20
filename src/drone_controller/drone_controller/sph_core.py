@@ -105,6 +105,7 @@ COMMON_DEFAULTS = {
     'obs_sigma': 10.0,  
     'f_kt': 0.0,
     'f_g1': 0.0,         # G1: extra convergence gain per unit |alpha1| (quartic), 0 = off         
+    'test_side': 1.0,           # m, side of the square of test_profile=box (centred on xc, yc)
 }
 
 SPH_MSG_LEN = 10                # /<drone>/sph message: x y z vx vy vz rho P c m
@@ -445,7 +446,9 @@ class SphCore:
                 src, raw = 'gate', None                    # publish nothing: let the takeoff happen
             
             elif prof_s is not None:
-                src, raw = f'test:{self.profile.kind}', self.profile.value(prof_s)
+                meas = self.rx[name]['meas']
+                src, raw = f'test:{self.profile.kind}', self.profile.value(
+                    prof_s, pos=(meas[0], meas[1]), index=self.names.index(name))
                 if self._prof_done:
                     raw = (0.0, 0.0)
                 if self.dim == 3:
@@ -738,8 +741,9 @@ def build_core(cfg, egos_from_names, tag, echo=None, write_meta=True, epoch_fn=N
     logger = RunLogger(cfg['log_dir'], run_id=run_id, tag=tag, echo=echo)
     profile = CommandProfile(cfg['test_profile'], amp=cfg['test_amp'], period=cfg['test_period'],
                              axis=cfg['test_axis'], delay=cfg['test_delay'],
-                             duration=cfg['test_duration'])
-    fv = [cfg['fence_xmin'], cfg['fence_xmax'], cfg['fence_ymin'], cfg['fence_ymax']]
+                             duration=cfg['test_duration'],
+                             side=cfg['test_side'], centre=(cfg['xc'], cfg['yc']))
+    fv = [cfg['fence_xmin'], cfg['fence_xmax'], cfg['fence_ymin'], cfg['fence_ymax']] 
     fv = [None if (v is None or v != v) else float(v) for v in fv]       # nan -> open side
     fence = tuple(fv) if any(v is not None for v in fv) else None
     core = SphCore(

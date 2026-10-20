@@ -251,8 +251,7 @@ class RunLogger:
 
 
 # --------------------------------------------------------------------------- test commands
-PROFILE_KINDS = ('none', 'zero', 'step', 'square', 'sine', 'chirp', 'box')
-
+PROFILE_KINDS = ('none', 'zero', 'step', 'forward_backwards', 'sine', 'chirp', 'box')
 
 class CommandProfile:
     """Known velocity commands to send INSTEAD of the SPH command, to measure the
@@ -294,7 +293,7 @@ class CommandProfile:
             return self.delay + 30.0
         if self.kind == 'step':
             return self.delay + self.period + 5.0
-        if self.kind == 'square':
+        if self.kind == 'forward_backwards':
             return self.delay + 4 * self.period
         if self.kind == 'sine':
             return self.delay + 4 * self.period
@@ -321,39 +320,22 @@ class CommandProfile:
             return self.amp * math.sin(phase)
         return 0.0
 
-    def ref(self, s, index=0):
-        """box: reference point (x, y) on the square perimeter and its velocity (vx, vy).
-        Drone `index` holds vertex `index` until `delay`, then the point runs counter-clockwise
-        along the perimeter, one side every `period` s (speed = side / period)."""
-        h = self.side / 2.0
-        V = ((-h, -h), (h, -h), (h, h), (-h, h))
-        u = max(s - self.delay, 0.0) / self.period          # sides travelled
-        k = int(u)
-        f = u - k
-        a, b = V[(index + k) % 4], V[(index + k + 1) % 4]
-        x = self.centre[0] + a[0] + f * (b[0] - a[0])
-        y = self.centre[1] + a[1] + f * (b[1] - a[1])
-        if s < self.delay:
-            return x, y, 0.0, 0.0
-        sp = 1.0 / self.period                               # (b - a) has length `side`
-        return x, y, sp * (b[0] - a[0]), sp * (b[1] - a[1])
-
     def value(self, s, pos=None, index=0):
         if self.kind == 'box':
-            if pos is None:
+            if s < self.delay:
                 return (0.0, 0.0)
-            x, y, vx, vy = self.ref(s, index)
-            return clip_norm(vx + self.gain * (x - pos[0]), vy + self.gain * (y - pos[1]), self.amp)
+            k = int((s - self.delay) // self.period) % 4
+            return ((self.amp, 0.0), (0.0, self.amp), (-self.amp, 0.0), (0.0, -self.amp))[k]
         v = self.scalar(s)
         return (v, 0.0) if self.axis == 'x' else (0.0, v)
 
     def describe(self):
         if self.kind == 'box':
-            return (f'box side={self.side} m centre={self.centre} max speed={self.amp} m/s '
-                    f'{self.period} s per side, gain={self.gain} 1/s, delay={self.delay} s duration={self.duration} s')
+            return (f'box (open loop) amp={self.amp} m/s, {self.period} s per side '
+                    f'(side {self.amp * self.period:.2f} m), delay={self.delay} s duration={self.duration} s')
         return (f'{self.kind} amp={self.amp} m/s period={self.period} s axis={self.axis} '
                 f'delay={self.delay} s duration={self.duration} s')
-
+    
 
 # --------------------------------------------------------------------------- small helpers
 def clip_norm(vx, vy, max_norm):
