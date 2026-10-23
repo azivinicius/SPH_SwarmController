@@ -37,6 +37,7 @@ import signal
 import subprocess
 import sys
 import time
+import re
 
 import numpy as np
 
@@ -49,7 +50,7 @@ from mpl_toolkits.mplot3d import Axes3D       # noqa: E402,F401  (registers the 
 GROUPS = ['gz', 'cf2', 'server', 'rviz', 'ctrl', 'tools', 'ros', 'other']
 GROUP_LABEL = {'gz': 'Gazebo', 'cf2': 'Firmware (cf2)', 'server': 'crazyflie_server', 'rviz': 'RViz',
                'ctrl': 'Controlador SPH', 'tools': 'Registro de dados', 'ros': 'Outros ROS', 'other': 'Outros'}
-
+OBS_BODY_R = 0.2    
 
 # ----------------------------------------------------------------------------- helpers
 def finite(a):
@@ -472,10 +473,14 @@ def draw_target_xy(ax, D, lw=1.6, label=True):
         ax.plot(qx, qy, 'k--', lw=lw, label=lab if label else None)
         ax.plot(qi['xc'], qi['yc'], 'k+', ms=10, mew=1.5, label='Centro do potencial' if label else None)
     for k, (ox, oy, oz) in enumerate(D.obs):
-        lab = f'Obstáculo (alcance 2h = {num(D.obs_reach, 2)} m)' if (k == 0 and label) else None
-        ax.plot(ox, oy, 'x', color='tab:red', ms=10, mew=2.5, zorder=4, label=lab)
+        first = (k == 0 and label)
         ax.add_patch(plt.Circle((ox, oy), D.obs_reach, fill=True, fc='tab:red', alpha=0.08, ec='tab:red',
-                                ls='--', lw=1.0, zorder=0))
+                                ls='--', lw=1.0, zorder=0,
+                                label=f'Alcance da repulsão (2h = {num(D.obs_reach, 2)} m)' if first else None))
+        ax.add_patch(plt.Circle((ox, oy), OBS_BODY_R, facecolor='0.75', edgecolor='k', lw=1.2, zorder=4,
+                                label=f'Obstáculo (raio {num(OBS_BODY_R, 1)} m)' if first else None))
+        ax.plot(ox, oy, 'x', color='tab:red', ms=8, mew=2, zorder=5, label='Partícula virtual' if first else None)
+
 
 
 def xy_limits(D):
@@ -641,7 +646,13 @@ def fig_trajetorias_3d(D, outdir, pdf=False):
         if oz is None:
             ax.plot([ox, ox], [oy, oy], [z_lo, z_hi], color='tab:red', lw=4, alpha=0.8, label=lab)
         else:
-            ax.scatter(ox, oy, oz, color='tab:red', marker='X', s=120, edgecolor='k', label=lab)
+            u, v = np.mgrid[0:2 * np.pi:24j, 0:np.pi:12j]
+            ax.plot_surface(ox + OBS_BODY_R * np.cos(u) * np.sin(v), oy + OBS_BODY_R * np.sin(u) * np.sin(v),
+                            oz + OBS_BODY_R * np.cos(v), color='0.6', alpha=0.5, lw=0, shade=True)
+            ax.scatter(ox, oy, oz, color='tab:red', marker='x', s=60)
+            if k == 0:
+                extra.append(Line2D([], [], ls='', marker='o', color='0.6', mec='k', ms=10,
+                                    label=f'Obstáculo (raio {num(OBS_BODY_R, 1)} m)'))
     pts = []
     for n in ok:
         s_ = D.S[n]
@@ -1408,6 +1419,21 @@ def make_teoria(outdir, pdf=False):
 OLD_PNGS = ['00_summary.png', '01_trajectories.png', '02_separation.png', '03_sph_dynamics.png',
             '04_performance.png', '05_3d.png']
 
+def add_label(paths, label):
+    """Append the run label to every figure name: 01_trajectories.png -> 01_trajectories_<label>.png.
+    No label (or the default 'run'): names unchanged."""
+    lab = re.sub(r'[^A-Za-z0-9_.-]+', '_', str(label or '')).strip('_')
+    if not lab or lab == 'run':
+        return paths
+    out = []
+    for p in paths:
+        root, ext = os.path.splitext(p)
+        q = p if root.endswith('_' + lab) else f'{root}_{lab}{ext}'
+        if q != p:
+            os.replace(p, q)        # overwrites the labelled file of a previous plot of the same run
+        out.append(q)
+    return out
+
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__.split('\n\n')[0])
@@ -1459,6 +1485,7 @@ def main():
              fig_balanco_densidade(D, res, out, pdf)]
     made += figs_sph(D, out, pdf) + figs_desempenho(D, out, pdf)
     made = [m for m in made if m]
+    made = add_label(made, D.meta.get('label', ''))
     print(f'run {D.run.name}: {D.n} drones, window {res["window"][0]:.1f}..{res["window"][1]:.1f} s')
     if 'dmin' in res:
         print(f'  closest approach {res["dmin"]:.3f} m | collisions (<{a.collide:g} m): {len(res["ep_collide"])} '
@@ -1474,4 +1501,4 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    main()  

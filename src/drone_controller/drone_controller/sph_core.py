@@ -40,7 +40,6 @@ from drone_controller.sph_diag import CommandProfile, RunLogger, clip_norm
 
 STALE_POLICIES = ('predict', 'hold', 'skip')
 START_GATES = ('none', 'all_known', 'flight')
-FLIGHT_GATE_TIMEOUT_S = 40.0     # gate 'flight': start anyway this long after the first tick
 
 LOG_DIR = '/root/dev_ws/src/logs'
 
@@ -161,8 +160,9 @@ class SphCore:
         self._gate_open = start_gate == 'none'
         self._gate_open_t = None
         self._flight_since = None
-        self._gate_t0 = None                 # first tick (time base of the flight-gate timeout)
         self._last_gate_msg = -1e9
+        self._prof_t0 = None
+
         self._prof_t0 = None
         self._prof_done = False
         self._throttle_t = {}
@@ -278,8 +278,8 @@ class SphCore:
     def _update_gate(self, now, tt=None):
         if self._gate_open:
             return True
-        if self._gate_t0 is None:
-            self._gate_t0 = tt
+
+
         missing = [n for n in self.names if n not in self.known]
         low = []
         if self.start_gate == 'all_known':
@@ -293,12 +293,7 @@ class SphCore:
             else:
                 self._flight_since = None
                 ok = False
-        if not ok and self.start_gate == 'flight' and tt - self._gate_t0 >= FLIGHT_GATE_TIMEOUT_S:
-            ok = True
-            self.log.event('WARN', 'GATE_TIMEOUT',
-                           f'{FLIGHT_GATE_TIMEOUT_S:.0f} s without every drone at the flight altitude '
-                           f'(below z={self.gate_z:.2f} m: {",".join(low) or "-"}; '
-                           f'no state: {",".join(missing) or "-"}): starting anyway', t=now)
+       
         if ok:
             self._gate_open, self._gate_open_t = True, now
             self.log.event('INFO', 'GATE_OPEN',

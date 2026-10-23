@@ -1,0 +1,34 @@
+{
+  "teste": "frente_tras_lados",
+  "drones": [
+    "cf_0",
+    "cf_1",
+    "cf_2"
+  ],
+  "argv": [
+    "--v",
+    "0.2",
+    "--tempo",
+    "3"
+  ],
+  "args": {
+    "n": 0,
+    "prefix": "cf_",
+    "height": 0.5,
+    "vmax": 0.3,
+    "kz": 0.0,
+    "rate": 20.0,
+    "fence": [
+      -1.5,
+      1.5,
+      -1.5,
+      1.5
+    ],
+    "state_timeout": 1.0,
+    "log_dir": "/root/dev_ws/src/logs/testes",
+    "v": 0.2,
+    "tempo": 3.0,
+    "pausa": 2.0,
+    "repeticoes": 1
+  }
+}

@@ -402,6 +402,26 @@ check() {
   tmux ls 2>&1
 }
 
+test_sim() {   # $1 = test name (testes/<name>.py), the rest goes to the script
+  [ -n "$1" ] || exec ./real_tmux.sh test                    # no name: list the tests
+  if tmux has-session -t "$SESSION" 2>/dev/null; then
+    tmux list-windows -t "$SESSION" -F '#W' | grep -qx ctrl \
+      && { echo "the SPH controller runs in '$SESSION' (window ctrl): $0 stop, then $0 test $1"; exit 1; }
+  else
+    ATTACH=0; CTRL=0; AUTO_TAKEOFF=0                          # the test takes off by itself
+    up || exit 1
+    local last="/cf_$((N_DRONES - 1))/takeoff" t=0 limit=$((SIM_WAIT + SWARM_WAIT + 90))
+    echo "waiting for CrazySim + crazyflie_server ($last, up to ${limit} s)..."
+    until docker compose exec -T crazysim bash -lc "$ROS_ENV && ros2 service list 2>/dev/null | grep -qx $last"; do
+      t=$((t + 3))
+      [ "$t" -ge "$limit" ] && { echo "crazyflie_server not ready after ${limit} s: $0 attach, look at the 'swarm' window"; exit 1; }
+      sleep 3
+    done
+    sleep 2
+  fi
+  exec ./real_tmux.sh test "$@"
+}
+
 analyze() {
   local id="${1:-$( [ -f .last_run_id ] && cat .last_run_id )}"
   local dir="src/logs/runs/$id"
@@ -419,5 +439,7 @@ case "${1:-up}" in
   land)   land ;;
   show)   show ;;
   check)  check ;;
+  test)   shift; test_sim "$@" ;;
+  args)   resolve; echo "$LAUNCH_ARGS" ;;
   *)      echo "usage: $0 {up|up-swarm|up-particles|attach|stop|show|check|analyze [run_id]}"; exit 1 ;;
 esac

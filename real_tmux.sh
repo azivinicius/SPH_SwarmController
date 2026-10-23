@@ -13,6 +13,10 @@
 #   ./real_tmux.sh stop                             LAND, then close Crazyswarm2 and the session
 # knobs: REAL_YAML, HL_HEIGHT (0.5), MAX_VELOCITY (0.2), FENCE_* (+-1.5), SQ_XC SQ_YC (0,0), SQ_STEP (6 s),
 #        SQ_FIRST (8 s), SQ_SIDE (1.0), TEST_AMP (0.2), TEST_DURATION (40 s)
+#   ./real_tmux.sh test frente_tras --v 0.2         run drone_controller/testes/frente_tras.py in THIS terminal
+#                                                   (plain script, no SPH controller; Ctrl+C = land).
+#                                                   Simulation too: CTRL=0 ./dev_tmux.sh up, then this.
+#   ./real_tmux.sh test                             list the tests
 
 SESSION="${SESSION:-real}"
 REAL_YAML="${REAL_YAML:-config/crazyflies_real.yaml}"
@@ -107,6 +111,23 @@ land() {   # with the controller running: through YOUR Commander.land; the firmw
 
 square() { TEST=box ctrl; }
 
+TESTS_DIR=/root/dev_ws/src/drone_controller/testes     # the package's testes/ as the container sees it
+test_run() {   # $1 = test name (file in testes/ without .py), the rest goes to the script as is
+  if [ -z "$1" ]; then
+    echo "usage: $0 test <name> [args]    (<name> --help for the arguments)"
+    docker compose exec -T crazysim bash -lc "cd $TESTS_DIR && ls *.py | grep -vx testkit.py | sed 's/\\.py\$//; s/^/  /'"
+    exit 1
+  fi
+  local name="$1"; shift
+  local w
+  for w in "$SESSION:ctrl" "sph:ctrl"; do        # two controllers on the same drones would fight
+    tmux list-windows -t "${w%%:*}" -F '#W' 2>/dev/null | grep -qx ctrl \
+      && { echo "the SPH controller is running (window $w): land / stop it first"; exit 1; }
+  done
+  exec docker compose exec crazysim bash -lc \
+    "$ROS_ENV && source /root/dev_ws/src/dev_setup.bash && cd $TESTS_DIR && python3 $name.py $(printf '%q ' "$@")"
+}
+
 stop() {
   land && sleep 4                                    
   docker compose exec -T crazysim bash -lc "pkill -INT -f '[p]lain_sph'; sleep 2; pkill -f '[c]razyflie_server'; pkill -f '[r]os2 launch'; true" 2>/dev/null
@@ -123,5 +144,6 @@ case "${1:-up}" in
   ctrl)    ctrl ;;
   sph)     sph ;;
   attach)  exec tmux attach -t "$SESSION" ;;
-  *) echo "usage: $0 up | takeoff | ctrl | square | sph | land | stop | attach"; exit 1 ;;
-esac
+  test)    shift; test_run "$@" ;;
+  *) echo "usage: $0 up | takeoff | ctrl | square | sph | test <name> [args] | land | stop | attach"; exit 1 ;;
+  esac
