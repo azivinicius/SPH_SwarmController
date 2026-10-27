@@ -17,3 +17,4 @@ src/logs/*.png
 # Editor / OS
 .vscode/
 .DS_Store
+src/logs/runs.zip
