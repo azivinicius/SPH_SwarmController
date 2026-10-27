@@ -1,0 +1,2 @@
+run,N,d_min_m,e_max_m,e_med_m,rho_mean,v_mean_ms,t_c_s,sep_final_m,d_obs_m,e_med_far_m,P_max,clip_pct,stale_pct,rho_ind_min,rho_ind_max
+20261020_100406_p_circ_20,20,0.1683,0.0295,0.0118,1.044,0.1015,54.35,0.2756,,,2.112e+04,67.06,0,0.953,1.069

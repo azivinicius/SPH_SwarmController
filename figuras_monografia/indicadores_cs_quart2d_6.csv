@@ -1,0 +1,2 @@
+run,N,d_min_m,e_max_m,e_med_m,rho_mean,v_mean_ms,t_c_s,sep_final_m,d_obs_m,e_med_far_m,P_max,clip_pct,stale_pct,rho_ind_min,rho_ind_max
+20261020_110216_cs_quart2d_6,6,0.3617,0.1343,0.0834,1.04,0.09689,74.57,0.5179,,,1.921e+04,50.41,0.06779,0.957,1.167

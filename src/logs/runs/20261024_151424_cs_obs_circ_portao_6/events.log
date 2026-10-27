@@ -1,0 +1,140 @@
+    0.000 INFO  plain_cf_3 OBSTACLE     obs_0 at x=0.650 y=1.350 z=0.000 m=1979
+    0.000 INFO  plain_cf_3 OBSTACLE     obs_1 at x=1.350 y=0.650 z=0.000 m=1979
+    0.000 INFO  plain_cf_3 START        plain_cf_3: 4 drones, egos=['cf_3'], label="cs_obs_circ_portao_6", sph_gain=1.0 zeta=50.0 f_k=30.0 gamma=3.0 m=197.92 policy=predict platform=sim fence=None state_timeout=0.0 gate=flight clock=wall vmax=0.2 dim=2 test=none amp=0.15 m/s period=4.0 s axis=x delay=3.0 s duration=60.0 s
+    0.235 INFO  cf_3    FIRST_RX     first state of cf_3: x=-0.000 y=-0.424 z=0.015 (1/4 drones known)
+    0.000 INFO  plain_cf_2 OBSTACLE     obs_0 at x=0.650 y=1.350 z=0.000 m=1979
+    0.000 INFO  plain_cf_2 OBSTACLE     obs_1 at x=1.350 y=0.650 z=0.000 m=1979
+    0.000 INFO  plain_cf_2 START        plain_cf_2: 4 drones, egos=['cf_2'], label="cs_obs_circ_portao_6", sph_gain=1.0 zeta=50.0 f_k=30.0 gamma=3.0 m=197.92 policy=predict platform=sim fence=None state_timeout=0.0 gate=flight clock=wall vmax=0.2 dim=2 test=none amp=0.15 m/s period=4.0 s axis=x delay=3.0 s duration=60.0 s
+    0.283 INFO  plain_cf_3 GATE_WAIT    no state yet from cf_0,cf_1,cf_2; below z=0.40 m: cf_3
+    0.000 INFO  plain_cf_0 OBSTACLE     obs_0 at x=0.650 y=1.350 z=0.000 m=1979
+    0.000 INFO  plain_cf_0 OBSTACLE     obs_1 at x=1.350 y=0.650 z=0.000 m=1979
+    0.000 INFO  plain_cf_0 START        plain_cf_0: 4 drones, egos=['cf_0'], label="cs_obs_circ_portao_6", sph_gain=1.0 zeta=50.0 f_k=30.0 gamma=3.0 m=197.92 policy=predict platform=sim fence=None state_timeout=0.0 gate=flight clock=wall vmax=0.2 dim=2 test=none amp=0.15 m/s period=4.0 s axis=x delay=3.0 s duration=60.0 s
+    0.111 INFO  cf_2    FIRST_RX     first state of cf_2: x=-0.424 y=-0.000 z=0.015 (1/4 drones known)
+    0.112 INFO  cf_3    FIRST_RX     first state of cf_3: x=-0.000 y=-0.424 z=0.015 (2/4 drones known)
+    0.149 INFO  plain_cf_2 GATE_WAIT    no state yet from cf_0,cf_1; below z=0.40 m: cf_2,cf_3
+    0.440 INFO  cf_2    FIRST_RX     first state of cf_2: x=-0.424 y=-0.000 z=0.015 (2/4 drones known)
+    0.000 INFO  plain_cf_1 OBSTACLE     obs_0 at x=0.650 y=1.350 z=0.000 m=1979
+    0.000 INFO  plain_cf_1 OBSTACLE     obs_1 at x=1.350 y=0.650 z=0.000 m=1979
+    0.000 INFO  plain_cf_1 START        plain_cf_1: 4 drones, egos=['cf_1'], label="cs_obs_circ_portao_6", sph_gain=1.0 zeta=50.0 f_k=30.0 gamma=3.0 m=197.92 policy=predict platform=sim fence=None state_timeout=0.0 gate=flight clock=wall vmax=0.2 dim=2 test=none amp=0.15 m/s period=4.0 s axis=x delay=3.0 s duration=60.0 s
+    0.047 INFO  cf_0    FIRST_RX     first state of cf_0: x=0.424 y=-0.000 z=0.015 (1/4 drones known)
+    0.047 INFO  cf_2    FIRST_RX     first state of cf_2: x=-0.424 y=-0.000 z=0.015 (2/4 drones known)
+    0.048 INFO  cf_3    FIRST_RX     first state of cf_3: x=-0.000 y=-0.424 z=0.015 (3/4 drones known)
+    0.086 INFO  plain_cf_0 GATE_WAIT    no state yet from cf_1; below z=0.40 m: cf_0,cf_2,cf_3
+    0.258 INFO  cf_0    FIRST_RX     first state of cf_0: x=0.424 y=-0.000 z=0.015 (3/4 drones known)
+    0.540 INFO  cf_0    FIRST_RX     first state of cf_0: x=0.424 y=-0.000 z=0.015 (3/4 drones known)
+    0.120 INFO  cf_0    FIRST_RX     first state of cf_0: x=0.424 y=-0.000 z=0.015 (1/4 drones known)
+    0.121 INFO  cf_2    FIRST_RX     first state of cf_2: x=-0.424 y=-0.000 z=0.015 (2/4 drones known)
+    0.121 INFO  cf_3    FIRST_RX     first state of cf_3: x=-0.000 y=-0.424 z=0.015 (3/4 drones known)
+    0.154 INFO  plain_cf_1 GATE_WAIT    no state yet from cf_1; below z=0.40 m: cf_0,cf_2,cf_3
+    2.164 INFO  cf_1    FIRST_RX     first state of cf_1: x=-0.000 y=0.424 z=0.015 (4/4 drones known)
+    2.375 INFO  cf_1    FIRST_RX     first state of cf_1: x=-0.000 y=0.424 z=0.015 (4/4 drones known)
+    2.208 INFO  cf_1    FIRST_RX     first state of cf_1: x=-0.000 y=0.424 z=0.015 (4/4 drones known)
+    2.660 INFO  cf_1    FIRST_RX     first state of cf_1: x=-0.000 y=0.424 z=0.015 (4/4 drones known)
+    5.032 INFO  cf_3    HB           rho= 1000.0 P=     -0.0 |v|rms=0.000 r_pot=3.14 stale= 6.2% rx=18.8Hz clip= 0.0% dt_max=53ms age_max=66ms
+    5.048 INFO  cf_2    HB           rho= 1000.0 P=     -0.0 |v|rms=0.000 r_pot=3.14 stale= 5.1% rx=19.0Hz clip= 0.0% dt_max=52ms age_max=58ms
+    5.333 INFO  plain_cf_3 GATE_WAIT    below z=0.40 m: cf_0,cf_1,cf_2,cf_3
+    5.004 INFO  cf_1    HB           rho= 1000.0 P=     -0.0 |v|rms=0.000 r_pot=2.55 stale= 7.0% rx=11.4Hz clip= 0.0% dt_max=51ms age_max=56ms
+    5.198 INFO  plain_cf_2 GATE_WAIT    below z=0.40 m: cf_0,cf_1,cf_2,cf_3
+    5.036 INFO  cf_0    HB           rho= 1000.0 P=     -0.0 |v|rms=0.000 r_pot=2.55 stale= 6.0% rx=19.0Hz clip= 0.0% dt_max=52ms age_max=65ms
+    5.088 INFO  plain_cf_0 GATE_WAIT    below z=0.40 m: cf_0,cf_1,cf_2,cf_3
+    5.154 INFO  plain_cf_1 GATE_WAIT    below z=0.40 m: cf_0,cf_1,cf_2,cf_3
+   10.082 INFO  cf_3    HB           rho= 1000.0 P=     -0.0 |v|rms=0.000 r_pot=3.14 stale= 6.9% rx=19.2Hz clip= 0.0% dt_max=55ms age_max=63ms
+   10.098 INFO  cf_2    HB           rho= 1000.0 P=     -0.0 |v|rms=0.000 r_pot=3.14 stale= 5.9% rx=19.2Hz clip= 0.0% dt_max=52ms age_max=65ms
+   10.382 INFO  plain_cf_3 GATE_WAIT    below z=0.40 m: cf_0,cf_1,cf_2,cf_3
+   10.004 INFO  cf_1    HB           rho= 1000.0 P=     -0.0 |v|rms=0.000 r_pot=2.55 stale= 6.0% rx=19.0Hz clip= 0.0% dt_max=52ms age_max=58ms
+   10.248 INFO  plain_cf_2 GATE_WAIT    below z=0.40 m: cf_0,cf_1,cf_2,cf_3
+   10.086 INFO  cf_0    HB           rho= 1000.0 P=     -0.0 |v|rms=0.000 r_pot=2.55 stale= 5.9% rx=19.2Hz clip= 0.0% dt_max=54ms age_max=60ms
+   10.136 INFO  plain_cf_0 GATE_WAIT    below z=0.40 m: cf_0,cf_1,cf_2,cf_3
+   10.154 INFO  plain_cf_1 GATE_WAIT    below z=0.40 m: cf_0,cf_1,cf_2,cf_3
+   15.132 INFO  cf_3    HB           rho= 1000.0 P=     -0.0 |v|rms=0.000 r_pot=3.14 stale= 7.9% rx=19.0Hz clip= 0.0% dt_max=54ms age_max=59ms
+   15.098 INFO  cf_2    HB           rho= 1000.0 P=     -0.0 |v|rms=0.000 r_pot=3.14 stale= 8.0% rx=18.8Hz clip= 0.0% dt_max=52ms age_max=70ms
+   15.382 INFO  plain_cf_3 GATE_WAIT    below z=0.40 m: cf_0,cf_1,cf_2,cf_3
+   15.054 INFO  cf_1    HB           rho= 1000.0 P=     -0.0 |v|rms=0.000 r_pot=2.55 stale= 6.9% rx=18.8Hz clip= 0.0% dt_max=53ms age_max=64ms
+   15.298 INFO  plain_cf_2 GATE_WAIT    below z=0.40 m: cf_0,cf_1,cf_2,cf_3
+   15.136 INFO  cf_0    HB           rho= 1000.0 P=     -0.0 |v|rms=0.000 r_pot=2.55 stale= 6.9% rx=19.0Hz clip= 0.0% dt_max=55ms age_max=77ms
+   15.187 INFO  plain_cf_0 GATE_WAIT    below z=0.40 m: cf_0,cf_1,cf_2,cf_3
+   15.204 INFO  plain_cf_1 GATE_WAIT    below z=0.40 m: cf_0,cf_1,cf_2,cf_3
+   17.205 INFO  plain_cf_1 GATE_OPEN    start gate "flight" open: controller now acts
+   17.402 INFO  plain_cf_2 GATE_OPEN    start gate "flight" open: controller now acts
+   17.448 WARN  cf_2    PRED_ERR     predicted position is 8 cm away from the last measured one
+   17.734 INFO  plain_cf_3 GATE_OPEN    start gate "flight" open: controller now acts
+   17.286 INFO  plain_cf_0 GATE_OPEN    start gate "flight" open: controller now acts
+   17.405 WARN  cf_1    CLIP_START   speed command saturated at 0.2 m/s for 5 ticks
+   17.598 WARN  cf_2    CLIP_START   speed command saturated at 0.2 m/s for 5 ticks
+   17.933 WARN  cf_3    CLIP_START   speed command saturated at 0.2 m/s for 5 ticks
+   17.933 WARN  cf_3    PRED_ERR     predicted position is 7 cm away from the last measured one
+   17.486 WARN  cf_0    CLIP_START   speed command saturated at 0.2 m/s for 5 ticks
+   17.505 WARN  cf_1    PRED_ERR     predicted position is 7 cm away from the last measured one
+   17.536 WARN  cf_0    PRED_ERR     predicted position is 7 cm away from the last measured one
+   20.182 INFO  cf_3    HB           rho= 1000.2 P=      4.7 |v|rms=0.085 r_pot=3.11 stale= 5.0% rx=19.2Hz clip=49.5% dt_max=54ms age_max=57ms
+   20.149 INFO  cf_2    HB           rho= 1000.2 P=      4.9 |v|rms=0.079 r_pot=3.10 stale=10.9% rx=19.0Hz clip=55.4% dt_max=54ms age_max=81ms
+   20.105 INFO  cf_1    HB           rho= 1000.1 P=      1.9 |v|rms=0.088 r_pot=2.50 stale=12.9% rx=18.8Hz clip=58.4% dt_max=52ms age_max=101ms
+   20.137 INFO  cf_0    HB           rho= 1000.2 P=      3.7 |v|rms=0.092 r_pot=2.50 stale= 7.0% rx=18.6Hz clip=58.0% dt_max=54ms age_max=60ms
+   22.554 WARN  cf_1    PRED_ERR     predicted position is 276 cm away from the last measured one (+10 similar suppressed)
+   22.798 WARN  cf_2    PRED_ERR     predicted position is 6 cm away from the last measured one (+11 similar suppressed)
+   23.083 WARN  cf_3    PRED_ERR     predicted position is 6 cm away from the last measured one (+9 similar suppressed)
+   22.837 WARN  cf_0    PRED_ERR     predicted position is 145 cm away from the last measured one (+8 similar suppressed)
+   23.405 WARN  cf_1    RHO_HIGH     density 1204 = 1.20 x rho_0 (P=5982, n_nb=2, nearest 0.37 m)
+   23.486 WARN  cf_0    RHO_HIGH     density 1204 = 1.20 x rho_0 (P=5967, n_nb=2, nearest 0.37 m)
+   24.932 WARN  cf_3    RHO_HIGH     density 1208 = 1.21 x rho_0 (P=6132, n_nb=3, nearest 0.37 m)
+   24.536 INFO  cf_0    RHO_OK       density 1000 = 1.00 x rho_0 (P=-0, n_nb=0, nearest nan m)
+   24.748 WARN  cf_2    RHO_HIGH     density 1206 = 1.21 x rho_0 (P=6043, n_nb=3, nearest 0.34 m)
+   25.182 INFO  cf_3    HB           rho= 1041.4 P=   1156.1 |v|rms=0.174 r_pot=2.50 stale=12.0% rx=18.6Hz clip=100.0% dt_max=55ms age_max=70ms
+   25.198 INFO  cf_2    HB           rho= 1048.5 P=   1359.6 |v|rms=0.166 r_pot=2.51 stale=10.9% rx=18.8Hz clip=100.0% dt_max=52ms age_max=64ms
+   25.155 INFO  cf_1    HB           rho= 1270.9 P=  55087.8 |v|rms=0.143 r_pot=2.12 stale=11.9% rx=18.6Hz clip=100.0% dt_max=54ms age_max=60ms
+   25.186 INFO  cf_0    HB           rho= 1215.7 P=  14327.6 |v|rms=0.144 r_pot=2.05 stale= 7.9% rx=18.6Hz clip=100.0% dt_max=58ms age_max=70ms
+   25.848 INFO  cf_2    RHO_OK       density 1000 = 1.00 x rho_0 (P=-0, n_nb=0, nearest nan m)
+   26.133 INFO  cf_3    RHO_OK       density 1000 = 1.00 x rho_0 (P=-0, n_nb=0, nearest nan m)
+   27.286 INFO  cf_0    RHO_OK       density 1182 = 1.18 x rho_0 (P=5148, n_nb=3, nearest 0.33 m)
+   27.548 INFO  cf_2    RHO_OK       density 1170 = 1.17 x rho_0 (P=4691, n_nb=1, nearest 0.34 m)
+   27.898 INFO  cf_2    CLIP_END     saturation lasted 210 ticks
+   27.886 WARN  cf_0    PRED_ERR     predicted position is 204 cm away from the last measured one (+7 similar suppressed)
+   27.955 INFO  cf_1    RHO_OK       density 1000 = 1.00 x rho_0 (P=-0, n_nb=0, nearest nan m)
+   27.955 WARN  cf_1    PRED_ERR     predicted position is 101 cm away from the last measured one (+11 similar suppressed)
+   28.148 WARN  cf_2    CLIP_START   speed command saturated at 0.2 m/s for 5 ticks
+   28.484 WARN  cf_3    PRED_ERR     predicted position is 7 cm away from the last measured one (+6 similar suppressed)
+   28.832 INFO  cf_3    CLIP_END     saturation lasted 222 ticks
+   29.082 WARN  cf_3    CLIP_START   speed command saturated at 0.2 m/s for 5 ticks
+   29.637 WARN  cf_0    RHO_HIGH     density 1207 = 1.21 x rho_0 (P=6086, n_nb=1, nearest 0.32 m)
+   29.949 WARN  cf_2    PRED_ERR     predicted position is 5 cm away from the last measured one (+10 similar suppressed)
+   30.232 INFO  cf_3    HB           rho= 1156.4 P=   7726.5 |v|rms=0.138 r_pot=2.09 stale= 6.9% rx=18.8Hz clip=99.0% dt_max=54ms age_max=61ms
+   30.432 INFO  cf_3    CLIP_END     saturation lasted 31 ticks
+   30.198 INFO  cf_2    HB           rho= 1249.6 P=   9003.8 |v|rms=0.138 r_pot=2.14 stale= 8.0% rx=18.6Hz clip=99.0% dt_max=52ms age_max=62ms
+   30.187 INFO  cf_0    HB           rho= 1540.4 P= 273882.4 |v|rms=0.089 r_pot=1.87 stale= 8.0% rx=18.6Hz clip=100.0% dt_max=53ms age_max=62ms
+   30.204 INFO  cf_1    HB           rho= 1600.4 P=  54475.7 |v|rms=0.106 r_pot=1.97 stale= 7.9% rx=18.8Hz clip=100.0% dt_max=52ms age_max=61ms
+   30.682 WARN  cf_3    CLIP_START   speed command saturated at 0.2 m/s for 5 ticks
+   30.689 INFO  cf_0    RHO_OK       density 1114 = 1.11 x rho_0 (P=2829, n_nb=2, nearest 0.42 m)
+   31.598 WARN  cf_2    RHO_HIGH     density 1204 = 1.20 x rho_0 (P=5976, n_nb=1, nearest 0.50 m)
+   31.454 INFO  cf_1    RHO_OK       density 1193 = 1.19 x rho_0 (P=5553, n_nb=2, nearest 0.33 m)
+   32.948 WARN  cf_2    RHO_HIGH     density 9540 = 9.54 x rho_0 (P=55148373, n_nb=2, nearest 0.47 m)
+   33.004 WARN  cf_1    PRED_ERR     predicted position is 207 cm away from the last measured one (+8 similar suppressed)
+   33.732 WARN  cf_3    PRED_ERR     predicted position is 268 cm away from the last measured one (+6 similar suppressed)
+   33.486 WARN  cf_0    PRED_ERR     predicted position is 157 cm away from the last measured one (+8 similar suppressed)
+   34.536 WARN  cf_0    RHO_HIGH     density 1586 = 1.59 x rho_0 (P=31628, n_nb=2, nearest 0.26 m)
+   35.282 INFO  cf_3    HB           rho= 1010.3 P=    221.3 |v|rms=0.099 r_pot=2.14 stale= 7.9% rx=18.8Hz clip=99.0% dt_max=54ms age_max=61ms
+   35.199 INFO  cf_2    HB           rho= 1168.8 P= 553612.8 |v|rms=0.108 r_pot=2.19 stale= 9.0% rx=18.8Hz clip=100.0% dt_max=51ms age_max=120ms
+   35.348 WARN  cf_2    PRED_ERR     predicted position is 6 cm away from the last measured one (+9 similar suppressed)
+   35.204 INFO  cf_1    HB           rho= 1153.4 P=   4858.8 |v|rms=0.099 r_pot=2.05 stale= 8.0% rx=18.8Hz clip=100.0% dt_max=51ms age_max=76ms
+   35.236 INFO  cf_0    HB           rho= 1131.8 P=   4263.9 |v|rms=0.123 r_pot=1.77 stale= 8.9% rx=18.8Hz clip=100.0% dt_max=53ms age_max=65ms
+   35.404 WARN  cf_1    RHO_HIGH     density 1204 = 1.20 x rho_0 (P=5985, n_nb=2, nearest 0.32 m)
+   35.648 INFO  cf_2    CLIP_END     saturation lasted 154 ticks
+   35.898 WARN  cf_2    CLIP_START   speed command saturated at 0.2 m/s for 5 ticks
+   35.786 INFO  cf_0    RHO_OK       density 1098 = 1.10 x rho_0 (P=2368, n_nb=2, nearest 0.41 m)
+   36.786 WARN  cf_0    RHO_HIGH     density 1284 = 1.28 x rho_0 (P=9553, n_nb=2, nearest 0.31 m)
+   36.904 INFO  cf_1    RHO_OK       density 1051 = 1.05 x rho_0 (P=1138, n_nb=1, nearest 0.42 m)
+   38.155 WARN  cf_1    PRED_ERR     predicted position is 61 cm away from the last measured one (+12 similar suppressed)
+   38.204 WARN  cf_1    RHO_HIGH     density 7048 = 7.05 x rho_0 (P=16399765, n_nb=2, nearest 0.45 m)
+   38.832 WARN  cf_3    PRED_ERR     predicted position is 52 cm away from the last measured one (+5 similar suppressed)
+   38.636 WARN  cf_0    PRED_ERR     predicted position is 243 cm away from the last measured one (+8 similar suppressed)
+   40.286 INFO  cf_3    HB           rho= 1040.7 P=    932.4 |v|rms=0.096 r_pot=2.06 stale= 7.0% rx=18.8Hz clip=100.0% dt_max=59ms age_max=68ms
+   40.249 INFO  cf_2    HB           rho= 1017.8 P=    388.9 |v|rms=0.095 r_pot=2.18 stale=10.9% rx=18.6Hz clip=99.0% dt_max=57ms age_max=62ms
+   40.204 INFO  cf_1    HB           rho= 1163.5 P= 167156.0 |v|rms=0.087 r_pot=2.07 stale=18.0% rx=18.6Hz clip=100.0% dt_max=58ms age_max=131ms
+   40.236 INFO  cf_0    HB           rho= 1168.9 P=   5442.0 |v|rms=0.097 r_pot=1.77 stale= 7.0% rx=18.8Hz clip=100.0% dt_max=58ms age_max=61ms
+   40.586 WARN  cf_0    RHO_HIGH     density 1710 = 1.71 x rho_0 (P=45655, n_nb=2, nearest 0.19 m)
+   40.948 WARN  cf_2    PRED_ERR     predicted position is 10 cm away from the last measured one (+10 similar suppressed)
+   41.054 WARN  cf_1    RHO_HIGH     density 1210 = 1.21 x rho_0 (P=6222, n_nb=3, nearest 0.32 m)
+   41.582 WARN  cf_3    RHO_HIGH     density 1214 = 1.21 x rho_0 (P=6404, n_nb=2, nearest 0.32 m)
+   41.824 INFO  plain_cf_2 STOP         ticks=834 stale=8.5% clipped=58.4% late=0 slow=0 warnings_so_far=11
+   41.655 INFO  plain_cf_1 STOP         ticks=789 stale=10.0% clipped=62.0% late=0 slow=0 warnings_so_far=10
+   42.110 INFO  plain_cf_3 STOP         ticks=837 stale=7.5% clipped=58.1% late=0 slow=0 warnings_so_far=10
+   41.660 INFO  plain_cf_0 STOP         ticks=832 stale=7.1% clipped=58.7% late=0 slow=0 warnings_so_far=11

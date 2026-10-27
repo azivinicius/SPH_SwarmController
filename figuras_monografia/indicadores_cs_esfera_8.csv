@@ -1,0 +1,2 @@
+run,N,d_min_m,e_max_m,e_med_m,rho_mean,v_mean_ms,t_c_s,sep_final_m,d_obs_m,e_med_far_m,P_max,clip_pct,stale_pct,rho_ind_min,rho_ind_max
+20261020_111550_cs_esfera_8,8,0.1936,0.0251,0.007435,1.011,0.08693,70.16,0.4342,,,2.499e+06,2.506,0.8079,0.985,1.035

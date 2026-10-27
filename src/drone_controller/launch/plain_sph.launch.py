@@ -45,6 +45,7 @@ FLOAT_ARGS = {
     'fence_xmin': float('nan'), 'fence_xmax': float('nan'),   # m; nan = off (REAL drones: set these)
     'fence_ymin': float('nan'), 'fence_ymax': float('nan'),
     'state_timeout_s': 0.0,
+    'nb_timeout_s': 1.0,
     # --- 3D mode ---
     'dim': 2.0, 'zc': 1.0, 'max_vz': 0.25, 'z_min': 0.25, 'z_max': 2.5,
     'z_margin': 0.3, 'z_wall_k': 2.0, 'z_stretch': 1.0,

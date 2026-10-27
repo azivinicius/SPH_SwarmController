@@ -225,7 +225,8 @@ class RunData:
         self.pairs = {}
         self.dmin = None
         self.nn = {}
-        self._pair_distances()
+        self.pos = {}                    # drone -> positions on self.grid (rows x, y[, z])
+        self._pair_distances()  
         # ---- RTF and system monitor on the same time base --------------------------------------------
         self.rtf_t = self.rtf_v = None
         if self.run.rtf is not None and self.E0 is not None and finite(self.run.rtf.get('epoch')):
@@ -260,6 +261,7 @@ class RunData:
                 oz = np.argsort(tz)
                 cols.append(np.interp(g, tz[oz], s['z'][mz][oz]))
             pos[n] = np.vstack(cols)
+        self.pos = pos
         dims = min(p.shape[0] for p in pos.values())
         self.dims3 = dims == 3
         for i, a in enumerate(ok):
@@ -361,12 +363,13 @@ from matplotlib.lines import Line2D          # noqa: E402
 
 plt.rcParams.update({
     'font.family': 'serif', 'mathtext.fontset': 'dejavuserif',
-    'font.size': 11, 'axes.titlesize': 12, 'axes.labelsize': 11, 'legend.fontsize': 9,
-    'xtick.labelsize': 10, 'ytick.labelsize': 10, 'savefig.dpi': 200,
+    'font.size': 17, 'axes.titlesize': 17, 'axes.labelsize': 18, 'legend.fontsize': 15,
+    'xtick.labelsize': 16, 'ytick.labelsize': 16, 'savefig.dpi': 200,
     'axes.grid': True, 'grid.alpha': 0.3, 'legend.framealpha': 0.9,
 })
-FIG_W, FIG_H = 7.5, 4.6          # one chart, about the text width of an A4 page
-
+FIG_W, FIG_H = 6.5, 4.0          # one chart, about the text width of an A4 page
+SHOW_TITLES = False              # figure titles off: the LaTeX caption describes the figure
+SHOW_LEGENDS = False             # run figures without the drone legend (theory figures keep theirs)
 
 class _VirgulaDecimal(mticker.ScalarFormatter):
     """Tick labels with a decimal comma (ABNT)."""
@@ -403,6 +406,10 @@ def new_fig(w=FIG_W, h=FIG_H, projection=None):
 
 def save(fig, outdir, name, pdf=False):
     for ax in fig.axes:
+        if not SHOW_TITLES:
+            ax.set_title('')
+        if not SHOW_LEGENDS and not name.startswith('teoria') and ax.get_legend() is not None:
+            ax.get_legend().remove()
         axes = [ax.xaxis, ax.yaxis] + ([ax.zaxis] if hasattr(ax, 'zaxis') else [])
         for a in axes:
             if isinstance(a.get_major_formatter(), mticker.ScalarFormatter):
@@ -442,6 +449,18 @@ def quartic_curve(q, n=400):
 def quartic_alpha1(q, x, y):
     dx, dy = x - q['xc'], y - q['yc']
     return q['a'] * dx ** 4 - q['b'] * dx ** 2 * dy ** 2 + q['c'] * dy ** 4 - q['R']
+
+
+def quartic_radial_error(q, x, y, z=None):
+    """Radial error |r - r(theta)| (eq. erro_radial); 3D: combined with the distance to the plane z = (x + y) / 2."""
+    dx, dy = x - q['xc'], y - q['yc']
+    t = np.arctan2(dy, dx)
+    ct, st = np.cos(t), np.sin(t)
+    rc = (q['R'] / (q['a'] * ct ** 4 - q['b'] * ct ** 2 * st ** 2 + q['c'] * st ** 4)) ** 0.25
+    e = np.abs(np.hypot(dx, dy) - rc)
+    if z is not None:
+        e = np.hypot(e, np.abs(x / 2 + y / 2 - z) / np.sqrt(1.5))
+    return e
 
 
 def round_target(D):
@@ -723,7 +742,7 @@ def fig_erro_alvo(D, outdir, pdf=False):
         if not finite(s['x']):
             continue
         if qi:
-            e = quartic_alpha1(qi, s['x'], s['y'])
+            e = quartic_radial_error(qi, s['x'], s['y'], s['z'] if D.dim3 else None)
         elif D.dim3 and rt[2] is not None and finite(s['z']):
             e = np.sqrt((s['x'] - rt[0]) ** 2 + (s['y'] - rt[1]) ** 2 + (s['z'] - rt[2]) ** 2) - rt[3]
         else:
@@ -737,8 +756,8 @@ def fig_erro_alvo(D, outdir, pdf=False):
     shade_window(ax, D)
     ax.set_xlabel('Tempo (s)')
     if qi:
-        ax.set_ylabel(r'Função de nível $\alpha_1$')
-        ax.set_title(r'Convergência à curva-alvo quártica ($\alpha_1 = 0$ sobre a curva, $\alpha_1 < 0$ no interior)')
+        ax.set_ylabel(r'Erro radial $e_i$ (m)')
+        ax.set_title('Erro radial de cada drone em relação à curva-alvo quártica')
     else:
         ax.set_ylabel(r'$\|\mathbf{p}-\mathbf{c}\| - R$ (m)')
         ax.set_title('Distância de cada drone à ' + ('superfície da esfera-alvo' if D.dim3 else 'circunferência-alvo'))
@@ -904,6 +923,43 @@ def _per_drone(D, outdir, name, title, ylabel, series, extra=None, pdf=False, me
     legend_out(ax)
     return save(fig, outdir, name, pdf)
 
+def fig_vel_densidade(D, outdir, pdf=False):
+    """18: swarm-mean speed / v_max and swarm-mean density / rho_0 on one axis (advance-and-compress cycles)."""
+    if D.grid is None or not D.max_v:
+        return None
+    rho0 = D.sph.get('rho_0') or 1000.0
+    V, RH = [], []
+    for n in D.names:
+        T, t = D.R.ticks[n], np.asarray(D.S[n]['t'], dtype=float)
+        if 'meas_vx' not in T or 'rho' not in T:
+            continue
+        v2 = np.asarray(T['meas_vx'], dtype=float) ** 2 + np.asarray(T['meas_vy'], dtype=float) ** 2
+        if D.dim3 and 'meas_vz' in T:
+            v2 = v2 + np.asarray(T['meas_vz'], dtype=float) ** 2
+        sp, rh = np.sqrt(v2), np.asarray(T['rho'], dtype=float) / rho0
+        if len(sp) != len(t):
+            continue
+        ok = np.isfinite(sp) & np.isfinite(rh) & np.isfinite(t)
+        if ok.sum() < 2:
+            continue
+        o = np.argsort(t[ok])
+        V.append(np.interp(D.grid, t[ok][o], sp[ok][o], left=np.nan, right=np.nan))
+        RH.append(np.interp(D.grid, t[ok][o], rh[ok][o], left=np.nan, right=np.nan))
+    if not V:
+        return None
+    with np.errstate(all='ignore'):
+        vm = np.nanmean(np.vstack(V), axis=0) / float(D.max_v)
+        rm = np.nanmean(np.vstack(RH), axis=0)
+    fig, ax = new_fig()
+    ax.plot(D.grid, vm, color='tab:blue', lw=1.6, label=r'Velocidade média $\bar{v}/v_{\max}$')
+    ax.plot(D.grid, rm, color='tab:red', lw=1.6, label=r'Densidade média $\bar{\rho}/\rho_0$')
+    ax.axhline(1.0, color='k', lw=0.8, ls='--')
+    shade_window(ax, D)
+    ax.set_xlabel('Tempo (s)')
+    ax.set_ylabel('Grandeza normalizada')
+    ax.set_title('Velocidade e densidade médias do enxame, normalizadas')
+    legend_out(ax)
+    return save(fig, outdir, '18_velocidade_densidade', pdf)
 
 def figs_sph(D, outdir, pdf=False):
     rho0 = D.sph.get('rho_0') or 1000.0
@@ -1401,6 +1457,31 @@ def teoria_campo_obstaculos(outdir, pdf=False):
     ax.set_ylabel('Posição y (m)')
     return save(fig, outdir, 'teoria_13_campo_obstaculos', pdf)
 
+def teoria_erro_radial(outdir, pdf=False):
+    """Radial error of the quartic curve: distance along the ray from the centre vs the shortest distance."""
+    a, b, c, R = 4.0, 6.0, 4.0, 1.0
+    rad = lambda t: (R / (a * np.cos(t) ** 4 - b * np.cos(t) ** 2 * np.sin(t) ** 2 + c * np.sin(t) ** 4)) ** 0.25
+    th = np.linspace(0, 2 * np.pi, 2000)
+    cx, cy = rad(th) * np.cos(th), rad(th) * np.sin(th)
+    p = np.array([1.05, 0.55])                          # agent outside the curve, ray oblique to the curve
+    tp = np.arctan2(p[1], p[0])
+    qr = rad(tp) * np.array([np.cos(tp), np.sin(tp)])   # curve point on the ray
+    k = int(np.argmin(np.hypot(cx - p[0], cy - p[1])))  # closest curve point
+    fig, ax = new_fig(6.0, 6.0)
+    ax.plot(cx, cy, 'k-', lw=2, label=r'Curva-alvo ($\alpha = 0$)')
+    ax.plot([0, p[0]], [0, p[1]], color='0.5', ls='--', lw=1, label='Semirreta a partir do centro')
+    ax.plot([qr[0], p[0]], [qr[1], p[1]], color='tab:red', lw=2.5, label=r'Erro radial $e_i$')
+    ax.plot([cx[k], p[0]], [cy[k], p[1]], color='tab:blue', lw=1.5, ls=':', label='Menor distância à curva')
+    ax.plot(p[0], p[1], 'o', color='tab:red', ms=8, label=r'Agente $\mathbf{q}_i$')
+    ax.plot(0, 0, 'k+', ms=12, label=r'Centro $\mathbf{c}$')
+    ax.annotate(r'$\theta_i$', xy=(0.28, 0.06))
+    ax.set_aspect('equal')
+    ax.set_xlabel(r'$x - x_c$')
+    ax.set_ylabel(r'$y - y_c$')
+    ax.set_title('Erro radial em relação à curva quártica')
+    legend_out(ax)
+    return save(fig, outdir, 'teoria_14_erro_radial', pdf)
+
 def make_teoria(outdir, pdf=False):
     os.makedirs(outdir, exist_ok=True)
     made = [teoria_nucleo_perfil(outdir, 2, pdf), teoria_nucleo_2d_superficie(outdir, pdf),
@@ -1413,7 +1494,137 @@ def make_teoria(outdir, pdf=False):
     made.append(teoria_campo_esferico(outdir, pdf))
     made.append(teoria_curva_generica(outdir, pdf))
     made.append(teoria_campo_obstaculos(outdir, pdf))
+    made.append(teoria_erro_radial(outdir, pdf))
     return [m for m in made if m]
+
+# ---- indicators of the monograph (Testes section) --------------------------------------------------
+def indicadores(D, res, eps_tc=0.10, final_s=10.0):
+    """Adds to res, over the span in which the SPH controller commands (from the gate opening to the last SPH tick):
+    d_min and d_obs over the whole span; e_max, e_med, rho_mean, rho_ind (min, max of the per-drone means), v_mean and
+    sep_final over its last final_s s; t_c (s after the gate opening from which max_i e_i stays below eps_tc);
+    e_med_far (median error outside the obstacle influence region) and P_max (largest pressure in the window).
+    e_i: |p - c| - R for the circle / sphere, radial error for the quartic (as in the Python validation)."""
+    if D.grid is None or not D.pos:
+        return res
+    g = D.grid
+    on, off = [], []                              # span in which the SPH controller commands (src sph / sph_pred)
+    for n in D.names:
+        T = D.R.ticks[n]
+        if 'src' not in T:
+            continue
+        t = np.asarray(D.S[n]['t'], dtype=float)
+        m = np.isin(np.asarray(T['src']), ['sph', 'sph_pred']) & np.isfinite(t)
+        if m.any():
+            on.append(t[m].min())
+            off.append(t[m].max())
+    t_on, t_off = (min(on), min(off)) if on else (D.w0, D.w1)
+    res['span'] = (t_on, t_off)
+    win = (g >= t_on) & (g <= t_off)
+    fin = win & (g >= t_off - final_s)
+    if not fin.any():
+        return res
+    res['dmin'] = float(D.dmin[win].min())        # whole controlled span (replaces the analysis-window value)
+    if D.obs_dist is not None:
+        res['obs_dmin'] = float(D.obs_dist[win].min())
+    rt, qi = round_target(D), quartic_info(D)
+    names = [n for n in D.names if n in D.pos]
+    E = []
+    for n in names:
+        p = D.pos[n]
+        z = p[2] if p.shape[0] == 3 else None
+        if qi:
+            E.append(quartic_radial_error(qi, p[0], p[1], z if D.dim3 else None))
+        elif rt:
+            d2 = (p[0] - rt[0]) ** 2 + (p[1] - rt[1]) ** 2
+            if D.dim3 and rt[2] is not None and z is not None:
+                d2 = d2 + (z - rt[2]) ** 2
+            E.append(np.abs(np.sqrt(d2) - rt[3]))
+    if E:
+        E = np.vstack(E)
+        emax = E.max(axis=0)
+        res['e_max'] = float(emax[fin].max())
+        res['e_med'] = float(np.median(E[:, fin]))
+        iw = np.where(win)[0]
+        if emax[iw[-1]] < eps_tc:
+            bad = iw[~(emax[iw] < eps_tc)]
+            k = (bad[-1] + 1) if len(bad) else iw[0]
+            res['t_c'] = float(g[k] - t_on)
+        if D.obs:
+            far = []
+            for j, n in enumerate(names):
+                p = D.pos[n]
+                dd = []
+                for ox, oy, oz in D.obs:
+                    d2 = (p[0] - ox) ** 2 + (p[1] - oy) ** 2
+                    if oz is not None and D.dim3 and p.shape[0] == 3:
+                        d2 = d2 + (p[2] - oz) ** 2
+                    dd.append(np.sqrt(d2))
+                dd = np.min(np.vstack(dd), axis=0)
+                far.append(E[j][fin & (dd > D.obs_reach)])
+            far = np.concatenate(far)
+            if far.size:
+                res['e_med_far'] = float(np.median(far))
+    rho0 = D.sph.get('rho_0') or 1000.0
+    RH, V, PR = [], [], []
+    for n in names:
+        T, t = D.R.ticks[n], np.asarray(D.S[n]['t'], dtype=float)
+
+        def on_grid(key):
+            if key not in T:
+                return None
+            y = np.asarray(T[key], dtype=float)
+            if len(y) != len(t):
+                return None
+            m = np.isfinite(y) & np.isfinite(t)
+            if m.sum() < 2:
+                return None
+            o = np.argsort(t[m])
+            return np.interp(g, t[m][o], y[m][o])
+
+        r, vx, vy, vz, pr = on_grid('rho'), on_grid('meas_vx'), on_grid('meas_vy'), on_grid('meas_vz'), on_grid('P')
+        if r is not None:
+            RH.append(r / rho0)
+        if vx is not None and vy is not None:
+            v2 = vx ** 2 + vy ** 2
+            if D.dim3 and vz is not None:
+                v2 = v2 + vz ** 2
+            V.append(np.sqrt(v2))
+        if pr is not None:
+            PR.append(pr)
+    if RH:
+        RH = np.vstack(RH)
+        res['rho_mean'] = float(RH[:, fin].mean())
+        ind = RH[:, fin].mean(axis=1)
+        res['rho_ind'] = (float(ind.min()), float(ind.max()))
+    if V:
+        res['v_mean'] = float(np.vstack(V)[:, fin].mean())
+    if PR:
+        res['P_max'] = float(np.vstack(PR)[:, win].max())
+    if D.nn:
+        res['sep_final'] = float(np.median(np.concatenate([v[fin] for v in D.nn.values()])))
+    return res
+
+
+IND_COLS = [('dmin', 'd_min_m'), ('e_max', 'e_max_m'), ('e_med', 'e_med_m'), ('rho_mean', 'rho_mean'),
+            ('v_mean', 'v_mean_ms'), ('t_c', 't_c_s'), ('sep_final', 'sep_final_m'), ('obs_dmin', 'd_obs_m'),
+            ('e_med_far', 'e_med_far_m'), ('P_max', 'P_max'), ('clip_pct', 'clip_pct'), ('stale_pct', 'stale_pct')]
+
+
+def escrever_indicadores(D, res, out):
+    """indicadores_<label>.csv in the output folder: one header line and one value line."""
+    lab = re.sub(r'[^A-Za-z0-9_.-]+', '_', str(D.meta.get('label', '') or D.run.name)).strip('_')
+    head, vals = ['run', 'N'], [D.run.name, str(D.n)]
+    for k, col in IND_COLS:
+        v = res.get(k)
+        head.append(col)
+        vals.append('' if v is None else f'{v:.4g}')
+    ri = res.get('rho_ind')
+    head += ['rho_ind_min', 'rho_ind_max']
+    vals += [f'{ri[0]:.3f}', f'{ri[1]:.3f}'] if ri else ['', '']
+    path = os.path.join(out, f'indicadores_{lab}.csv')
+    with open(path, 'w') as fh:
+        fh.write(','.join(head) + '\n' + ','.join(vals) + '\n')
+    return path
 
 
 OLD_PNGS = ['00_summary.png', '01_trajectories.png', '02_separation.png', '03_sph_dynamics.png',
@@ -1441,6 +1652,8 @@ def main():
     ap.add_argument('--out', default=None, help='output folder (default <run>/plots)')
     ap.add_argument('--collide', type=float, default=0.10, help='centre-to-centre distance counted as a collision (m)')
     ap.add_argument('--target-spacing', type=float, default=0.3, help='wanted neighbour spacing for the formation figure (m)')
+    ap.add_argument('--tc-eps', type=float, default=0.10, help='t_c: max_i e_i must stay below this (m)')
+    ap.add_argument('--final-window', type=float, default=10.0, help='final window for e_max, rho, v, spacing (s)')
     ap.add_argument('--no-open', action='store_true', help='only write the PNGs: do not open windows / do not wait')
     ap.add_argument('--open', action='store_true', help=argparse.SUPPRESS)   # old flag, now the default
     ap.add_argument('--pdf', action='store_true', help='also write a vector PDF of every figure (for LaTeX)')
@@ -1473,7 +1686,7 @@ def main():
         os.makedirs(out, exist_ok=True)
         print(f'(run folder not writable, probably still owned by root: writing to {out}; '
               f'run ./dev_tmux.sh stop to fix the ownership)')
-    res = D.results()
+    res = indicadores(D, D.results(), a.tc_eps, a.final_window)
     for old in OLD_PNGS:                  # figures of the previous layout (several charts per image)
         if os.path.exists(os.path.join(out, old)):
             os.remove(os.path.join(out, old))
@@ -1484,6 +1697,7 @@ def main():
     made += [fig_distancia_minima(D, res, out, pdf), fig_vizinho(D, res, out, pdf),
              fig_balanco_densidade(D, res, out, pdf)]
     made += figs_sph(D, out, pdf) + figs_desempenho(D, out, pdf)
+    made.append(fig_vel_densidade(D, out, pdf))
     made = [m for m in made if m]
     made = add_label(made, D.meta.get('label', ''))
     print(f'run {D.run.name}: {D.n} drones, window {res["window"][0]:.1f}..{res["window"][1]:.1f} s')
@@ -1494,6 +1708,13 @@ def main():
         print(f'  RTF mean {res["rtf_mean"]:.2f}, min {res["rtf_min"]:.2f}')
     if 'busy' in res:
         print(f'  busy threads {res["busy"]:.2f} of {res["ncpu"]:.0f}, clock {res["clock"]:.0f} MHz')
+    if 'e_max' in res or 'rho_mean' in res:
+        f_ = lambda k, d=3: (f'{res[k]:.{d}f}' if k in res else '-')
+        print(f'  e_max {f_("e_max")} m | rho/rho0 {f_("rho_mean", 2)} | v {f_("v_mean")} m/s | '
+              f't_c {f_("t_c", 0)} s | spacing {f_("sep_final")} m | d_obs {f_("obs_dmin")} m')
+    print(f'  saved {escrever_indicadores(D, res, out)}')
+    for m in made:
+        print(f'  saved {m}')
     for m in made:
         print(f'  saved {m}')
     if made and not a.no_open:

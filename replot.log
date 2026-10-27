@@ -1,0 +1,486 @@
+=== 20261020_100406_p_circ_20
+run 20261020_100406_p_circ_20: 20 drones, window 2.9..84.5 s
+  closest approach 0.168 m | collisions (<0.1 m): 0 | median NN 0.263 m
+  busy threads 2.62 of 32, clock 3892 MHz
+  saved figuras_monografia/00_resumo_p_circ_20.png
+  saved figuras_monografia/01_trajetorias_xy_p_circ_20.png
+  saved figuras_monografia/03_altitude_p_circ_20.png
+  saved figuras_monografia/04_erro_alvo_p_circ_20.png
+  saved figuras_monografia/05_formacao_1_p_circ_20.png
+  saved figuras_monografia/05_formacao_2_p_circ_20.png
+  saved figuras_monografia/05_formacao_3_p_circ_20.png
+  saved figuras_monografia/05_formacao_4_p_circ_20.png
+  saved figuras_monografia/06_distancia_minima_p_circ_20.png
+  saved figuras_monografia/07_vizinho_mais_proximo_p_circ_20.png
+  saved figuras_monografia/08_balanco_densidade_p_circ_20.png
+  saved figuras_monografia/09_densidade_p_circ_20.png
+  saved figuras_monografia/10_pressao_p_circ_20.png
+  saved figuras_monografia/11_forca_potencial_p_circ_20.png
+  saved figuras_monografia/12_velocidade_medida_p_circ_20.png
+  saved figuras_monografia/13_velocidade_comandada_p_circ_20.png
+  saved figuras_monografia/15_carga_cpu_p_circ_20.png
+  saved figuras_monografia/16_frequencia_cpu_p_circ_20.png
+  saved figuras_monografia/17_temperatura_cpu_p_circ_20.png
+=== 20261017_122551_p_esfera
+run 20261017_122551_p_esfera: 8 drones, window 2.7..62.6 s
+  closest approach 0.417 m | collisions (<0.1 m): 0 | median NN 0.463 m
+  busy threads 3.35 of 8, clock 1798 MHz
+  saved figuras_monografia/00_resumo_p_esfera.png
+  saved figuras_monografia/01_trajetorias_xy_p_esfera.png
+  saved figuras_monografia/02_trajetorias_3d_p_esfera.png
+  saved figuras_monografia/03_altitude_p_esfera.png
+  saved figuras_monografia/04_erro_alvo_p_esfera.png
+  saved figuras_monografia/05_formacao_1_p_esfera.png
+  saved figuras_monografia/05_formacao_2_p_esfera.png
+  saved figuras_monografia/05_formacao_3_p_esfera.png
+  saved figuras_monografia/05_formacao_4_p_esfera.png
+  saved figuras_monografia/06_distancia_minima_p_esfera.png
+  saved figuras_monografia/07_vizinho_mais_proximo_p_esfera.png
+  saved figuras_monografia/08_balanco_densidade_p_esfera.png
+  saved figuras_monografia/09_densidade_p_esfera.png
+  saved figuras_monografia/10_pressao_p_esfera.png
+  saved figuras_monografia/11_forca_potencial_p_esfera.png
+  saved figuras_monografia/12_velocidade_medida_p_esfera.png
+  saved figuras_monografia/13_velocidade_comandada_p_esfera.png
+  saved figuras_monografia/15_carga_cpu_p_esfera.png
+  saved figuras_monografia/16_frequencia_cpu_p_esfera.png
+  saved figuras_monografia/17_temperatura_cpu_p_esfera.png
+=== 20261020_100713_p_quart2d
+run 20261020_100713_p_quart2d: 12 drones, window 3.1..120.6 s
+  closest approach 0.268 m | collisions (<0.1 m): 0 | median NN 0.349 m
+  busy threads 2.16 of 32, clock 3560 MHz
+  saved figuras_monografia/00_resumo_p_quart2d.png
+  saved figuras_monografia/01_trajetorias_xy_p_quart2d.png
+  saved figuras_monografia/03_altitude_p_quart2d.png
+  saved figuras_monografia/04_erro_alvo_p_quart2d.png
+  saved figuras_monografia/05_formacao_1_p_quart2d.png
+  saved figuras_monografia/05_formacao_2_p_quart2d.png
+  saved figuras_monografia/05_formacao_3_p_quart2d.png
+  saved figuras_monografia/05_formacao_4_p_quart2d.png
+  saved figuras_monografia/06_distancia_minima_p_quart2d.png
+  saved figuras_monografia/07_vizinho_mais_proximo_p_quart2d.png
+  saved figuras_monografia/08_balanco_densidade_p_quart2d.png
+  saved figuras_monografia/09_densidade_p_quart2d.png
+  saved figuras_monografia/10_pressao_p_quart2d.png
+  saved figuras_monografia/11_forca_potencial_p_quart2d.png
+  saved figuras_monografia/12_velocidade_medida_p_quart2d.png
+  saved figuras_monografia/13_velocidade_comandada_p_quart2d.png
+  saved figuras_monografia/15_carga_cpu_p_quart2d.png
+  saved figuras_monografia/16_frequencia_cpu_p_quart2d.png
+  saved figuras_monografia/17_temperatura_cpu_p_quart2d.png
+=== 20261020_101717_p_quart3d
+run 20261020_101717_p_quart3d: 8 drones, window 10.7..11.2 s
+  closest approach 0.418 m | collisions (<0.1 m): 0 | median NN 0.517 m
+  saved figuras_monografia/00_resumo_p_quart3d.png
+  saved figuras_monografia/01_trajetorias_xy_p_quart3d.png
+  saved figuras_monografia/02_trajetorias_3d_p_quart3d.png
+  saved figuras_monografia/03_altitude_p_quart3d.png
+  saved figuras_monografia/04_erro_alvo_p_quart3d.png
+  saved figuras_monografia/05_formacao_1_p_quart3d.png
+  saved figuras_monografia/05_formacao_2_p_quart3d.png
+  saved figuras_monografia/05_formacao_3_p_quart3d.png
+  saved figuras_monografia/05_formacao_4_p_quart3d.png
+  saved figuras_monografia/06_distancia_minima_p_quart3d.png
+  saved figuras_monografia/07_vizinho_mais_proximo_p_quart3d.png
+  saved figuras_monografia/08_balanco_densidade_p_quart3d.png
+  saved figuras_monografia/09_densidade_p_quart3d.png
+  saved figuras_monografia/10_pressao_p_quart3d.png
+  saved figuras_monografia/11_forca_potencial_p_quart3d.png
+  saved figuras_monografia/12_velocidade_medida_p_quart3d.png
+  saved figuras_monografia/13_velocidade_comandada_p_quart3d.png
+  saved figuras_monografia/15_carga_cpu_p_quart3d.png
+  saved figuras_monografia/16_frequencia_cpu_p_quart3d.png
+  saved figuras_monografia/17_temperatura_cpu_p_quart3d.png
+=== 20261020_105555_cs_circ_8
+run 20261020_105555_cs_circ_8: 8 drones, window 23.2..56.5 s
+  closest approach 0.175 m | collisions (<0.1 m): 0 | median NN 0.278 m
+  RTF mean 0.90, min 0.18
+  busy threads 20.17 of 32, clock 4633 MHz
+  saved figuras_monografia/00_resumo_cs_circ_8.png
+  saved figuras_monografia/01_trajetorias_xy_cs_circ_8.png
+  saved figuras_monografia/03_altitude_cs_circ_8.png
+  saved figuras_monografia/04_erro_alvo_cs_circ_8.png
+  saved figuras_monografia/05_formacao_1_cs_circ_8.png
+  saved figuras_monografia/05_formacao_2_cs_circ_8.png
+  saved figuras_monografia/05_formacao_3_cs_circ_8.png
+  saved figuras_monografia/05_formacao_4_cs_circ_8.png
+  saved figuras_monografia/06_distancia_minima_cs_circ_8.png
+  saved figuras_monografia/07_vizinho_mais_proximo_cs_circ_8.png
+  saved figuras_monografia/08_balanco_densidade_cs_circ_8.png
+  saved figuras_monografia/09_densidade_cs_circ_8.png
+  saved figuras_monografia/10_pressao_cs_circ_8.png
+  saved figuras_monografia/11_forca_potencial_cs_circ_8.png
+  saved figuras_monografia/12_velocidade_medida_cs_circ_8.png
+  saved figuras_monografia/13_velocidade_comandada_cs_circ_8.png
+  saved figuras_monografia/14_rtf_cs_circ_8.png
+  saved figuras_monografia/15_carga_cpu_cs_circ_8.png
+  saved figuras_monografia/16_frequencia_cpu_cs_circ_8.png
+  saved figuras_monografia/17_temperatura_cpu_cs_circ_8.png
+=== 20261020_111550_cs_esfera_8
+run 20261020_111550_cs_esfera_8: 8 drones, window 22.3..90.4 s
+  closest approach 0.265 m | collisions (<0.1 m): 0 | median NN 0.435 m
+  RTF mean 0.97, min 0.34
+  busy threads 15.96 of 32, clock 4697 MHz
+  saved figuras_monografia/00_resumo_cs_esfera_8.png
+  saved figuras_monografia/01_trajetorias_xy_cs_esfera_8.png
+  saved figuras_monografia/02_trajetorias_3d_cs_esfera_8.png
+  saved figuras_monografia/03_altitude_cs_esfera_8.png
+  saved figuras_monografia/04_erro_alvo_cs_esfera_8.png
+  saved figuras_monografia/05_formacao_1_cs_esfera_8.png
+  saved figuras_monografia/05_formacao_2_cs_esfera_8.png
+  saved figuras_monografia/05_formacao_3_cs_esfera_8.png
+  saved figuras_monografia/05_formacao_4_cs_esfera_8.png
+  saved figuras_monografia/06_distancia_minima_cs_esfera_8.png
+  saved figuras_monografia/07_vizinho_mais_proximo_cs_esfera_8.png
+  saved figuras_monografia/08_balanco_densidade_cs_esfera_8.png
+  saved figuras_monografia/09_densidade_cs_esfera_8.png
+  saved figuras_monografia/10_pressao_cs_esfera_8.png
+  saved figuras_monografia/11_forca_potencial_cs_esfera_8.png
+  saved figuras_monografia/12_velocidade_medida_cs_esfera_8.png
+  saved figuras_monografia/13_velocidade_comandada_cs_esfera_8.png
+  saved figuras_monografia/14_rtf_cs_esfera_8.png
+  saved figuras_monografia/15_carga_cpu_cs_esfera_8.png
+  saved figuras_monografia/16_frequencia_cpu_cs_esfera_8.png
+  saved figuras_monografia/17_temperatura_cpu_cs_esfera_8.png
+=== 20261020_110216_cs_quart2d_6
+run 20261020_110216_cs_quart2d_6: 6 drones, window 23.2..96.9 s
+  closest approach 0.362 m | collisions (<0.1 m): 0 | median NN 0.504 m
+  RTF mean 1.00, min 0.96
+  busy threads 10.92 of 32, clock 4596 MHz
+  saved figuras_monografia/00_resumo_cs_quart2d_6.png
+  saved figuras_monografia/01_trajetorias_xy_cs_quart2d_6.png
+  saved figuras_monografia/03_altitude_cs_quart2d_6.png
+  saved figuras_monografia/04_erro_alvo_cs_quart2d_6.png
+  saved figuras_monografia/05_formacao_1_cs_quart2d_6.png
+  saved figuras_monografia/05_formacao_2_cs_quart2d_6.png
+  saved figuras_monografia/05_formacao_3_cs_quart2d_6.png
+  saved figuras_monografia/05_formacao_4_cs_quart2d_6.png
+  saved figuras_monografia/06_distancia_minima_cs_quart2d_6.png
+  saved figuras_monografia/07_vizinho_mais_proximo_cs_quart2d_6.png
+  saved figuras_monografia/08_balanco_densidade_cs_quart2d_6.png
+  saved figuras_monografia/09_densidade_cs_quart2d_6.png
+  saved figuras_monografia/10_pressao_cs_quart2d_6.png
+  saved figuras_monografia/11_forca_potencial_cs_quart2d_6.png
+  saved figuras_monografia/12_velocidade_medida_cs_quart2d_6.png
+  saved figuras_monografia/13_velocidade_comandada_cs_quart2d_6.png
+  saved figuras_monografia/14_rtf_cs_quart2d_6.png
+  saved figuras_monografia/15_carga_cpu_cs_quart2d_6.png
+  saved figuras_monografia/16_frequencia_cpu_cs_quart2d_6.png
+  saved figuras_monografia/17_temperatura_cpu_cs_quart2d_6.png
+=== 20261020_112622_cs_quart3d_8
+run 20261020_112622_cs_quart3d_8: 8 drones, window 22.7..31.5 s
+  closest approach 0.434 m | collisions (<0.1 m): 0 | median NN 0.533 m
+  RTF mean 0.78, min 0.14
+  busy threads 15.97 of 32, clock 4683 MHz
+  saved figuras_monografia/00_resumo_cs_quart3d_8.png
+  saved figuras_monografia/01_trajetorias_xy_cs_quart3d_8.png
+  saved figuras_monografia/02_trajetorias_3d_cs_quart3d_8.png
+  saved figuras_monografia/03_altitude_cs_quart3d_8.png
+  saved figuras_monografia/04_erro_alvo_cs_quart3d_8.png
+  saved figuras_monografia/05_formacao_1_cs_quart3d_8.png
+  saved figuras_monografia/05_formacao_2_cs_quart3d_8.png
+  saved figuras_monografia/05_formacao_3_cs_quart3d_8.png
+  saved figuras_monografia/05_formacao_4_cs_quart3d_8.png
+  saved figuras_monografia/06_distancia_minima_cs_quart3d_8.png
+  saved figuras_monografia/07_vizinho_mais_proximo_cs_quart3d_8.png
+  saved figuras_monografia/08_balanco_densidade_cs_quart3d_8.png
+  saved figuras_monografia/09_densidade_cs_quart3d_8.png
+  saved figuras_monografia/10_pressao_cs_quart3d_8.png
+  saved figuras_monografia/11_forca_potencial_cs_quart3d_8.png
+  saved figuras_monografia/12_velocidade_medida_cs_quart3d_8.png
+  saved figuras_monografia/13_velocidade_comandada_cs_quart3d_8.png
+  saved figuras_monografia/14_rtf_cs_quart3d_8.png
+  saved figuras_monografia/15_carga_cpu_cs_quart3d_8.png
+  saved figuras_monografia/16_frequencia_cpu_cs_quart3d_8.png
+  saved figuras_monografia/17_temperatura_cpu_cs_quart3d_8.png
+=== 20261020_104400_p_quart2d_tang
+run 20261020_104400_p_quart2d_tang: 12 drones, window 3.0..84.0 s
+  closest approach 0.263 m | collisions (<0.1 m): 0 | median NN 0.347 m
+  busy threads 2.19 of 32, clock 3564 MHz
+  saved figuras_monografia/00_resumo_p_quart2d_tang.png
+  saved figuras_monografia/01_trajetorias_xy_p_quart2d_tang.png
+  saved figuras_monografia/03_altitude_p_quart2d_tang.png
+  saved figuras_monografia/04_erro_alvo_p_quart2d_tang.png
+  saved figuras_monografia/05_formacao_1_p_quart2d_tang.png
+  saved figuras_monografia/05_formacao_2_p_quart2d_tang.png
+  saved figuras_monografia/05_formacao_3_p_quart2d_tang.png
+  saved figuras_monografia/05_formacao_4_p_quart2d_tang.png
+  saved figuras_monografia/06_distancia_minima_p_quart2d_tang.png
+  saved figuras_monografia/07_vizinho_mais_proximo_p_quart2d_tang.png
+  saved figuras_monografia/08_balanco_densidade_p_quart2d_tang.png
+  saved figuras_monografia/09_densidade_p_quart2d_tang.png
+  saved figuras_monografia/10_pressao_p_quart2d_tang.png
+  saved figuras_monografia/11_forca_potencial_p_quart2d_tang.png
+  saved figuras_monografia/12_velocidade_medida_p_quart2d_tang.png
+  saved figuras_monografia/13_velocidade_comandada_p_quart2d_tang.png
+  saved figuras_monografia/15_carga_cpu_p_quart2d_tang.png
+  saved figuras_monografia/16_frequencia_cpu_p_quart2d_tang.png
+  saved figuras_monografia/17_temperatura_cpu_p_quart2d_tang.png
+=== 20261020_104608_p_quart3d_tang
+run 20261020_104608_p_quart3d_tang: 8 drones, window 9.9..7.3 s
+  saved figuras_monografia/00_resumo_p_quart3d_tang.png
+  saved figuras_monografia/01_trajetorias_xy_p_quart3d_tang.png
+  saved figuras_monografia/02_trajetorias_3d_p_quart3d_tang.png
+  saved figuras_monografia/03_altitude_p_quart3d_tang.png
+  saved figuras_monografia/04_erro_alvo_p_quart3d_tang.png
+  saved figuras_monografia/05_formacao_1_p_quart3d_tang.png
+  saved figuras_monografia/05_formacao_2_p_quart3d_tang.png
+  saved figuras_monografia/05_formacao_3_p_quart3d_tang.png
+  saved figuras_monografia/05_formacao_4_p_quart3d_tang.png
+  saved figuras_monografia/06_distancia_minima_p_quart3d_tang.png
+  saved figuras_monografia/08_balanco_densidade_p_quart3d_tang.png
+  saved figuras_monografia/09_densidade_p_quart3d_tang.png
+  saved figuras_monografia/10_pressao_p_quart3d_tang.png
+  saved figuras_monografia/11_forca_potencial_p_quart3d_tang.png
+  saved figuras_monografia/12_velocidade_medida_p_quart3d_tang.png
+  saved figuras_monografia/13_velocidade_comandada_p_quart3d_tang.png
+  saved figuras_monografia/15_carga_cpu_p_quart3d_tang.png
+  saved figuras_monografia/16_frequencia_cpu_p_quart3d_tang.png
+  saved figuras_monografia/17_temperatura_cpu_p_quart3d_tang.png
+=== 20261020_114106_cs_quart2d_tang_6
+run 20261020_114106_cs_quart2d_tang_6: 6 drones, window 22.4..125.0 s
+  closest approach 0.354 m | collisions (<0.1 m): 0 | median NN 0.483 m
+  RTF mean 0.99, min 0.25
+  busy threads 10.86 of 32, clock 4573 MHz
+  saved figuras_monografia/00_resumo_cs_quart2d_tang_6.png
+  saved figuras_monografia/01_trajetorias_xy_cs_quart2d_tang_6.png
+  saved figuras_monografia/03_altitude_cs_quart2d_tang_6.png
+  saved figuras_monografia/04_erro_alvo_cs_quart2d_tang_6.png
+  saved figuras_monografia/05_formacao_1_cs_quart2d_tang_6.png
+  saved figuras_monografia/05_formacao_2_cs_quart2d_tang_6.png
+  saved figuras_monografia/05_formacao_3_cs_quart2d_tang_6.png
+  saved figuras_monografia/05_formacao_4_cs_quart2d_tang_6.png
+  saved figuras_monografia/06_distancia_minima_cs_quart2d_tang_6.png
+  saved figuras_monografia/07_vizinho_mais_proximo_cs_quart2d_tang_6.png
+  saved figuras_monografia/08_balanco_densidade_cs_quart2d_tang_6.png
+  saved figuras_monografia/09_densidade_cs_quart2d_tang_6.png
+  saved figuras_monografia/10_pressao_cs_quart2d_tang_6.png
+  saved figuras_monografia/11_forca_potencial_cs_quart2d_tang_6.png
+  saved figuras_monografia/12_velocidade_medida_cs_quart2d_tang_6.png
+  saved figuras_monografia/13_velocidade_comandada_cs_quart2d_tang_6.png
+  saved figuras_monografia/14_rtf_cs_quart2d_tang_6.png
+  saved figuras_monografia/15_carga_cpu_cs_quart2d_tang_6.png
+  saved figuras_monografia/16_frequencia_cpu_cs_quart2d_tang_6.png
+  saved figuras_monografia/17_temperatura_cpu_cs_quart2d_tang_6.png
+=== 20261020_114405_cs_quart3d_tang_8
+run 20261020_114405_cs_quart3d_tang_8: 8 drones, window 23.1..27.5 s
+  closest approach 0.403 m | collisions (<0.1 m): 0 | median NN 0.501 m
+  RTF mean 1.00, min 0.99
+  busy threads 15.85 of 32, clock 4700 MHz
+  saved figuras_monografia/00_resumo_cs_quart3d_tang_8.png
+  saved figuras_monografia/01_trajetorias_xy_cs_quart3d_tang_8.png
+  saved figuras_monografia/02_trajetorias_3d_cs_quart3d_tang_8.png
+  saved figuras_monografia/03_altitude_cs_quart3d_tang_8.png
+  saved figuras_monografia/04_erro_alvo_cs_quart3d_tang_8.png
+  saved figuras_monografia/05_formacao_1_cs_quart3d_tang_8.png
+  saved figuras_monografia/05_formacao_2_cs_quart3d_tang_8.png
+  saved figuras_monografia/05_formacao_3_cs_quart3d_tang_8.png
+  saved figuras_monografia/05_formacao_4_cs_quart3d_tang_8.png
+  saved figuras_monografia/06_distancia_minima_cs_quart3d_tang_8.png
+  saved figuras_monografia/07_vizinho_mais_proximo_cs_quart3d_tang_8.png
+  saved figuras_monografia/08_balanco_densidade_cs_quart3d_tang_8.png
+  saved figuras_monografia/09_densidade_cs_quart3d_tang_8.png
+  saved figuras_monografia/10_pressao_cs_quart3d_tang_8.png
+  saved figuras_monografia/11_forca_potencial_cs_quart3d_tang_8.png
+  saved figuras_monografia/12_velocidade_medida_cs_quart3d_tang_8.png
+  saved figuras_monografia/13_velocidade_comandada_cs_quart3d_tang_8.png
+  saved figuras_monografia/14_rtf_cs_quart3d_tang_8.png
+  saved figuras_monografia/15_carga_cpu_cs_quart3d_tang_8.png
+  saved figuras_monografia/16_frequencia_cpu_cs_quart3d_tang_8.png
+  saved figuras_monografia/17_temperatura_cpu_cs_quart3d_tang_8.png
+=== 20261022_004115_p_obs_circ_portao_6
+run 20261022_004115_p_obs_circ_portao_6: 6 drones, window 2.2..49.7 s
+  closest approach 0.291 m | collisions (<0.1 m): 0 | median NN 0.405 m
+  busy threads 1.06 of 8, clock 4132 MHz
+  saved figuras_monografia/00_resumo_p_obs_circ_portao_6.png
+  saved figuras_monografia/01_trajetorias_xy_p_obs_circ_portao_6.png
+  saved figuras_monografia/03_altitude_p_obs_circ_portao_6.png
+  saved figuras_monografia/04_erro_alvo_p_obs_circ_portao_6.png
+  saved figuras_monografia/05_formacao_1_p_obs_circ_portao_6.png
+  saved figuras_monografia/05_formacao_2_p_obs_circ_portao_6.png
+  saved figuras_monografia/05_formacao_3_p_obs_circ_portao_6.png
+  saved figuras_monografia/05_formacao_4_p_obs_circ_portao_6.png
+  saved figuras_monografia/06_distancia_minima_p_obs_circ_portao_6.png
+  saved figuras_monografia/07_vizinho_mais_proximo_p_obs_circ_portao_6.png
+  saved figuras_monografia/08_balanco_densidade_p_obs_circ_portao_6.png
+  saved figuras_monografia/09_densidade_p_obs_circ_portao_6.png
+  saved figuras_monografia/10_pressao_p_obs_circ_portao_6.png
+  saved figuras_monografia/11_forca_potencial_p_obs_circ_portao_6.png
+  saved figuras_monografia/12_velocidade_medida_p_obs_circ_portao_6.png
+  saved figuras_monografia/13_velocidade_comandada_p_obs_circ_portao_6.png
+  saved figuras_monografia/15_carga_cpu_p_obs_circ_portao_6.png
+  saved figuras_monografia/16_frequencia_cpu_p_obs_circ_portao_6.png
+  saved figuras_monografia/17_temperatura_cpu_p_obs_circ_portao_6.png
+=== 20261022_004442_p_obs_esfera_6
+run 20261022_004442_p_obs_esfera_6: 6 drones, window 2.9..75.0 s
+  closest approach 0.386 m | collisions (<0.1 m): 0 | median NN 0.442 m
+  busy threads 1.05 of 8, clock 4109 MHz
+  saved figuras_monografia/00_resumo_p_obs_esfera_6.png
+  saved figuras_monografia/01_trajetorias_xy_p_obs_esfera_6.png
+  saved figuras_monografia/02_trajetorias_3d_p_obs_esfera_6.png
+  saved figuras_monografia/03_altitude_p_obs_esfera_6.png
+  saved figuras_monografia/04_erro_alvo_p_obs_esfera_6.png
+  saved figuras_monografia/05_formacao_1_p_obs_esfera_6.png
+  saved figuras_monografia/05_formacao_2_p_obs_esfera_6.png
+  saved figuras_monografia/05_formacao_3_p_obs_esfera_6.png
+  saved figuras_monografia/05_formacao_4_p_obs_esfera_6.png
+  saved figuras_monografia/06_distancia_minima_p_obs_esfera_6.png
+  saved figuras_monografia/07_vizinho_mais_proximo_p_obs_esfera_6.png
+  saved figuras_monografia/08_balanco_densidade_p_obs_esfera_6.png
+  saved figuras_monografia/09_densidade_p_obs_esfera_6.png
+  saved figuras_monografia/10_pressao_p_obs_esfera_6.png
+  saved figuras_monografia/11_forca_potencial_p_obs_esfera_6.png
+  saved figuras_monografia/12_velocidade_medida_p_obs_esfera_6.png
+  saved figuras_monografia/13_velocidade_comandada_p_obs_esfera_6.png
+  saved figuras_monografia/15_carga_cpu_p_obs_esfera_6.png
+  saved figuras_monografia/16_frequencia_cpu_p_obs_esfera_6.png
+  saved figuras_monografia/17_temperatura_cpu_p_obs_esfera_6.png
+=== 20261022_005144_p_obs_quart3d_6
+run 20261022_005144_p_obs_quart3d_6: 6 drones, window 4.4..25.8 s
+  closest approach 0.257 m | collisions (<0.1 m): 0 | median NN 0.326 m
+  busy threads 1.14 of 8, clock 4081 MHz
+  saved figuras_monografia/00_resumo_p_obs_quart3d_6.png
+  saved figuras_monografia/01_trajetorias_xy_p_obs_quart3d_6.png
+  saved figuras_monografia/02_trajetorias_3d_p_obs_quart3d_6.png
+  saved figuras_monografia/03_altitude_p_obs_quart3d_6.png
+  saved figuras_monografia/04_erro_alvo_p_obs_quart3d_6.png
+  saved figuras_monografia/05_formacao_1_p_obs_quart3d_6.png
+  saved figuras_monografia/05_formacao_2_p_obs_quart3d_6.png
+  saved figuras_monografia/05_formacao_3_p_obs_quart3d_6.png
+  saved figuras_monografia/05_formacao_4_p_obs_quart3d_6.png
+  saved figuras_monografia/06_distancia_minima_p_obs_quart3d_6.png
+  saved figuras_monografia/07_vizinho_mais_proximo_p_obs_quart3d_6.png
+  saved figuras_monografia/08_balanco_densidade_p_obs_quart3d_6.png
+  saved figuras_monografia/09_densidade_p_obs_quart3d_6.png
+  saved figuras_monografia/10_pressao_p_obs_quart3d_6.png
+  saved figuras_monografia/11_forca_potencial_p_obs_quart3d_6.png
+  saved figuras_monografia/12_velocidade_medida_p_obs_quart3d_6.png
+  saved figuras_monografia/13_velocidade_comandada_p_obs_quart3d_6.png
+  saved figuras_monografia/15_carga_cpu_p_obs_quart3d_6.png
+  saved figuras_monografia/16_frequencia_cpu_p_obs_quart3d_6.png
+  saved figuras_monografia/17_temperatura_cpu_p_obs_quart3d_6.png
+=== 20261022_010617_p_obs_quart2d_tang_6
+run 20261022_010617_p_obs_quart2d_tang_6: 6 drones, window 2.2..124.3 s
+  closest approach 0.296 m | collisions (<0.1 m): 0 | median NN 0.374 m
+  busy threads 1.15 of 8, clock 4159 MHz
+  saved figuras_monografia/00_resumo_p_obs_quart2d_tang_6.png
+  saved figuras_monografia/01_trajetorias_xy_p_obs_quart2d_tang_6.png
+  saved figuras_monografia/03_altitude_p_obs_quart2d_tang_6.png
+  saved figuras_monografia/04_erro_alvo_p_obs_quart2d_tang_6.png
+  saved figuras_monografia/05_formacao_1_p_obs_quart2d_tang_6.png
+  saved figuras_monografia/05_formacao_2_p_obs_quart2d_tang_6.png
+  saved figuras_monografia/05_formacao_3_p_obs_quart2d_tang_6.png
+  saved figuras_monografia/05_formacao_4_p_obs_quart2d_tang_6.png
+  saved figuras_monografia/06_distancia_minima_p_obs_quart2d_tang_6.png
+  saved figuras_monografia/07_vizinho_mais_proximo_p_obs_quart2d_tang_6.png
+  saved figuras_monografia/08_balanco_densidade_p_obs_quart2d_tang_6.png
+  saved figuras_monografia/09_densidade_p_obs_quart2d_tang_6.png
+  saved figuras_monografia/10_pressao_p_obs_quart2d_tang_6.png
+  saved figuras_monografia/11_forca_potencial_p_obs_quart2d_tang_6.png
+  saved figuras_monografia/12_velocidade_medida_p_obs_quart2d_tang_6.png
+  saved figuras_monografia/13_velocidade_comandada_p_obs_quart2d_tang_6.png
+  saved figuras_monografia/15_carga_cpu_p_obs_quart2d_tang_6.png
+  saved figuras_monografia/16_frequencia_cpu_p_obs_quart2d_tang_6.png
+  saved figuras_monografia/17_temperatura_cpu_p_obs_quart2d_tang_6.png
+=== 20261022_004254_cs_obs_circ_portao_3
+run 20261022_004254_cs_obs_circ_portao_3: 3 drones, window 18.9..52.0 s
+  closest approach 0.248 m | collisions (<0.1 m): 0 | median NN 0.429 m
+  RTF mean 0.87, min 0.15
+  busy threads 6.30 of 8, clock 2345 MHz
+  saved figuras_monografia/00_resumo_cs_obs_circ_portao_3.png
+  saved figuras_monografia/01_trajetorias_xy_cs_obs_circ_portao_3.png
+  saved figuras_monografia/03_altitude_cs_obs_circ_portao_3.png
+  saved figuras_monografia/04_erro_alvo_cs_obs_circ_portao_3.png
+  saved figuras_monografia/05_formacao_1_cs_obs_circ_portao_3.png
+  saved figuras_monografia/05_formacao_2_cs_obs_circ_portao_3.png
+  saved figuras_monografia/05_formacao_3_cs_obs_circ_portao_3.png
+  saved figuras_monografia/05_formacao_4_cs_obs_circ_portao_3.png
+  saved figuras_monografia/06_distancia_minima_cs_obs_circ_portao_3.png
+  saved figuras_monografia/07_vizinho_mais_proximo_cs_obs_circ_portao_3.png
+  saved figuras_monografia/08_balanco_densidade_cs_obs_circ_portao_3.png
+  saved figuras_monografia/09_densidade_cs_obs_circ_portao_3.png
+  saved figuras_monografia/10_pressao_cs_obs_circ_portao_3.png
+  saved figuras_monografia/11_forca_potencial_cs_obs_circ_portao_3.png
+  saved figuras_monografia/12_velocidade_medida_cs_obs_circ_portao_3.png
+  saved figuras_monografia/13_velocidade_comandada_cs_obs_circ_portao_3.png
+  saved figuras_monografia/14_rtf_cs_obs_circ_portao_3.png
+  saved figuras_monografia/15_carga_cpu_cs_obs_circ_portao_3.png
+  saved figuras_monografia/16_frequencia_cpu_cs_obs_circ_portao_3.png
+  saved figuras_monografia/17_temperatura_cpu_cs_obs_circ_portao_3.png
+=== 20261022_004859_cs_obs_esfera_3
+run 20261022_004859_cs_obs_esfera_3: 3 drones, window 18.3..98.6 s
+  closest approach 0.275 m | collisions (<0.1 m): 0 | median NN 0.456 m
+  RTF mean 0.86, min 0.28
+  busy threads 6.25 of 8, clock 2337 MHz
+  saved figuras_monografia/00_resumo_cs_obs_esfera_3.png
+  saved figuras_monografia/01_trajetorias_xy_cs_obs_esfera_3.png
+  saved figuras_monografia/02_trajetorias_3d_cs_obs_esfera_3.png
+  saved figuras_monografia/03_altitude_cs_obs_esfera_3.png
+  saved figuras_monografia/04_erro_alvo_cs_obs_esfera_3.png
+  saved figuras_monografia/05_formacao_1_cs_obs_esfera_3.png
+  saved figuras_monografia/05_formacao_2_cs_obs_esfera_3.png
+  saved figuras_monografia/05_formacao_3_cs_obs_esfera_3.png
+  saved figuras_monografia/05_formacao_4_cs_obs_esfera_3.png
+  saved figuras_monografia/06_distancia_minima_cs_obs_esfera_3.png
+  saved figuras_monografia/07_vizinho_mais_proximo_cs_obs_esfera_3.png
+  saved figuras_monografia/08_balanco_densidade_cs_obs_esfera_3.png
+  saved figuras_monografia/09_densidade_cs_obs_esfera_3.png
+  saved figuras_monografia/10_pressao_cs_obs_esfera_3.png
+  saved figuras_monografia/11_forca_potencial_cs_obs_esfera_3.png
+  saved figuras_monografia/12_velocidade_medida_cs_obs_esfera_3.png
+  saved figuras_monografia/13_velocidade_comandada_cs_obs_esfera_3.png
+  saved figuras_monografia/14_rtf_cs_obs_esfera_3.png
+  saved figuras_monografia/15_carga_cpu_cs_obs_esfera_3.png
+  saved figuras_monografia/16_frequencia_cpu_cs_obs_esfera_3.png
+  saved figuras_monografia/17_temperatura_cpu_cs_obs_esfera_3.png
+=== 20261022_010954_cs_obs_quart3d_3
+run 20261022_010954_cs_obs_quart3d_3: 3 drones, window 18.6..34.7 s
+  closest approach 0.459 m | collisions (<0.1 m): 0 | median NN 0.518 m
+  RTF mean 0.78, min 0.13
+  busy threads 6.42 of 8, clock 2319 MHz
+  saved figuras_monografia/00_resumo_cs_obs_quart3d_3.png
+  saved figuras_monografia/01_trajetorias_xy_cs_obs_quart3d_3.png
+  saved figuras_monografia/02_trajetorias_3d_cs_obs_quart3d_3.png
+  saved figuras_monografia/03_altitude_cs_obs_quart3d_3.png
+  saved figuras_monografia/04_erro_alvo_cs_obs_quart3d_3.png
+  saved figuras_monografia/05_formacao_1_cs_obs_quart3d_3.png
+  saved figuras_monografia/05_formacao_2_cs_obs_quart3d_3.png
+  saved figuras_monografia/05_formacao_3_cs_obs_quart3d_3.png
+  saved figuras_monografia/05_formacao_4_cs_obs_quart3d_3.png
+  saved figuras_monografia/06_distancia_minima_cs_obs_quart3d_3.png
+  saved figuras_monografia/07_vizinho_mais_proximo_cs_obs_quart3d_3.png
+  saved figuras_monografia/08_balanco_densidade_cs_obs_quart3d_3.png
+  saved figuras_monografia/09_densidade_cs_obs_quart3d_3.png
+  saved figuras_monografia/10_pressao_cs_obs_quart3d_3.png
+  saved figuras_monografia/11_forca_potencial_cs_obs_quart3d_3.png
+  saved figuras_monografia/12_velocidade_medida_cs_obs_quart3d_3.png
+  saved figuras_monografia/13_velocidade_comandada_cs_obs_quart3d_3.png
+  saved figuras_monografia/14_rtf_cs_obs_quart3d_3.png
+  saved figuras_monografia/15_carga_cpu_cs_obs_quart3d_3.png
+  saved figuras_monografia/16_frequencia_cpu_cs_obs_quart3d_3.png
+  saved figuras_monografia/17_temperatura_cpu_cs_obs_quart3d_3.png
+=== 20261022_011206_cs_obs_quart2d_tang_6
+run 20261022_011206_cs_obs_quart2d_tang_6: 3 drones, window 18.4..87.4 s
+  closest approach 0.293 m | collisions (<0.1 m): 0 | median NN 0.370 m
+  RTF mean 0.86, min 0.24
+  busy threads 6.25 of 8, clock 2316 MHz
+  saved figuras_monografia/00_resumo_cs_obs_quart2d_tang_6.png
+  saved figuras_monografia/01_trajetorias_xy_cs_obs_quart2d_tang_6.png
+  saved figuras_monografia/03_altitude_cs_obs_quart2d_tang_6.png
+  saved figuras_monografia/04_erro_alvo_cs_obs_quart2d_tang_6.png
+  saved figuras_monografia/05_formacao_1_cs_obs_quart2d_tang_6.png
+  saved figuras_monografia/05_formacao_2_cs_obs_quart2d_tang_6.png
+  saved figuras_monografia/05_formacao_3_cs_obs_quart2d_tang_6.png
+  saved figuras_monografia/05_formacao_4_cs_obs_quart2d_tang_6.png
+  saved figuras_monografia/06_distancia_minima_cs_obs_quart2d_tang_6.png
+  saved figuras_monografia/07_vizinho_mais_proximo_cs_obs_quart2d_tang_6.png
+  saved figuras_monografia/08_balanco_densidade_cs_obs_quart2d_tang_6.png
+  saved figuras_monografia/09_densidade_cs_obs_quart2d_tang_6.png
+  saved figuras_monografia/10_pressao_cs_obs_quart2d_tang_6.png
+  saved figuras_monografia/11_forca_potencial_cs_obs_quart2d_tang_6.png
+  saved figuras_monografia/12_velocidade_medida_cs_obs_quart2d_tang_6.png
+  saved figuras_monografia/13_velocidade_comandada_cs_obs_quart2d_tang_6.png
+  saved figuras_monografia/14_rtf_cs_obs_quart2d_tang_6.png
+  saved figuras_monografia/15_carga_cpu_cs_obs_quart2d_tang_6.png
+  saved figuras_monografia/16_frequencia_cpu_cs_obs_quart2d_tang_6.png
+  saved figuras_monografia/17_temperatura_cpu_cs_obs_quart2d_tang_6.png

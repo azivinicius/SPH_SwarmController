@@ -123,7 +123,7 @@ resolve() {
   LAUNCH_ARGS="$LAUNCH_ARGS test_axis:=${TEST_AXIS:-x} test_delay:=${TEST_DELAY:-3.0} test_duration:=${TEST_DURATION:-60.0} test_side:=${TEST_SIDE:-1.0}"
   LAUNCH_ARGS="$LAUNCH_ARGS sim_clock:=${SIM_CLOCK:-wall} max_velocity:=${MAX_VELOCITY:-0.2} platform:=${PLATFORM:-sim}"
   LAUNCH_ARGS="$LAUNCH_ARGS fence_xmin:=${FENCE_XMIN:-nan} fence_xmax:=${FENCE_XMAX:-nan} fence_ymin:=${FENCE_YMIN:-nan} fence_ymax:=${FENCE_YMAX:-nan}"
-  LAUNCH_ARGS="$LAUNCH_ARGS state_timeout_s:=${STATE_TIMEOUT_S:-0}"
+  LAUNCH_ARGS="$LAUNCH_ARGS state_timeout_s:=${STATE_TIMEOUT_S:-0} nb_timeout_s:=${NB_TIMEOUT_S:-5.0}"
   LAUNCH_ARGS="$LAUNCH_ARGS dim:=$SPH_DIM zc:=${POT_ZC:-1.0} max_vz:=${MAX_VZ:-0.2} z_min:=${Z_MIN:-0.25} z_max:=${Z_MAX:-2.5}"
   LAUNCH_ARGS="$LAUNCH_ARGS z_margin:=${Z_MARGIN:-0.3} z_wall_k:=${Z_WALL_K:-2.0} z_stretch:=${Z_STRETCH:-1.0}"
   # target shape: POTENTIAL=default|circle|sphere|quartic ; with quartic, POT_K scales the force (2 = original, 0.5 = 4x weaker)

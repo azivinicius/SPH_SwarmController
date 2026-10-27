@@ -87,6 +87,8 @@ COMMON_DEFAULTS = {
     'fence_xmin': float('nan'), 'fence_xmax': float('nan'),   # m, world frame; nan = off
     'fence_ymin': float('nan'), 'fence_ymax': float('nan'),
     'state_timeout_s': 0.0,     # s without a state message from ANY drone -> trip (0 = off)
+    'nb_timeout_s': 5.0,        # s without a message from a NEIGHBOUR -> left out of its N_i (0 = never)
+
     # --- 3D mode (dim = 3: sphere potential + 3D SPH; dim = 2 ignores everything below) ---
     'dim': 2.0,                 # 2 | 3   (float so a launch argument can carry it)
     'zc': 1.0,                  # m, sphere centre height (3D)

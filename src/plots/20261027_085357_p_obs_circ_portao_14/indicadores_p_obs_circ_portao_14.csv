@@ -1,0 +1,2 @@
+run,N,d_min_m,e_max_m,e_med_m,rho_mean,v_mean_ms,t_c_s,sep_final_m,d_obs_m,e_med_far_m,P_max,clip_pct,stale_pct,rho_ind_min,rho_ind_max
+20261027_085357_p_obs_circ_portao_14,14,0.2796,0.1239,0.01465,1.135,0.08753,,0.3884,0.4254,0.01266,2.63e+04,53.25,4.032,1.037,1.198

@@ -1,0 +1,2 @@
+run,N,d_min_m,e_max_m,e_med_m,rho_mean,v_mean_ms,t_c_s,sep_final_m,d_obs_m,e_med_far_m,P_max,clip_pct,stale_pct,rho_ind_min,rho_ind_max
+20261027_191449_arena_circ_5,5,0.1464,0.4369,0.1932,1.118,0.1549,,0.5471,,,1.064e+05,32.36,0.4622,0.976,1.220

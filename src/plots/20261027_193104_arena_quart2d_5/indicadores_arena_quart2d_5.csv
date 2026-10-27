@@ -1,0 +1,2 @@
+run,N,d_min_m,e_max_m,e_med_m,rho_mean,v_mean_ms,t_c_s,sep_final_m,d_obs_m,e_med_far_m,P_max,clip_pct,stale_pct,rho_ind_min,rho_ind_max
+20261027_193104_arena_quart2d_5,5,0.2169,0.5678,0.2966,1.016,0.08368,,0.574,,,7.883e+04,54.2,0.2647,0.904,1.252

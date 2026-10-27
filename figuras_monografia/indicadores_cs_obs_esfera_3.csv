@@ -1,0 +1,2 @@
+run,N,d_min_m,e_max_m,e_med_m,rho_mean,v_mean_ms,t_c_s,sep_final_m,d_obs_m,e_med_far_m,P_max,clip_pct,stale_pct,rho_ind_min,rho_ind_max
+20261022_004859_cs_obs_esfera_3,3,0.1594,0.01792,0.003739,1.02,0.059,61.34,0.4651,0.5683,0.004327,2.522e+06,1.308,3.904,1.016,1.024

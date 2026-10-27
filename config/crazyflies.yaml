@@ -4,22 +4,27 @@ robots:
   cf_0:
     enabled: true
     uri: udp://127.0.0.1:19850
-    initial_position: [0.3330, 0.0000, 0.0]
+    initial_position: [0.5100, 0.0000, 0.0]
     type: cf_sim
   cf_1:
     enabled: true
     uri: udp://127.0.0.1:19851
-    initial_position: [0.0000, 0.3330, 0.0]
+    initial_position: [0.1576, 0.4850, 0.0]
     type: cf_sim
   cf_2:
     enabled: true
     uri: udp://127.0.0.1:19852
-    initial_position: [-0.3330, 0.0000, 0.0]
+    initial_position: [-0.4126, 0.2998, 0.0]
     type: cf_sim
   cf_3:
     enabled: true
     uri: udp://127.0.0.1:19853
-    initial_position: [-0.0000, -0.3330, 0.0]
+    initial_position: [-0.4126, -0.2998, 0.0]
+    type: cf_sim
+  cf_4:
+    enabled: true
+    uri: udp://127.0.0.1:19854
+    initial_position: [0.1576, -0.4850, 0.0]
     type: cf_sim
 
 robot_types:
